@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "325294934873",
+    "project_id": "spirtual-user",
+    "storage_bucket": "spirtual-user.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:325294934873:android:02aff1e754a4354eadda48",
+        "android_client_info": {
+          "package_name": "pro.network.spirtual"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "325294934873-kt4nrrr3lfnt2maab07f4amcjmmbgo3h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1txLspbdbLqkxPVz-YipZnI8jhQRt_44"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "325294934873-kt4nrrr3lfnt2maab07f4amcjmmbgo3h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

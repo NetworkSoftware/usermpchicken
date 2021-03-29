@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.customer.kadai.frontActivity">
+
+    <item
+        android:id="@+id/cart"
+        android:icon="@drawable/ic_outline_shopping_bag_24"
+        android:title="Cart"
+        app:actionLayout="@layout/custom_action_item_layout"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/settings"
+        android:title="Profile"
+        android:visible="true"
+        android:iconTint="@color/white"
+        android:icon="@drawable/ic_outline_settings_24"
+        app:showAsAction="always" />
+</menu>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:background="#FAF9F9"
+    android:layout_marginTop="10dp"
+    android:orientation="vertical"
+    tools:context="pro.network.spirtual.MainActivity">
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:background="@drawable/ic_left_arrow"
+                android:backgroundTint="#002b9e" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/sans"
+            android:gravity="center|left"
+            android:text="Select a delivery address"
+            android:textColor="#002b9e"
+            android:textSize="20sp"></TextView>
+
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/v1"
+        android:layout_width="match_parent"
+        android:layout_height=".5dp"
+        android:layout_below="@+id/ll1"
+        android:background="#D1CCCC" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="#fff"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="20dp"
+            android:text="Scrutinysoft\n1/85 Express Towers 2nd floor,\nOMR, Kelambakkam \nChennai-603103\nTamilnadu"
+            android:textColor="#575555" />
+
+
+        <Button
+            android:id="@+id/editAddress"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:text="Edit Address"
+            android:padding="5dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/sans_bold"
+            android:textSize="13dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            style="?attr/materialButtonOutlinedStyle"
+            />
+
+
+        <Button
+            android:id="@+id/orderAddress"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:text="Deliver to this address"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="5dp"
+            android:fontFamily="@font/sans_bold"
+            android:textSize="13dp"
+            android:layout_marginBottom="10dp"
+            style="?attr/materialButtonOutlinedStyle"
+            />
+
+
+    </LinearLayout>
+
+</LinearLayout>

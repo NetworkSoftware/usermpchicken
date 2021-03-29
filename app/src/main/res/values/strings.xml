@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">18 SIDDHAS SPRITUAL</string>
+    <string name="app_name_home">18 SIDDHAS SPRITUAL</string>
+    <string name="submit">SUBMIT</string>
+    <string name="cancel">CANCEL</string>
+    <string name="locationPermissionAlert">Please Enable this permission to identify  your password and send to your mobile as SMS</string>
+        <string name="cart"> <u>Cart Summary</u></string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="sign">Please,Sign in </string>
+
+</resources>
