@@ -52,29 +52,29 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:id="@+id/ruthrasam"
+                    android:id="@+id/grocery"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:tag="Ruthrasam">
+                    android:tag="Grocery">
 
                     <LinearLayout
 
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
                         android:layout_gravity="center"
                         android:background="@drawable/banner"
                         android:gravity="center"
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
+                            android:layout_width="65dp"
+                            android:layout_height="65dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/poojathings" />
+                            android:src="@drawable/grocerything" />
 
 
                     </LinearLayout>
@@ -86,35 +86,35 @@
                         android:gravity="center"
                         android:minLines="2"
                         android:fontFamily="@font/sans"
-                        android:text="Ruthrasam"
+                        android:text="Grocery"
                         android:textColor="@color/black"
                         android:textSize="12dp" />
 
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/ratnavedicgemstones"
+                    android:id="@+id/electronicitems"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:tag="Ratna Vedic Gemstones">
+                    android:tag="ElectronicItems">
 
                     <LinearLayout
 
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
                         android:layout_gravity="center"
                         android:background="@drawable/banner"
                         android:gravity="center"
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
+                            android:layout_width="65dp"
+                            android:layout_height="65dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/plate" />
+                            android:src="@drawable/electronicsitems" />
 
 
                     </LinearLayout>
@@ -126,35 +126,35 @@
                         android:gravity="center"
                         android:minLines="2"
                         android:fontFamily="@font/sans"
-                        android:text="Ratna Vedic Gemstones"
+                        android:text="Electronics"
                         android:textColor="@color/black"
                         android:textSize="12dp" />
 
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/yantrasandmahayantras"
+                    android:id="@+id/fancythings"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:tag="Yantras and MahaYantras">
+                    android:tag="FancyThings">
 
                     <LinearLayout
 
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
                         android:layout_gravity="center"
                         android:background="@drawable/banner"
                         android:gravity="center"
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/mahayantra" />
+                            android:src="@drawable/fanjewel" />
 
 
                     </LinearLayout>
@@ -166,65 +166,25 @@
                         android:gravity="center"
                         android:minLines="2"
                         android:fontFamily="@font/sans"
-                        android:text="Yantras and MahaYantras"
+                        android:text="Fancy Items"
                         android:textColor="@color/black"
                         android:textSize="12dp" />
 
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/onlinepujaservices"
+                    android:id="@+id/gifts"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:tag="Online Puja Services">
+                    android:tag="GitsItems">
 
                     <LinearLayout
 
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/banner"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/goldplate" />
-
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center"
-                        android:minLines="2"
-                        android:fontFamily="@font/sans"
-                        android:text="Online Puja Services"
-                        android:textColor="@color/black"
-                        android:textSize="12dp" />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/spiritualjewellery"
-                    android:layout_width="75dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="5dp"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:tag="Spiritual Jewellery">
-
-                    <LinearLayout
-
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
                         android:layout_gravity="center"
                         android:background="@drawable/banner"
                         android:gravity="center"
@@ -234,7 +194,7 @@
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/lordshivajewels" />
+                            android:src="@drawable/teddy" />
 
 
                     </LinearLayout>
@@ -246,35 +206,35 @@
                         android:gravity="center"
                         android:minLines="2"
                         android:fontFamily="@font/sans"
-                        android:text="Spiritual Jewellery"
+                        android:text="Gift Items"
                         android:textColor="@color/black"
                         android:textSize="12dp" />
 
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/godidols"
+                    android:id="@+id/mobile"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:tag="God Idols">
+                    android:tag="Mobiles">
 
                     <LinearLayout
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
+
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
                         android:layout_gravity="center"
                         android:background="@drawable/banner"
                         android:gravity="center"
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/lordkrishnastatue" />
-
+                            android:src="@drawable/iphone" />
 
                     </LinearLayout>
 
@@ -285,64 +245,24 @@
                         android:gravity="center"
                         android:minLines="2"
                         android:fontFamily="@font/sans"
-                        android:text="God Idols"
+                        android:text="Mobiles"
                         android:textColor="@color/black"
                         android:textSize="12dp" />
 
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/siddhparad"
+                    android:id="@+id/seeds"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:tag="Siddh Parad">
+                    android:tag="Seeds">
 
                     <LinearLayout
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/banner"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
-                            android:layout_gravity="center"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/ganesh" />
-
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center"
-                        android:minLines="2"
-                        android:fontFamily="@font/sans"
-                        android:text="Siddh Parad"
-                        android:textColor="@color/black"
-                        android:textSize="12dp" />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/booksandcd"
-                    android:layout_width="75dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="5dp"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:tag="Books And CD">
-
-                    <LinearLayout
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
                         android:layout_gravity="center"
                         android:background="@drawable/banner"
                         android:gravity="center"
@@ -352,8 +272,7 @@
                             android:layout_width="70dp"
                             android:layout_height="70dp"
                             android:layout_gravity="center"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/spirtualbook" />
+                            android:src="@drawable/refreshseeds" />
 
 
                     </LinearLayout>
@@ -365,35 +284,35 @@
                         android:gravity="center"
                         android:minLines="2"
                         android:fontFamily="@font/sans"
-                        android:text="Books And CD"
+                        android:text="Seeds"
                         android:textColor="@color/black"
                         android:textSize="12dp" />
 
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/chakravastu"
+                    android:id="@+id/stationary"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:tag="Chakra Vastu">
+                    android:tag="Stationary">
 
                     <LinearLayout
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
                         android:layout_gravity="center"
                         android:background="@drawable/banner"
                         android:gravity="center"
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:layout_gravity="center"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/humanchakra" />
+                            android:src="@drawable/officestationary" />
 
 
                     </LinearLayout>
@@ -405,11 +324,12 @@
                         android:gravity="center"
                         android:minLines="2"
                         android:fontFamily="@font/sans"
-                        android:text="Chakra Vastu"
+                        android:text="Stationarys"
                         android:textColor="@color/black"
                         android:textSize="12dp" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/others"
                     android:layout_width="75dp"
@@ -421,16 +341,16 @@
                     android:tag="My Oders">
 
                     <LinearLayout
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
                         android:layout_gravity="center"
                         android:background="@drawable/banner"
                         android:gravity="center"
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:layout_gravity="center"
                             android:src="@drawable/orderpage" />
 

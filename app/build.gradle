@@ -6,7 +6,7 @@ android {
     buildToolsVersion "30.0.0"
 
     defaultConfig {
-        applicationId "pro.network.spirtual"
+        applicationId "pro.network.villagemart"
         minSdkVersion 19
         targetSdkVersion 30
         versionCode 1

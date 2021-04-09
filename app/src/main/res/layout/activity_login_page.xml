@@ -171,7 +171,7 @@
         android:layout_gravity="top|center"
         android:layout_marginTop="90dp"
         android:backgroundTint="@color/white"
-        android:src="@drawable/circlenew"
+        android:src="@drawable/circlevillagemartlogo"
         android:visibility="visible" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

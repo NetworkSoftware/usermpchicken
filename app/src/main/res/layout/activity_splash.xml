@@ -18,11 +18,11 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
             android:layout_gravity="center"
             android:foregroundGravity="center"
-            android:background="@drawable/siddhasnewlogo">
+            android:background="@drawable/villagemartlogo">
 
         </ImageView>
         <TextView

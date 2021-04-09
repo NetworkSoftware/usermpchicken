@@ -2,9 +2,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">#f19331</item>
-        <item name="colorPrimaryDark">#EA8D2D</item>
-        <item name="colorAccent">#f19331</item>
+        <item name="colorPrimary">#322d89</item>
+        <item name="colorPrimaryDark">#302B81</item>
+        <item name="colorAccent">#322d89</item>
     </style>
 
     <style name="AppThemeImage" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -21,7 +21,7 @@
     <style name="AppThemeNo" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">#EA8D2D</item>
+        <item name="colorPrimaryDark">#6C0101</item>
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
     <style name="AppThemeNowhite" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -77,7 +77,7 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
         <item name="cornerSizeBottomRight">0dp</item>
-        <item name="tint">#002b9e</item>
+        <item name="tint">#322d89</item>
     </style>
 
     <style name="MyHintStyle" parent="@android:style/TextAppearance">

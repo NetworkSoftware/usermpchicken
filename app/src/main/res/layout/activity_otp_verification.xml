@@ -31,7 +31,7 @@
                 android:layout_height="150dp"
                 android:layout_margin="10dp"
                 android:layout_gravity="center"
-                android:background="@drawable/siddhasspritual"></ImageView>
+                android:background="@drawable/villagemartlogo"></ImageView>
 
             <TextView
                 android:layout_width="match_parent"

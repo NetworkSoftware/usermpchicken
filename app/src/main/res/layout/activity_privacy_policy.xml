@@ -620,7 +620,7 @@
                 android:layout_marginRight="10dp"
                 android:fontFamily="@font/sans"
                 android:gravity="left"
-                android:text="Smart Pro Institute\n16/4, 160-C, OMR Road,\nKarapakkam, Chennai-600097\nTamilnadu"
+                android:text="Smart Pro Institute\n16/4, 160-C, OMR Road,\nKarapakkam, FChennai-600097\nTamilnadu"
                 android:textColor="@color/gray"
                 android:textSize="16dp"
                 android:textStyle="normal" />

@@ -8,7 +8,7 @@
     android:background="#FAF9F9"
     android:layout_marginTop="10dp"
     android:orientation="vertical"
-    tools:context="pro.network.spirtual.MainActivity">
+    tools:context="pro.network.villagemart.MainActivity">
 
     <LinearLayout
         android:id="@+id/ll1"
