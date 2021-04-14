@@ -32,7 +32,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="Global"
-            android:visibility="gone"
+            android:visibility="visible"
             android:textSize="20sp"
             android:textColor="#000"
             android:textStyle="bold"></TextView>
