@@ -30,7 +30,30 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-        
+    <LinearLayout
+        android:id="@+id/empty_product"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/sad"
+            app:tint="#DCD9D9" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="No Orders" />
+    </LinearLayout>
+
 
 
 </RelativeLayout>

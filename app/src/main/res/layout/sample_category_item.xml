@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:layout_marginTop="5dp"
-            android:src="@drawable/rugby" />
+            android:src="@drawable/vivo" />
 
         <TextView
             android:id="@+id/categoryName"

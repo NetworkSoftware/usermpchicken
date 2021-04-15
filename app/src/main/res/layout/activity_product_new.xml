@@ -28,7 +28,7 @@
                 android:layout_height="300dp"
                 android:layout_gravity="center"
                 android:background="#fff"
-                android:src="@drawable/batmitton" />
+                android:src="@drawable/vivo" />
 
             <LinearLayout
                 android:layout_width="match_parent"

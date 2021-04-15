@@ -30,7 +30,7 @@ public class SettingsActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel: 91 90258 65487"));
+                intent.setData(Uri.parse("tel: 91 99525 07579"));
                 startActivity(intent);
             }
         });

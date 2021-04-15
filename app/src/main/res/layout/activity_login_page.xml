@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:orientation="vertical"
-    tools:context=".LoginActivity">
+    android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -26,7 +25,7 @@
                 android:layout_width="600dp"
                 android:layout_height="600dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/banner_siddhas" />
+                android:src="@drawable/banner_village" />
 
 
         </androidx.cardview.widget.CardView>
@@ -171,7 +170,7 @@
         android:layout_gravity="top|center"
         android:layout_marginTop="90dp"
         android:backgroundTint="@color/white"
-        android:src="@drawable/circlevillagemartlogo"
+        android:src="@drawable/villagemartlogo"
         android:visibility="visible" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

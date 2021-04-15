@@ -20,7 +20,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="bottom"
-            android:src="@drawable/foodball" />
+            android:src="@drawable/vivo" />
 
         <TextView
             android:id="@+id/qty"
