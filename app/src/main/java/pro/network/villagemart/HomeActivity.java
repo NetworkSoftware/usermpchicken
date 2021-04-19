@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
@@ -25,13 +26,18 @@ import pro.network.villagemart.app.AppController;
 import pro.network.villagemart.app.BaseActivity;
 import pro.network.villagemart.app.DatabaseHelperYalu;
 import pro.network.villagemart.cart.CartActivity;
+import pro.network.villagemart.chip.CategoryAdapter;
+import pro.network.villagemart.chip.ChipBean;
+import pro.network.villagemart.chip.OnChip;
 import pro.network.villagemart.orders.MyOrderPage;
+import pro.network.villagemart.orders.MyorderBean;
 import pro.network.villagemart.product.BannerActivity;
 import pro.network.villagemart.product.ProductActivity;
 import pro.network.villagemart.product.ProductItemClick;
 import pro.network.villagemart.product.ProductListAdapter;
 import pro.network.villagemart.product.ProductListBean;
 
+import com.github.rubensousa.gravitysnaphelper.GravitySnapRecyclerView;
 import com.google.android.material.button.MaterialButton;
 import com.network.moeidbannerlibrary.banner.BannerBean;
 import com.network.moeidbannerlibrary.banner.BannerLayout;
@@ -46,20 +52,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HomeActivity extends BaseActivity implements ProductItemClick {
+public class HomeActivity extends BaseActivity implements ProductItemClick, OnChip {
 
 
     ProgressDialog pDialog;
     private String TAG = getClass().getSimpleName();
 
+    RecyclerView categories;
+    private ArrayList<ChipBean> categoryList = new ArrayList<>();
+    CategoryAdapter categoryAdapter;
+
     private DatabaseHelperYalu db;
 
 
-    LinearLayout grocery,electronicitems,fancythings,gifts,mobile,seeds,stationary,others;
 
     RecyclerView recycler_product;
     private List<ProductListBean> productList = new ArrayList<>();
     ProductListAdapter productListAdapter;
+
 
     SharedPreferences sharedpreferences;
     CartActivity.OnCartItemChange onCartItemChange;
@@ -98,70 +108,13 @@ public class HomeActivity extends BaseActivity implements ProductItemClick {
         recycler_product.setLayoutManager(addManager1);
         recycler_product.setAdapter(productListAdapter);
 
-        grocery = findViewById(R.id.grocery);
-        electronicitems = findViewById(R.id.electronicitems);
-        fancythings = findViewById(R.id.fancythings);
-        gifts = findViewById(R.id.gifts);
-        mobile = findViewById(R.id.mobile);
-        seeds = findViewById(R.id.seeds);
-        stationary = findViewById(R.id.stationary);
-         others= findViewById(R.id.others);
 
-
-        grocery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startAllProduct(view);
-            }
-        });
-        electronicitems.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startAllProduct(view);
-            }
-        });
-        fancythings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startAllProduct(view);
-            }
-        });
-        gifts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startAllProduct(view);
-            }
-        });
-        mobile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startAllProduct(view);
-            }
-        });
-        seeds.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startAllProduct(view);
-            }
-        });
-        stationary.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startAllProduct(view);
-            }
-        });
-
-        others.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, MyOrderPage.class));
-            }
-        });
 
         banner = findViewById(R.id.Banner);
 
         viewAllBtn = findViewById(R.id.viewAllBtn);
         fetchBanner();
+
 
         viewAllBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,13 +124,42 @@ public class HomeActivity extends BaseActivity implements ProductItemClick {
             }
         });
 
-
+        categoryList.add(new ChipBean("Grocery Items",  R.drawable.grocery));
+        categoryList.add(new ChipBean("Toys", R.drawable.teddy));
+        categoryList.add(new ChipBean("Games", R.drawable.joystick));
+        categoryList.add(new ChipBean("Gifts", R.drawable.gift));
+        categoryList.add(new ChipBean("Fancy items", R.drawable.fanjewel));
+        categoryList.add(new ChipBean("Boys", R.drawable.boysaccessoires));
+        categoryList.add(new ChipBean("Girls", R.drawable.girlsaccessories));
+        categoryList.add(new ChipBean("Rice", R.drawable.rice));
+        categoryList.add(new ChipBean("Stationary",R.drawable.stationary));
+        categoryList.add(new ChipBean("Plastic items", R.drawable.plastic));
+        categoryList.add(new ChipBean("Constumes", R.drawable.costumes));
+        categoryList.add(new ChipBean("Computer", R.drawable.hpdesktop));
+        categoryList.add(new ChipBean("Laptop", R.drawable.hplaptop));
+        categoryList.add(new ChipBean("Ladies", R.drawable.womensdres));
+        categoryList.add(new ChipBean("Gents", R.drawable.gentsdress));
+        categoryList.add(new ChipBean("Mobiles", R.drawable.mobiles));
+        categoryList.add(new ChipBean("I phone", R.drawable.applephone));
+        categoryList.add(new ChipBean("Organic items", R.drawable.organicitems));
+        categoryList.add(new ChipBean("Food items", R.drawable.fooditems));
+        categoryList.add(new ChipBean("Sports", R.drawable.sportsballs));
+        categoryList.add(new ChipBean("Electric items", R.drawable.electricitems));
+        categoryList.add(new ChipBean("Electronic items", R.drawable.electronicitems));
+        categoryList.add(new ChipBean("Musical items", R.drawable.musicalitems));
+        categories = findViewById(R.id.categories);
+        categoryAdapter = new CategoryAdapter(getApplicationContext(), categoryList, this);
+        final LinearLayoutManager addManager2 = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+        categories.setLayoutManager(addManager2);
+        categories.setAdapter(categoryAdapter);
 
     }
 
-    private void startAllProduct(View view) {
+
+
+    private void startAllProduct(String view) {
         Intent intent = new Intent(HomeActivity.this, AllProductActivity.class);
-        intent.putExtra("type", view.getTag().toString());
+        intent.putExtra("type", view);
         startActivity(intent);
     }
 
@@ -363,14 +345,22 @@ public class HomeActivity extends BaseActivity implements ProductItemClick {
     public boolean onOptionsItemSelected(MenuItem item) {
         // User clicked on a menu option in the app bar overflow menu
         switch (item.getItemId()) {
+
             case R.id.settings:
                 Intent intenti = new Intent(HomeActivity.this, SettingsActivity.class);
                 startActivity(intenti);
                 return true;
+
+
             case R.id.cart:
                 Intent intent = new Intent(HomeActivity.this, CartActivity.class);
                 startActivity(intent);
                 return true;
+
+            case R.id.order:
+                Intent intentk = new Intent(HomeActivity.this, MyOrderPage.class);
+                startActivity(intentk);
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -407,5 +397,13 @@ public class HomeActivity extends BaseActivity implements ProductItemClick {
         } catch (Exception e) {
 
         }
+    }
+
+
+
+
+    @Override
+    public void onCategoryItem(int position) {
+        startAllProduct(categoryList.get(position).title);
     }
 }

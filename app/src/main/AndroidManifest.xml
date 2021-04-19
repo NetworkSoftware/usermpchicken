@@ -11,10 +11,10 @@
     <application
         android:name="pro.network.villagemart.app.AppController"
         android:allowBackup="true"
-        android:icon="@drawable/villagemartlogo"
+        android:icon="@drawable/villagemart"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:roundIcon="@drawable/villagemartlogo"
+        android:roundIcon="@drawable/villagemart"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"

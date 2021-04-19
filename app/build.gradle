@@ -55,6 +55,7 @@ dependencies {
 
     implementation 'androidx.multidex:multidex:2.0.0'
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+    implementation 'com.github.rubensousa:gravitysnaphelper:2.2.1'
 
 
     implementation 'me.himanshusoni.quantityview:quantity-view:1.2.0'

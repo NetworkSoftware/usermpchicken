@@ -268,7 +268,7 @@
                 android:layout_alignStart="@android:id/title"
                 android:layout_alignLeft="@android:id/title"
                 android:maxLines="10"
-                android:text="1.0.1"
+                android:text="1.0.0"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="?android:textColorSecondary"
                 android:typeface="sans" />

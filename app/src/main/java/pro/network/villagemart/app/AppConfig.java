@@ -26,7 +26,7 @@ import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class AppConfig {
+public class  AppConfig {
 
     public static DecimalFormat decimalFormat = new DecimalFormat("0");
 
@@ -64,6 +64,7 @@ public class AppConfig {
     public static final String ORDER_GET_ALL = ip + "/dataFetchAll_order.php";
     public static final String ORDER_CREATE = ip + "/create_order.php";
     public static final String ORDER_CHANGE_STATUS = ip + "/order_change_status.php";
+
 
     public static void openPdfFile(Context context, String name) {
         File fileBrochure = new File(Environment.getExternalStorageDirectory() + "/" + name);

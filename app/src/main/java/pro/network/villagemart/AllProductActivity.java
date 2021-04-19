@@ -81,7 +81,6 @@ public class AllProductActivity extends BaseActivity implements ProductItemClick
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String type = getIntent().getStringExtra("type");
         getSupportActionBar().setTitle(type != null ? type : getString(R.string.app_name));
-
     }
 
 
