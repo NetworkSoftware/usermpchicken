@@ -89,7 +89,7 @@ public class ProductActivity extends BaseActivity implements ViewClick {
 
         baseList = (RecyclerView) findViewById(R.id.attachmentList);
         attachmentBaseAdapter = new AttachmentViewAdapter(this, urls, this);
-        baseList.setLayoutManager(new GridLayoutManager(this, 2));
+        baseList.setLayoutManager(new GridLayoutManager(this, 3));
         baseList.setAdapter(attachmentBaseAdapter);
         getSupportActionBar().setTitle(productBean.getModel());
         getSupportActionBar().setSubtitle(getString(R.string.app_name));

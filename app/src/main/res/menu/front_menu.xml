@@ -12,19 +12,17 @@
         app:showAsAction="always"/>
 
     <item
-        android:id="@+id/settings"
-        android:title="Settings"
-        android:visible="true"
-        android:iconTint="@color/white"
-        android:icon="@drawable/ic_outline_settings_24"
-        app:showAsAction="always" />
-
-    <item
         android:id="@+id/order"
         android:icon="@drawable/ic_outline_shopping_bag_24"
         android:title="Order"
         android:visible="true"
         android:iconTint="@color/white"
         app:showAsAction="always"/>
-
+    <item
+        android:id="@+id/settings"
+        android:title="Settings"
+        android:visible="true"
+        android:iconTint="@color/white"
+        android:icon="@drawable/ic_outline_settings_24"
+        app:showAsAction="always" />
 </menu>
