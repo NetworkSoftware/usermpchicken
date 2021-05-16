@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="pro.network.villagemart">
+    package="pro.network.webring">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -9,12 +9,12 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:name="pro.network.villagemart.app.AppController"
+        android:name="pro.network.webring.app.AppController"
         android:allowBackup="true"
-        android:icon="@drawable/villagemart"
+        android:icon="@drawable/webring"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:roundIcon="@drawable/villagemart"
+        android:roundIcon="@drawable/webring"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
@@ -25,7 +25,7 @@
             android:required="false" />
 
         <activity
-            android:name="pro.network.villagemart.SplashActivity"
+            android:name="pro.network.webring.SplashActivity"
             android:theme="@style/AppThemeNowhite">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,34 +34,34 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="pro.network.villagemart.HomeActivity"
+            android:name="pro.network.webring.HomeActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="pro.network.villagemart.ChangePassword"
+            android:name="pro.network.webring.ChangePassword"
             android:theme="@style/AppTheme" />
 
         <activity
-            android:name="pro.network.villagemart.cart.CartActivity"
+            android:name="pro.network.webring.cart.CartActivity"
             android:label="Cart"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="pro.network.villagemart.AllProductActivity"
+            android:name="pro.network.webring.AllProductActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="pro.network.villagemart.orders.MyOrderPage"
+            android:name="pro.network.webring.orders.MyOrderPage"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="pro.network.villagemart.product.ProductActivity"
+            android:name="pro.network.webring.product.ProductActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="pro.network.villagemart.product.BannerActivity"
+            android:name="pro.network.webring.product.BannerActivity"
             android:theme="@style/AppThemeImage" />
         <activity
-            android:name="pro.network.villagemart.SettingsActivity"
+            android:name="pro.network.webring.SettingsActivity"
             android:label="Settings"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="pro.network.villagemart.ImageZoomActivity"
+            android:name="pro.network.webring.ImageZoomActivity"
             android:theme="@style/AppThemeNowhite" />
 
         <meta-data
@@ -70,7 +70,7 @@
 
 
         <service
-            android:name="pro.network.villagemart.app.FirebaseMessageReceiver"
+            android:name="pro.network.webring.app.FirebaseMessageReceiver"
             android:exported="false"
             android:stopWithTask="false">
             <intent-filter>

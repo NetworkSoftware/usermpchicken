@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "960444957122",
-    "project_id": "village-mart-df68f",
-    "storage_bucket": "village-mart-df68f.appspot.com"
+    "project_number": "101763764384",
+    "project_id": "webring-82354",
+    "storage_bucket": "webring-82354.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:960444957122:android:6b518d79e66a00e67a165b",
+        "mobilesdk_app_id": "1:101763764384:android:a08c08887939e81bbeb9c5",
         "android_client_info": {
-          "package_name": "pro.network.villagemart"
+          "package_name": "pro.network.webring"
         }
       },
       "oauth_client": [
         {
-          "client_id": "960444957122-lati67amjkh6g0shjj0r0qn4ephf5log.apps.googleusercontent.com",
+          "client_id": "101763764384-ka73n9o0kupa83r9deqek8cng41otqqs.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBMQw4D0ynANmHYNnLqa05PhrC2cPKaEO4"
+          "current_key": "AIzaSyBWeHJWzCtgeKetvo0XebJfITiqZm8jXBU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "960444957122-lati67amjkh6g0shjj0r0qn4ephf5log.apps.googleusercontent.com",
+              "client_id": "101763764384-ka73n9o0kupa83r9deqek8cng41otqqs.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

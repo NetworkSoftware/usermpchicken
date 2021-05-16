@@ -35,7 +35,7 @@
         android:layout_weight="0">
         <ImageView
             android:id="@+id/icon"
-            android:src="@drawable/villagemart"
+            android:src="@drawable/webring"
             android:layout_width="50dp"
             android:scaleType="centerCrop"
             android:layout_height="50dp"/>

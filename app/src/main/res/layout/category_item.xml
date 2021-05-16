@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
     android:gravity="center"
-    android:layout_gravity="center">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/linear"
-        android:layout_width="75dp"
+        android:id="@+id/comboPack"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="5dp"
@@ -14,35 +17,31 @@
         android:orientation="vertical"
         android:tag="COMBO PACK">
 
-        <LinearLayout
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_gravity="center"
-            android:background="@drawable/banner"
-            android:gravity="center"
-            android:orientation="vertical">
 
-            <ImageView
+
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/image"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
                 android:layout_gravity="center"
-                android:src="@drawable/fanjewel" />
+                android:src="@drawable/webring"
+                android:scaleType="centerCrop"
+                app:civ_border_color="@color/colorPrimary"
+                app:civ_border_width="0.8dp" />
 
 
-        </LinearLayout>
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/sans"
             android:gravity="center"
-            android:minLines="2"
-            android:text="fancyJewlery"
+            android:minLines="3"
+            android:text="COMBO PACK "
             android:textColor="@color/black"
-            android:textSize="12dp" />
+            android:textSize="10dp" />
 
     </LinearLayout>
 

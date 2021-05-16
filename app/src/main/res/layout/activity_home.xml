@@ -36,22 +36,32 @@
 
             </com.network.moeidbannerlibrary.banner.BannerLayout>
 
-
-
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:text="Shop by Categories"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold" />
             <View
                 android:layout_width="40dp"
                 android:layout_height="3dp"
-                android:layout_marginLeft="10dp"/>
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/categories"
+                android:layout_marginLeft="10dp"
+                android:background="#9C27B0" />
+            <com.github.rubensousa.gravitysnaphelper.GravitySnapRecyclerView
+                android:id="@+id/categoryRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 app:snapGravity="start" />
-
+            <ProgressBar
+                android:id="@+id/categoryProgress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
 
 
 

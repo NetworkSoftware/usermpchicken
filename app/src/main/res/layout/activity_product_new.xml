@@ -72,68 +72,7 @@
                         android:textSize="21dp"
                         android:visibility="visible" />
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:textColor="@color/colorTex"
-                                android:textSize="21dp" />
-
-                            <TextView
-                                android:id="@+id/product_price"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:textColor="@color/colorTex"
-                                android:textSize="21dp" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
-
-
-                <!--*********Iphone price**********-->
-
-
-                <!--*********Brand**********-->
-
-                <LinearLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginRight="16dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/brand1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Brand"
-                        android:textColor="@color/colorSub"
-
-                        />
-
-                    <TextView
-                        android:id="@+id/brand"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:text="Nike"
-                        android:textColor="@color/colorTex"
-
-                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -166,8 +105,36 @@
                         />
                 </LinearLayout>
 
+                <LinearLayout
 
-                <!--*********Returns**********-->
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/product_price_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Price"
+                        android:textColor="@color/colorSub"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/product_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:text="100"
+                        android:textColor="@color/colorTex"
+
+                        />
+                </LinearLayout>
+
 
                 <LinearLayout
 
