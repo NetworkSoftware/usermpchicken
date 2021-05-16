@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">WE BRING</string>
     <string name="app_name_home">WE BRING</string>
+    <string name="app_name_one">WE BRING</string>
     <string name="submit">SUBMIT</string>
     <string name="cancel">CANCEL</string>
     <string name="locationPermissionAlert">Please Enable this permission to identify  your password and send to your mobile as SMS</string>
