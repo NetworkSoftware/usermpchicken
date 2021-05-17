@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "101763764384",
-    "project_id": "webring-82354",
-    "storage_bucket": "webring-82354.appspot.com"
+    "project_number": "34435927394",
+    "project_id": "webring-8b84b",
+    "storage_bucket": "webring-8b84b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:101763764384:android:a08c08887939e81bbeb9c5",
+        "mobilesdk_app_id": "1:34435927394:android:6b37f58f4c0ee5fc33303b",
         "android_client_info": {
           "package_name": "pro.network.webring"
         }
       },
       "oauth_client": [
         {
-          "client_id": "101763764384-ka73n9o0kupa83r9deqek8cng41otqqs.apps.googleusercontent.com",
+          "client_id": "34435927394-if4lahlo06vprmba3mklk41iuimbbrjj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBWeHJWzCtgeKetvo0XebJfITiqZm8jXBU"
+          "current_key": "AIzaSyCHHnqOdaU__dlDZh-GTchSN3RetIVC8_Q"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "101763764384-ka73n9o0kupa83r9deqek8cng41otqqs.apps.googleusercontent.com",
+              "client_id": "34435927394-if4lahlo06vprmba3mklk41iuimbbrjj.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -75,7 +75,11 @@
                 android:text="Recent Updates"
                 android:textColor="#000"
                 android:textSize="18dp" />
-
+            <View
+                android:layout_width="40dp"
+                android:layout_height="3dp"
+                android:layout_marginLeft="10dp"
+                android:background="#E91E63" />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_product"
                 android:layout_width="match_parent"

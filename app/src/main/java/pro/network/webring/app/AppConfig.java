@@ -29,8 +29,6 @@ import java.util.regex.Pattern;
 public class  AppConfig {
 
     public static DecimalFormat decimalFormat = new DecimalFormat("0");
-
-
     public static final String isLogin = "isLoginKey";
     public static final String userId = "userId";
     public static final String address = "address";
