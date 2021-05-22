@@ -237,6 +237,9 @@ public class BannerLayout extends FrameLayout {
             }
         });
         hasInit = true;
+
+        setPlaying(true);
+
     }
 
     @Override

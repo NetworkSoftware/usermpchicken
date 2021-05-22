@@ -25,4 +25,5 @@
         android:iconTint="@color/white"
         android:icon="@drawable/ic_outline_settings_24"
         app:showAsAction="always" />
+
 </menu>

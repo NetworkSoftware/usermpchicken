@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="pro.network.webring">
+    package="pro.network.jsbroilers">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -9,23 +9,23 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:name="pro.network.webring.app.AppController"
+        android:name="pro.network.jsbroilers.app.AppController"
         android:allowBackup="true"
-        android:icon="@drawable/webring"
+        android:icon="@drawable/jsbroilers"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:roundIcon="@drawable/webring"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@drawable/jsbroilers"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
-        android:networkSecurityConfig="@xml/network_security_config"
-        android:requestLegacyExternalStorage="true">
+        android:usesCleartextTraffic="true">
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
 
         <activity
-            android:name="pro.network.webring.SplashActivity"
+            android:name="pro.network.jsbroilers.SplashActivity"
             android:theme="@style/AppThemeNowhite">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,34 +34,35 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="pro.network.webring.HomeActivity"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name="pro.network.webring.ChangePassword"
+            android:name=".HomeActivity"
             android:theme="@style/AppTheme" />
 
         <activity
-            android:name="pro.network.webring.cart.CartActivity"
+            android:name="pro.network.jsbroilers.ChangePassword"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name="pro.network.jsbroilers.cart.CartActivity"
             android:label="Cart"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="pro.network.webring.AllProductActivity"
+            android:name="pro.network.jsbroilers.AllProductActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="pro.network.webring.orders.MyOrderPage"
+            android:name="pro.network.jsbroilers.orders.MyOrderPage"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="pro.network.webring.product.ProductActivity"
+            android:name="pro.network.jsbroilers.product.ProductActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="pro.network.webring.product.BannerActivity"
+            android:name="pro.network.jsbroilers.product.BannerActivity"
             android:theme="@style/AppThemeImage" />
         <activity
-            android:name="pro.network.webring.SettingsActivity"
+            android:name="pro.network.jsbroilers.SettingsActivity"
             android:label="Settings"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="pro.network.webring.ImageZoomActivity"
+            android:name="pro.network.jsbroilers.ImageZoomActivity"
             android:theme="@style/AppThemeNowhite" />
 
         <meta-data
@@ -70,7 +71,7 @@
 
 
         <service
-            android:name="pro.network.webring.app.FirebaseMessageReceiver"
+            android:name="pro.network.jsbroilers.app.FirebaseMessageReceiver"
             android:exported="false"
             android:stopWithTask="false">
             <intent-filter>

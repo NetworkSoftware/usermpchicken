@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/home"
+        android:enabled="true"
+        app:labelVisibilityMode="labeled"
+        android:icon="@drawable/ic_home"
+        android:title="Home" />
+
+
+    <item
+        android:id="@+id/card"
+        android:enabled="true"
+        android:icon="@drawable/ic_outline_shopping_cart_24"
+        app:labelVisibilityMode="labeled"
+        android:title="Card" />
+
+
+    <item
+        android:id="@+id/myorder"
+        android:enabled="true"
+        app:labelVisibilityMode="labeled"
+        android:icon="@drawable/ic_outline_assignment_turned_in_24"
+        android:title="My Order" />
+
+    <item
+        android:id="@+id/profile"
+        android:enabled="true"
+        app:labelVisibilityMode="labeled"
+        android:icon="@drawable/ic_outline_assignment_ind_24"
+        android:title="Profile" />
+
+</menu>

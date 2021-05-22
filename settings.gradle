@@ -1,2 +1,2 @@
 include ':app',':moeidbannerlibrary'
-rootProject.name = "WeBring"
+rootProject.name = "JS Broilers"
