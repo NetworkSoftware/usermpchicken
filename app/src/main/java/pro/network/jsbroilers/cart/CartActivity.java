@@ -292,9 +292,6 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
                     if (success) {
                         db.deleteAllyalu("guest");
                         db.deleteAllyalu(sharedpreferences.getString(user_id, ""));
-                        if (onCartItemChange != null) {
-                            onCartItemChange.onCartChange();
-                        }
                         finish();
                     }
                     Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
