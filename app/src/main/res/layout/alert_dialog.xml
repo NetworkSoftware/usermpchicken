@@ -20,15 +20,13 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-
-            android:orientation="vertical"
-           >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5.0dip"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
 
                 <LinearLayout
@@ -59,20 +57,41 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <TextView
-                        android:id="@+id/title"
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/cod"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/sans"
-                        android:text="Do you want to delete ?"
-                        android:textColor="@color/gray"
-                        android:textSize="12dp"
-                        android:textStyle="normal" />
+                        android:layout_weight="1"
+                        android:text="COD" />
+
+                    <RadioButton
+                        android:id="@+id/upi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="UPI" />
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/sans"
+                    android:text="Do you want to delete ?"
+                    android:textColor="@color/gray"
+                    android:textSize="12dp"
+                    android:textStyle="normal" />
             </LinearLayout>
+
         </LinearLayout>
 
 

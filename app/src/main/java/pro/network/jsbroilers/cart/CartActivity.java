@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -129,6 +130,8 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
         LayoutInflater inflater = CartActivity.this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.alert_dialog, null);
         TextView title = dialogView.findViewById(R.id.title);
+        RadioButton cod = dialogView.findViewById(R.id.cod);
+        RadioButton upi = dialogView.findViewById(R.id.upi);
         final TextInputEditText address = dialogView.findViewById(R.id.address);
 
         if (sharedpreferences.contains(AppConfig.address)) {

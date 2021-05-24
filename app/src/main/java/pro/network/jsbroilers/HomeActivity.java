@@ -1,8 +1,10 @@
 package pro.network.jsbroilers;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +24,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.github.rubensousa.gravitysnaphelper.GravitySnapRecyclerView;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.network.moeidbannerlibrary.banner.BannerBean;
 import com.network.moeidbannerlibrary.banner.BannerLayout;
 import com.network.moeidbannerlibrary.banner.BaseBannerAdapter;
@@ -36,59 +42,199 @@ import java.util.Map;
 
 import pro.network.jsbroilers.app.AppConfig;
 import pro.network.jsbroilers.app.AppController;
+import pro.network.jsbroilers.app.BaseActivity;
 import pro.network.jsbroilers.app.DatabaseHelperYalu;
 import pro.network.jsbroilers.cart.CartActivity;
+import pro.network.jsbroilers.chip.CategoryAdapter;
+import pro.network.jsbroilers.chip.ChipBean;
 import pro.network.jsbroilers.chip.OnChip;
 import pro.network.jsbroilers.orders.MyOrderPage;
 import pro.network.jsbroilers.product.BannerActivity;
+import pro.network.jsbroilers.product.CategoryBeen;
 import pro.network.jsbroilers.product.ProductActivity;
 import pro.network.jsbroilers.product.ProductItemClick;
+import pro.network.jsbroilers.product.ProductListAdapter;
 import pro.network.jsbroilers.product.ProductListBean;
 import pro.network.jsbroilers.recentproducts.CategoryProduct;
 import pro.network.jsbroilers.recentproducts.CategoryWiseProductAdapter;
 
+import static pro.network.jsbroilers.app.AppConfig.CATEGORIES_GET_ALL;
 import static pro.network.jsbroilers.app.AppConfig.mypreference;
 
-public class HomeActivity extends AppCompatActivity implements ProductItemClick {
+public class HomeActivity extends BaseActivity implements ProductItemClick , OnChip {
 
-
-    BannerLayout banner;
-    ProgressBar categoryProgress;
-    SharedPreferences sharedpreferences;
-    ArrayList<CategoryProduct> categoryProducts = new ArrayList<>();
-    Map<String, ArrayList<ProductListBean>> categoryProduct = new HashMap<>();
+    ProgressDialog pDialog;
+    private String TAG = getClass().getSimpleName();
     private DatabaseHelperYalu db;
-    private CategoryWiseProductAdapter categoryWiseProductAdapter;
+    RecyclerView recycler_product;
+    private List<CategoryBeen> categoryList = new ArrayList<>();
+    CartActivity.OnCartItemChange onCartItemChange;
+    BannerLayout banner;
+    private List<ProductListBean> productList = new ArrayList<>();
+    private MaterialButton viewAllBtn;
     private TextView cart_badge;
-
+    private CategoryAdapter categoryAdapter;
+    ProgressBar categoryProgress;
+    ArrayList<ChipBean> chipBeans = new ArrayList<>();
+    private ArrayList<ChipBean> category = new ArrayList<>();
+    ProductListAdapter productListAdapter;
+    SharedPreferences sharedpreferences;
+    private FloatingActionButton phone;
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void startDemo() {
         setContentView(R.layout.activity_home);
-        sharedpreferences = getSharedPreferences(mypreference,
-                Context.MODE_PRIVATE);
+        sharedpreferences = getApplicationContext().getSharedPreferences(AppConfig.mypreference, Context.MODE_PRIVATE);
+
+        if (!sharedpreferences.contains(AppConfig.isLogin) || !sharedpreferences.getBoolean(AppConfig.isLogin, false)) {
+        }
 
         SharedPreferences.Editor edit = sharedpreferences.edit();
         edit.putString(AppConfig.userId, sharedpreferences.getString(AppConfig.user_id, "guest"));
         edit.commit();
+
+        if (sharedpreferences.contains(AppConfig.usernameKey)) {
+            getSupportActionBar().setSubtitle(sharedpreferences.getString(AppConfig.usernameKey, ""));
+        }
+        db = new DatabaseHelperYalu(getApplicationContext());
+        recycler_product = findViewById(R.id.recycler_product);
         categoryProgress = findViewById(R.id.categoryProgress);
-        db = new DatabaseHelperYalu(this);
-        banner = findViewById(R.id.Banner);
+        db = new DatabaseHelperYalu(getApplicationContext());
+        categoryList = new ArrayList<>();
         fetchBanner();
+        showCategories();
 
-
-        RecyclerView categoryRecyclerView = findViewById(R.id.categoryRecyclerView);
-        categoryWiseProductAdapter = new CategoryWiseProductAdapter(HomeActivity.this,
-                categoryProducts, this);
-        LinearLayoutManager addManager1 = new LinearLayoutManager(getApplicationContext(),
-                LinearLayoutManager.VERTICAL, false);
-        categoryRecyclerView.setLayoutManager(addManager1);
-        categoryRecyclerView.setAdapter(categoryWiseProductAdapter);
-
-        fetchProductList();
-
+        phone = findViewById(R.id.floting_call);
+        phone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent4 = new Intent(Intent.ACTION_DIAL);
+                intent4.setData(Uri.parse("tel: 919790294942"));
+                startActivity(intent4);
+            }
+        });
+        banner = findViewById(R.id.Banner);
+        viewAllBtn = findViewById(R.id.viewAllBtn);
+        viewAllBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, AllProductActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
+    private void showCategories()
+    {
+        GravitySnapRecyclerView categoryRecyclerView = findViewById(R.id.categoryRecyclerView);
+        final GridLayoutManager addManager1 = new GridLayoutManager(getApplication(), 2);
+        categoryRecyclerView.setLayoutManager(addManager1);
+        categoryRecyclerView.setHasFixedSize(true);
+        categoryAdapter = new CategoryAdapter(getApplication(), chipBeans, this, "");
+        categoryRecyclerView.setAdapter(categoryAdapter);
+        getAllCategories();
+
+    }
+    private void getAllCategories() {
+        String tag_string_req = "req_register";
+        categoryProgress.setVisibility(View.VISIBLE);
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                CATEGORIES_GET_ALL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                categoryProgress.setVisibility(View.GONE);
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    int success = jObj.getInt("success");
+
+                    if (success == 1) {
+                        JSONArray jsonArray = jObj.getJSONArray("data");
+                        chipBeans = new ArrayList<>();
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            chipBeans.add(new ChipBean(jsonArray.getJSONObject(i)
+                                    .getString("title").toUpperCase(),
+                                    jsonArray.getJSONObject(i).getString("image")));
+                        }
+                        categoryAdapter.notifyData(chipBeans);
+                    }
+                } catch (JSONException e) {
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                categoryProgress.setVisibility(View.GONE);
+            }
+        }) {
+            protected Map<String, String> getParams() {
+                HashMap localHashMap = new HashMap();
+                return localHashMap;
+            }
+        };
+        strReq.setRetryPolicy(AppConfig.getPolicy());
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    private void getFromServer(final String searchKey) {
+        String tag_string_req = "req_register";
+        // showDialog();
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.PRODUCT_GET_ALL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("Register Response: ", response.toString());
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    int success = jObj.getInt("success");
+                    if (success == 1) {
+                        JSONArray jsonArray = jObj.getJSONArray("data");
+                        productList = new ArrayList<>();
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            ProductListBean productListBean = new ProductListBean();
+                            productListBean.setId(jsonObject.getString("id"));
+                            productListBean.setBrand(jsonObject.getString("brand"));
+                            productListBean.setPrice(jsonObject.getString("price"));
+                            productListBean.setRam(jsonObject.getString("ram"));
+                            productListBean.setRom(jsonObject.getString("rom"));
+                            productListBean.setModel(jsonObject.getString("model"));
+                            productListBean.setImage(jsonObject.getString("image"));
+                            productListBean.setDescription(jsonObject.getString("description"));
+                            productListBean.setStock_update(jsonObject.getString("stock_update"));
+                            productList.add(productListBean);
+                            if (i == 5) {
+                                break;
+                            }
+                        }
+                        //  productListAdapter.notifyData(productList);
+                        viewAllBtn.setText("View " + jsonArray.length() + " Products");
+                    } else {
+                        Toast.makeText(getApplication(), jObj.getString("message"), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    Log.e("xxxxxxxxxxx", e.toString());
+                    Toast.makeText(getApplication(), "Some Network Error.Try after some time", Toast.LENGTH_SHORT).show();
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplication(),
+                        "Some Network Error.Try after some time", Toast.LENGTH_LONG).show();
+            }
+        }) {
+            protected Map<String, String> getParams() {
+                HashMap localHashMap = new HashMap();
+                localHashMap.put("searchKey", searchKey);
+                return localHashMap;
+            }
+        };
+        strReq.setRetryPolicy(AppConfig.getPolicy());
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
 
     private void fetchBanner() {
         String tag_string_req = "req_register";
@@ -97,7 +243,7 @@ public class HomeActivity extends AppCompatActivity implements ProductItemClick 
                 AppConfig.BANNERS_GET_ALL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("Register Response: ", response);
+                Log.d("Register Response: ", response.toString());
                 try {
                     JSONObject jObj = new JSONObject(response);
                     int success = jObj.getInt("success");
@@ -118,20 +264,20 @@ public class HomeActivity extends AppCompatActivity implements ProductItemClick 
                         webBannerAdapter.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
                             @Override
                             public void onItemClick(BannerBean bannerBean) {
-                                Intent intent = new Intent(getApplicationContext(), BannerActivity.class);
+                                Intent intent = new Intent(HomeActivity.this, BannerActivity.class);
                                 intent.putExtra("description", bannerBean.getDescription());
                                 intent.putExtra("image", bannerBean.getImages());
-                                startActivityForResult(intent, 100);
+                                startActivityForResult(intent,100);
                             }
                         });
                         banner.setAdapter(webBannerAdapter);
 
                     } else {
-                        Toast.makeText(getApplicationContext(), jObj.getString("message"), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplication(), jObj.getString("message"), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     Log.e("xxxxxxxxxxx", e.toString());
-                    Toast.makeText(getApplicationContext(), "Some Network Error.Try after some time", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication(), "Some Network Error.Try after some time", Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -140,7 +286,7 @@ public class HomeActivity extends AppCompatActivity implements ProductItemClick 
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),
+                Toast.makeText(getApplication(),
                         "Some Network Error.Try after some time", Toast.LENGTH_LONG).show();
             }
         }) {
@@ -153,83 +299,16 @@ public class HomeActivity extends AppCompatActivity implements ProductItemClick 
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
-    private void fetchProductList() {
-        String tag_string_req = "req_register";
-        categoryProgress.setVisibility(View.VISIBLE);
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.PRODUCT_GET_ALL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                categoryProgress.setVisibility(View.GONE);
-                try {
-                    JSONObject jObj = new JSONObject(response);
-                    int success = jObj.getInt("success");
-                    categoryProducts = new ArrayList<>();
-                    if (success == 1) {
-                        JSONArray jsonArray = jObj.getJSONArray("data");
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject jsonObject = jsonArray.getJSONObject(i);
-                            ProductListBean productListBean = new ProductListBean();
-                            String category = jsonObject.getString("category");
-                            productListBean.setId(jsonObject.getString("id"));
-                            productListBean.setBrand(jsonObject.getString("brand"));
-                            productListBean.setPrice(jsonObject.getString("price"));
-                            productListBean.setRam(jsonObject.getString("ram"));
-                            productListBean.setRom(jsonObject.getString("rom"));
-                            productListBean.setModel(jsonObject.getString("model"));
-                            productListBean.setImage(jsonObject.getString("image"));
-                            productListBean.setDescription(jsonObject.getString("description"));
-                            productListBean.setStock_update(jsonObject.getString("stock_update"));
-                            addMapWithCategoryProduct(category, productListBean);
-                        }
-                    } else {
-                        Toast.makeText(getApplicationContext(), jObj.getString("message"), Toast.LENGTH_SHORT).show();
-                    }
-                    for (Map.Entry<String, ArrayList<ProductListBean>> entry : categoryProduct.entrySet()) {
-                        CategoryProduct categoryProduct1 = new CategoryProduct();
-                        categoryProduct1.setTitle(entry.getKey());
-                        categoryProduct1.setProductListBeans(entry.getValue());
-                        categoryProducts.add(categoryProduct1);
-                    }
-
-                    categoryWiseProductAdapter.notifyData(categoryProducts);
-
-                } catch (JSONException e) {
-                    Log.e("xxxxxxxxxxx", e.toString());
-                    Toast.makeText(getApplicationContext(), "Some Network Error.Try after some time", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                categoryProgress.setVisibility(View.GONE);
-            }
-        }) {
-            protected Map<String, String> getParams() {
-                HashMap localHashMap = new HashMap();
-                return localHashMap;
-            }
-        };
-        strReq.setRetryPolicy(AppConfig.getPolicy());
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-    }
-
-    private void addMapWithCategoryProduct(String category, ProductListBean productListBean) {
-        ArrayList<ProductListBean> productListBeans = categoryProduct.containsKey(category) ?
-                categoryProduct.get(category) : new ArrayList<ProductListBean>();
-        productListBeans.add(productListBean);
-        categoryProduct.put(category, productListBeans);
-    }
-
 
     private void addtocart(ProductListBean productListBean) {
         productListBean.setQty("1");
         db.insertMainbeanyalu(productListBean, sharedpreferences.getString(AppConfig.user_id, ""));
         Toast.makeText(getApplication(), "Item added successfully", Toast.LENGTH_SHORT).show();
+        if (onCartItemChange != null) {
+            onCartItemChange.onCartChange();
+        }
         setupBadge();
-        categoryWiseProductAdapter.notifyDataSetChanged();
+        productListAdapter.notifyDataSetChanged();
     }
 
 
@@ -239,6 +318,11 @@ public class HomeActivity extends AppCompatActivity implements ProductItemClick 
         Intent intent = new Intent(getApplication(), ProductActivity.class);
         intent.putExtra("data", productListBean);
         startActivity(intent);
+    }
+
+    @Override
+    public void OnQuantityChange(int position, int qty) {
+
     }
 
     @Override
@@ -282,6 +366,7 @@ public class HomeActivity extends AppCompatActivity implements ProductItemClick 
                 startActivity(intenti);
                 return true;
 
+
             case R.id.cart:
                 Intent intent = new Intent(HomeActivity.this, CartActivity.class);
                 startActivity(intent);
@@ -310,11 +395,67 @@ public class HomeActivity extends AppCompatActivity implements ProductItemClick 
             }
         }
     }
+    private void fetchProductList(final String searchKey) {
+        String tag_string_req = "req_register";
+        // showDialog();
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.PRODUCT_GET_ALL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("Register Response: ", response.toString());
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    int success = jObj.getInt("success");
+                    if (success == 1) {
+                        JSONArray jsonArray = jObj.getJSONArray("data");
+                        productList = new ArrayList<>();
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            ProductListBean productListBean = new ProductListBean();
+                            productListBean.setId(jsonObject.getString("id"));
+                            productListBean.setBrand(jsonObject.getString("brand"));
+                            productListBean.setPrice(jsonObject.getString("price"));
+                            productListBean.setRam(jsonObject.getString("ram"));
+                            productListBean.setRom(jsonObject.getString("rom"));
+                            productListBean.setModel(jsonObject.getString("model"));
+                            productListBean.setImage(jsonObject.getString("image"));
+                            productListBean.setDescription(jsonObject.getString("description"));
+                            productListBean.setStock_update(jsonObject.getString("stock_update"));
+                            productList.add(productListBean);
+                        }
+                        viewAllBtn.setText("View  Products");
+                    } else {
+                        Toast.makeText(getApplication(), jObj.getString("message"), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    Log.e("xxxxxxxxxxx", e.toString());
+                    Toast.makeText(getApplication(), "Some Network Error.Try after some time", Toast.LENGTH_SHORT).show();
 
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplication(),
+                        "Some Network Error.Try after some time", Toast.LENGTH_LONG).show();
+            }
+        }) {
+            protected Map<String, String> getParams() {
+                HashMap localHashMap = new HashMap();
+                localHashMap.put("searchKey", searchKey);
+                return localHashMap;
+            }
+        };
+        strReq.setRetryPolicy(AppConfig.getPolicy());
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
     @Override
     protected void onStart() {
         super.onStart();
-        fetchProductList();
+        /*   setupBadge();*/
+        fetchProductList("");
         try {
             SharedPreferences.Editor edit = sharedpreferences.edit();
             edit.putString(AppConfig.userId, sharedpreferences.getString(AppConfig.user_id, "guest"));
@@ -333,4 +474,11 @@ public class HomeActivity extends AppCompatActivity implements ProductItemClick 
         intent.putExtra("type", view);
         startActivity(intent);
     }
+
+
+    @Override
+    public void onItemClick(String type) {
+        startAllProduct(type);
+    }
+
 }

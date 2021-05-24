@@ -10,284 +10,307 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="?attr/listPreferredItemPaddingLeft"
-        android:paddingTop="16dip"
-        android:paddingRight="?attr/listPreferredItemPaddingRight"
-        android:text="User Settings"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textColor="?attr/colorAccent" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:baselineAligned="false"
-        android:gravity="center_vertical"
-        android:minHeight="?android:attr/listPreferredItemHeight"
-        android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-        android:paddingLeft="?attr/listPreferredItemPaddingLeft"
-        android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
-        android:paddingRight="?attr/listPreferredItemPaddingRight">
-
-        <LinearLayout
-            android:id="@+id/changePassword"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:foreground="?selectableItemBackground"
-            android:orientation="vertical"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp">
-
             <TextView
-                android:id="@android:id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="marquee"
-                android:singleLine="true"
-                android:text="Change Password"
-                android:textAppearance="?attr/textAppearanceListItem"
-                android:textColor="?android:textColorPrimary" />
-
-            <TextView
-                android:id="@android:id/summary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@android:id/title"
-                android:layout_alignStart="@android:id/title"
-                android:layout_alignLeft="@android:id/title"
-                android:maxLines="10"
-                android:text="Change password to secure orders"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="?android:textColorSecondary"
-                android:typeface="sans" />
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:baselineAligned="false"
-        android:gravity="center_vertical"
-        android:minHeight="?android:attr/listPreferredItemHeight"
-        android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-        android:paddingLeft="?attr/listPreferredItemPaddingLeft"
-        android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
-        android:paddingRight="?attr/listPreferredItemPaddingRight">
-
-        <LinearLayout
-            android:id="@+id/help"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:foreground="?selectableItemBackground"
-            android:orientation="vertical"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp">
-
-            <TextView
-                android:id="@android:id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="marquee"
-                android:singleLine="true"
-                android:text="Help &amp; Support"
-                android:textAppearance="?attr/textAppearanceListItem"
-                android:textColor="?android:textColorPrimary" />
-
-            <TextView
-                android:id="@android:id/summary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@android:id/title"
-                android:layout_alignStart="@android:id/title"
-                android:layout_alignLeft="@android:id/title"
-                android:maxLines="10"
-                android:text="24/7 invoice support"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="?android:textColorSecondary"
-                android:typeface="sans" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:baselineAligned="false"
-        android:gravity="center_vertical"
-        android:minHeight="?android:attr/listPreferredItemHeight"
-        android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-        android:paddingLeft="?attr/listPreferredItemPaddingLeft"
-        android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
-        android:paddingRight="?attr/listPreferredItemPaddingRight">
-
-        <LinearLayout
-            android:id="@+id/contactus"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:foreground="?selectableItemBackground"
-            android:orientation="vertical"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp">
-
-            <TextView
-                android:id="@android:id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="marquee"
-                android:singleLine="true"
-                android:text="Contact us"
-                android:textAppearance="?attr/textAppearanceListItem"
-                android:textColor="?android:textColorPrimary" />
-
-            <TextView
-                android:id="@android:id/summary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:visibility="gone"
-                android:layout_below="@android:id/title"
-                android:layout_alignStart="@android:id/title"
-                android:layout_alignLeft="@android:id/title"
-                android:text="Ph :          +91 70101 35419\nEMail Id : indirayalu@gmail.com"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="@color/black"
-                android:textSize="15dp"
-                android:typeface="sans" />
-            <TextView
-                android:id="@android:id/summary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@android:id/title"
-                android:layout_alignStart="@android:id/title"
-                android:layout_alignLeft="@android:id/title"
-                android:maxLines="10"
-                android:text="24/7 cutomer support"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="?android:textColorSecondary"
-                android:typeface="sans" />
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:baselineAligned="false"
-        android:gravity="center_vertical"
-        android:minHeight="?android:attr/listPreferredItemHeight"
-        android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-        android:paddingLeft="?attr/listPreferredItemPaddingLeft"
-        android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
-        android:paddingRight="?attr/listPreferredItemPaddingRight"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:id="@+id/inviteuser"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:foreground="?selectableItemBackground"
-            android:orientation="horizontal"
-            android:paddingTop="10dp"
-            android:paddingBottom="16dp">
-
-            <TextView
-                android:id="@android:id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="marquee"
-                android:singleLine="true"
-                android:text="Invite Staff"
-                android:textAppearance="?attr/textAppearanceListItem"
-                android:textColor="?android:textColorPrimary" />
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="?attr/listPreferredItemPaddingLeft"
-        android:paddingTop="16dip"
-        android:paddingRight="?attr/listPreferredItemPaddingRight"
-        android:text="Information"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textColor="?attr/colorAccent" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:baselineAligned="false"
-        android:gravity="center_vertical"
-        android:minHeight="?android:attr/listPreferredItemHeight"
-        android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-        android:paddingLeft="?attr/listPreferredItemPaddingLeft"
-        android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
-        android:paddingRight="?attr/listPreferredItemPaddingRight">
-
-        <LinearLayout
-            android:id="@+id/version"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:foreground="?selectableItemBackground"
-            android:orientation="vertical"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp">
-
-            <TextView
-                android:id="@android:id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="marquee"
-                android:singleLine="true"
-                android:text="Version"
-                android:textAppearance="?attr/textAppearanceListItem"
-                android:textColor="?android:textColorPrimary" />
-
-            <TextView
-                android:id="@android:id/summary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@android:id/title"
-                android:layout_alignStart="@android:id/title"
-                android:layout_alignLeft="@android:id/title"
-                android:maxLines="10"
-                android:text="1.0.0"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="?android:textColorSecondary"
-                android:typeface="sans" />
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-            <TextView
-                android:id="@+id/logout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="?attr/listPreferredItemPaddingLeft"
                 android:paddingTop="16dip"
                 android:paddingRight="?attr/listPreferredItemPaddingRight"
-                android:text="LOGOUT"
-                android:textSize="15dp"
+                android:text="User Settings"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="@color/black" />
+                android:textColor="?attr/colorAccent" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/navLogo"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/vector"
+                    app:civ_border_color="@color/colorPrimary"
+                    app:civ_border_width="1dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/login"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/navLogo"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/sans"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="  Login  "
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:strokeColor="@color/colorPrimary" />
+
+
+                <LinearLayout
+                    android:id="@+id/loginLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/navLogo"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/navLogo"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/userNameHeader"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="4dp"
+                                android:layout_marginTop="3dp"
+                                android:fontFamily="@font/sans"
+                                android:gravity="center_vertical"
+                                android:padding="5dp"
+                                android:text="UserName"
+                                android:textColor="@color/black"
+                                android:textSize="18dp"
+                                android:textStyle="normal" />
+
+                            <TextView
+                                android:id="@+id/userPhoneHeader"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="4dp"
+                                android:layout_marginTop="3dp"
+                                android:fontFamily="@font/sans"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"
+                                android:paddingBottom="5dp"
+                                android:text="Phone"
+                                android:textColor="@color/colorTex"
+                                android:textSize="16dp"
+                                android:textStyle="normal" />
+
+                            <TextView
+                                android:id="@+id/userPinHeader"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="4dp"
+                                android:layout_marginTop="3dp"
+                                android:fontFamily="@font/sans"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"
+                                android:paddingBottom="5dp"
+                                android:text="Phone"
+                                android:textColor="@color/colorTex"
+                                android:textSize="16dp"
+                                android:textStyle="normal" />
+                        </LinearLayout>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/logout"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/navLogo"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="center"
+                            android:layout_marginEnd="15dp"
+                            android:fontFamily="@font/sans"
+                            android:gravity="center"
+                            android:includeFontPadding="false"
+                            android:text="Logout"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorPrimary"
+                            android:textStyle="bold"
+                            app:strokeColor="@color/colorPrimary" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:gravity="center_vertical"
+                        android:minHeight="?android:attr/listPreferredItemHeight"
+                        android:paddingLeft="10dp">
+
+                        <LinearLayout
+                            android:id="@+id/changePassword"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:foreground="?selectableItemBackground"
+                            android:orientation="vertical"
+                            android:paddingTop="16dp"
+                            android:paddingBottom="16dp">
+
+                            <TextView
+                                android:id="@android:id/title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="marquee"
+                                android:singleLine="true"
+                                android:text="Change Password"
+                                android:textAppearance="?attr/textAppearanceListItem"
+                                android:textColor="?android:textColorPrimary" />
+
+                            <TextView
+                                android:id="@android:id/summary"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@android:id/title"
+                                android:layout_alignStart="@android:id/title"
+                                android:layout_alignLeft="@android:id/title"
+                                android:maxLines="10"
+                                android:text="Change password to secure orders"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                android:textColor="?android:textColorSecondary"
+                                android:typeface="sans" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:gravity="center_vertical"
+                        android:minHeight="?android:attr/listPreferredItemHeight"
+                        android:paddingLeft="10dp">
+                        <LinearLayout
+                            android:id="@+id/contactus"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:foreground="?selectableItemBackground"
+                            android:orientation="vertical"
+                            android:paddingTop="16dp"
+                            android:paddingBottom="16dp">
+
+                            <TextView
+                                android:id="@android:id/title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="marquee"
+                                android:singleLine="true"
+                                android:text="Contact us"
+                                android:textAppearance="?attr/textAppearanceListItem"
+                                android:textColor="?android:textColorPrimary" />
+
+                            <TextView
+                                android:id="@android:id/summary"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@android:id/title"
+                                android:layout_alignStart="@android:id/title"
+                                android:layout_alignLeft="@android:id/title"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:text="Ph :          +91 70101 35419\nEMail Id : indirayalu@gmail.com"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                android:textColor="@color/black"
+                                android:textSize="15dp"
+                                android:typeface="sans"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:id="@android:id/summary"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@android:id/title"
+                                android:layout_alignStart="@android:id/title"
+                                android:layout_alignLeft="@android:id/title"
+                                android:maxLines="10"
+                                android:text="24/7 cutomer support"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                android:textColor="?android:textColorSecondary"
+                                android:typeface="sans" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="?attr/listPreferredItemPaddingLeft"
+                android:paddingTop="16dip"
+                android:paddingRight="?attr/listPreferredItemPaddingRight"
+                android:text="Information"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="?attr/colorAccent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:gravity="center_vertical"
+                android:minHeight="?android:attr/listPreferredItemHeight"
+                android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+                android:paddingLeft="?attr/listPreferredItemPaddingLeft"
+                android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+                android:paddingRight="?attr/listPreferredItemPaddingRight">
+
+                <LinearLayout
+                    android:id="@+id/version"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:foreground="?selectableItemBackground"
+                    android:orientation="vertical"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp">
+
+                    <TextView
+                        android:id="@android:id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:text="Version"
+                        android:textAppearance="?attr/textAppearanceListItem"
+                        android:textColor="?android:textColorPrimary" />
+
+                    <TextView
+                        android:id="@android:id/summary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@android:id/title"
+                        android:layout_alignStart="@android:id/title"
+                        android:layout_alignLeft="@android:id/title"
+                        android:maxLines="10"
+                        android:text="1.0.1"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="?android:textColorSecondary"
+                        android:typeface="sans" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
 
         </LinearLayout>
 

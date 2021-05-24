@@ -45,6 +45,7 @@ import pro.network.jsbroilers.product.ProductActivity;
 import pro.network.jsbroilers.product.ProductItemClick;
 import pro.network.jsbroilers.product.ProductListAdapter;
 import pro.network.jsbroilers.product.ProductListBean;
+import pro.network.jsbroilers.product.SingleProductAdapter;
 
 import static pro.network.jsbroilers.app.AppConfig.GET_ALL_CATEGORIES;
 
@@ -52,7 +53,7 @@ public class AllProductActivity extends BaseActivity implements ProductItemClick
     private final String TAG = getClass().getSimpleName();
     ProgressDialog pDialog;
     RecyclerView recycler_product;
-    ProductListAdapter productListAdapter;
+    SingleProductAdapter productListAdapter;
     SharedPreferences sharedpreferences;
     CartActivity.OnCartItemChange onCartItemChange;
     RecyclerView recycler_chips;
@@ -78,8 +79,8 @@ public class AllProductActivity extends BaseActivity implements ProductItemClick
         db = new DatabaseHelperYalu(getApplicationContext());
         recycler_product = findViewById(R.id.recycler_product);
         productList = new ArrayList<>();
-        productListAdapter = new ProductListAdapter(getApplicationContext(), productList, this, sharedpreferences);
-        final GridLayoutManager addManager1 = new GridLayoutManager(getApplication(), 2);
+        productListAdapter = new SingleProductAdapter(getApplicationContext(), productList, this, sharedpreferences);
+        final GridLayoutManager addManager1 = new GridLayoutManager(getApplication(), 1);
         recycler_product.setLayoutManager(addManager1);
         recycler_product.setAdapter(productListAdapter);
 
@@ -187,6 +188,11 @@ public class AllProductActivity extends BaseActivity implements ProductItemClick
             Toast.makeText(getApplicationContext(), "Please Wait, Try again", Toast.LENGTH_SHORT).show();
             Log.e("xxxxxxxxxxxxx", e.toString());
         }
+    }
+
+    @Override
+    public void OnQuantityChange(int position, int qty) {
+
     }
 
     @Override

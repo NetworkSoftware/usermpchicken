@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <color name="colorPrimarylight">#66FD5D3D</color>
-    <color name="colorPrimary">#fd5d3d </color>
-    <color name="colorPrimaryDark">#FF5533</color>
-    <color name="colorAccent">#fd5d3d </color>
+    <color name="colorPrimarylight">#4D0000A0</color>
+    <color name="colorPrimary">#0000A0 </color>
+    <color name="colorPrimaryDark">#000083</color>
+    <color name="colorAccent">#0000A0 </color>
     <color name="gray">#787474</color>
     <color name="orange">#322d89</color>
     <color name="white">#ffffff</color>

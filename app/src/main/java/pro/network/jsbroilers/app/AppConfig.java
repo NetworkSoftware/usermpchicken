@@ -3,6 +3,7 @@ package pro.network.jsbroilers.app;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.Environment;
@@ -26,7 +27,9 @@ import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import pro.network.jsbroilers.HomeActivity;
 import pro.network.jsbroilers.R;
+import pro.network.jsbroilers.SettingsActivity;
 
 public class  AppConfig {
 
@@ -86,6 +89,16 @@ public class  AppConfig {
         } catch (ActivityNotFoundException e) {
             Toast.makeText(context, "NO Pdf Viewer", Toast.LENGTH_SHORT).show();
         }
+    }
+    public static void logout(SharedPreferences sharedPreferences, Context context) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(AppConfig.isLogin, true);
+        editor.putString(AppConfig.configKey, "guest");
+        editor.putString(AppConfig.usernameKey, "guest");
+        editor.putString(AppConfig.auth_key, "guest");
+        editor.putString(AppConfig.user_id, "guest");
+        editor.commit();
+        context.startActivity(new Intent(context, HomeActivity.class));
     }
 
     public static void sendSMS(String phoneNo, String msg, Context context) {
