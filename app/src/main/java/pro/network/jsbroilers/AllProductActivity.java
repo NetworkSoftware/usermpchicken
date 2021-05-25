@@ -89,16 +89,6 @@ public class AllProductActivity extends BaseActivity implements ProductItemClick
         String type = getIntent().getStringExtra("type");
         getSupportActionBar().setTitle(type != null ? type : getString(R.string.app_name));
         selectedType = type;
-
-
-        chipBeans = new ArrayList<>();
-        recycler_chips = findViewById(R.id.recycler_chips);
-        chipAdapter = new ChipAdapter(AllProductActivity.this, chipBeans, this, selectedType);
-        final LinearLayoutManager addManager2 = new LinearLayoutManager(AllProductActivity.this, LinearLayoutManager.HORIZONTAL, false);
-        recycler_chips.setLayoutManager(addManager2);
-        recycler_chips.setAdapter(chipAdapter);
-        getAllCategories();
-
     }
 
 
@@ -294,42 +284,6 @@ public class AllProductActivity extends BaseActivity implements ProductItemClick
         getSupportActionBar().setTitle(selectedType);
         chipAdapter.notifyData(selectedType);
         fetchProductList("");
-    }
-
-    private void getAllCategories() {
-        String tag_string_req = "req_register";
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                GET_ALL_CATEGORIES, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jObj = new JSONObject(response);
-                    int success = jObj.getInt("success");
-
-                    if (success == 1) {
-                        JSONArray jsonArray = jObj.getJSONArray("data");
-                        chipBeans = new ArrayList<>();
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            chipBeans.add(new ChipBean(jsonArray.getJSONObject(i).getString("title").toUpperCase()));
-                        }
-                        chipAdapter.notifyData(chipBeans);
-                    }
-                } catch (JSONException e) {
-                }
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-        }) {
-            protected Map<String, String> getParams() {
-                HashMap localHashMap = new HashMap();
-                return localHashMap;
-            }
-        };
-        strReq.setRetryPolicy(AppConfig.getPolicy());
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
 }

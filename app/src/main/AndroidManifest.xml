@@ -37,6 +37,7 @@
             android:name=".HomeActivity"
             android:theme="@style/AppTheme" />
 
+
         <activity
             android:name="pro.network.jsbroilers.ChangePassword"
             android:theme="@style/AppTheme" />

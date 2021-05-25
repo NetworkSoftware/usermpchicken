@@ -149,8 +149,11 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
                             SharedPreferences.Editor editor = sharedpreferences.edit();
                             editor.putString(AppConfig.address, address.getText().toString());
                             editor.commit();
+                        } else if (cod.isChecked()) {
                             orderpage(address.getText().toString());
-                            dialog.cancel();
+                        }else if (upi.isChecked()) {
+                            showBottomupi();
+
                         } else {
                             Toast.makeText(getApplicationContext(), "Enter valid address", Toast.LENGTH_SHORT).show();
                         }
@@ -180,7 +183,6 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
                 if (isChecked) {
                     cod.setChecked(false);
                     upi.setChecked(true);
-                    showBottomupi();
                 } else {
                     upi.setChecked(false);
                 }
@@ -279,6 +281,12 @@ paid.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
         orderpage(AppConfig.address.toString());
+    }
+});
+cancel.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        mBottomSheetDialog.cancel();
     }
 });
 

@@ -13,6 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.gson.Gson;
 
@@ -44,7 +45,8 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
         private CardView product_card;
         private ImageView product_image, minus, plus;
         private TextView product_name, product_rupee_final,brand,quantity,rqty,product_price, product_total_price;
-        ExtendedFloatingActionButton cart;
+        private LinearLayout add_qty;
+        MaterialButton cart;
 
         public MyViewHolder(View view) {
             super((view));
@@ -59,6 +61,7 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
             brand = (TextView) view.findViewById(R.id.brand);
             minus = view.findViewById(R.id.minus);
             plus = view.findViewById(R.id.plus);
+            add_qty = view.findViewById(R.id.add_qty);
 
             product_rupee_final = (TextView) view.findViewById(R.id.product_rupee_final);
             outOfStock = view.findViewById(R.id.outOfStock);
@@ -97,7 +100,7 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
 
         holder.product_name.setText(productBean.getModel());
         holder.brand.setText(productBean.getBrand());
-        holder.rqty.setText(productBean.getRqty() +"/"+ productBean.getRqtyType());
+        holder.rqty.setText(productBean.getRqty() +""+ productBean.getRqtyType());
         ArrayList<String> urls = new Gson().fromJson(productBean.image, (Type) List.class);
         Glide.with(mainActivityUser)
                 .load(AppConfig.getResizedImage(urls.get(0), true))
@@ -107,12 +110,21 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
 //        holder.product_total_price.setText(productBean.getQty() + " * " + (productBean.price));
     //    holder.product_price.setText("₹" + decimalFormat.format(total) + ".00");
 
-        holder.quantity.setText(productBean.getQty());
-    /*    if (productBean.getQty().equalsIgnoreCase("1")) {
-            holder.minus.setVisibility(View.INVISIBLE);
-        } else {
-            holder.minus.setVisibility(View.VISIBLE);
-        }*/
+
+        holder.cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                productItemClick.onCartClick(productBean);
+                holder.quantity.setText(productBean.getQty());
+                if (productBean.getQty().equalsIgnoreCase("0")) {
+                    holder.add_qty.setVisibility(View.INVISIBLE);
+                } else {
+                    holder.add_qty.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+
         holder.minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,12 +142,7 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
                 doCallCartChange(newQuan, productBean, holder, position);
             }
         });
-        holder.cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                productItemClick.onCartClick(productBean);
-            }
-        });
+
         if (productBean.getStock_update().equalsIgnoreCase("In Stock")) {
             holder.outOfStock.setVisibility(View.GONE);
         } else {

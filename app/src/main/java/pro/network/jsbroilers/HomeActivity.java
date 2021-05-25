@@ -71,7 +71,6 @@ public class HomeActivity extends BaseActivity implements ProductItemClick , OnC
     CartActivity.OnCartItemChange onCartItemChange;
     BannerLayout banner;
     private List<ProductListBean> productList = new ArrayList<>();
-    private MaterialButton viewAllBtn;
     private TextView cart_badge;
     private CategoryAdapter categoryAdapter;
     ProgressBar categoryProgress;
@@ -113,14 +112,7 @@ public class HomeActivity extends BaseActivity implements ProductItemClick , OnC
             }
         });
         banner = findViewById(R.id.Banner);
-        viewAllBtn = findViewById(R.id.viewAllBtn);
-        viewAllBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, AllProductActivity.class);
-                startActivity(intent);
-            }
-        });
+
     }
 
     private void showCategories()
@@ -202,12 +194,8 @@ public class HomeActivity extends BaseActivity implements ProductItemClick , OnC
                             productListBean.setDescription(jsonObject.getString("description"));
                             productListBean.setStock_update(jsonObject.getString("stock_update"));
                             productList.add(productListBean);
-                            if (i == 5) {
-                                break;
-                            }
                         }
-                        //  productListAdapter.notifyData(productList);
-                        viewAllBtn.setText("View " + jsonArray.length() + " Products");
+
                     } else {
                         Toast.makeText(getApplication(), jObj.getString("message"), Toast.LENGTH_SHORT).show();
                     }
@@ -423,8 +411,7 @@ public class HomeActivity extends BaseActivity implements ProductItemClick , OnC
                             productListBean.setStock_update(jsonObject.getString("stock_update"));
                             productList.add(productListBean);
                         }
-                        viewAllBtn.setText("View  Products");
-                    } else {
+                       } else {
                         Toast.makeText(getApplication(), jObj.getString("message"), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
