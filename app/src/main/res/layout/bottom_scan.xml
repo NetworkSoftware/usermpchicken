@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/sans"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/scan"
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        android:layout_margin="30dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/scan" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/paid"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/sans"
+            android:layout_weight="1"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:gravity="center"
+            app:strokeColor="@color/colorPrimary"
+            android:includeFontPadding="false"
+            android:text="Paid"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cancel"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:fontFamily="@font/sans"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:gravity="center"
+            app:strokeColor="@color/colorPrimary"
+            android:includeFontPadding="false"
+            android:text="Cancel"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+</LinearLayout>

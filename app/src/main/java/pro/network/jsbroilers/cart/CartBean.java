@@ -1,6 +1,6 @@
 package pro.network.jsbroilers.cart;
 
-import pro.network.jsbroilers.product.ProductBean;
+import pro.network.jsbroilers.product.ProductListBean;
 
 import java.util.ArrayList;
 
@@ -9,9 +9,9 @@ public class CartBean {
     String cart_id;
     String total_amount;
     String currency;
-    ArrayList<ProductBean> data;
+    ArrayList<ProductListBean> data;
 
-    public CartBean(String order_date, String cart_id, String total_amount, String currency, ArrayList<ProductBean> data) {
+    public CartBean(String order_date, String cart_id, String total_amount, String currency, ArrayList<ProductListBean> data) {
         this.order_date = order_date;
         this.cart_id = cart_id;
         this.total_amount = total_amount;
@@ -51,11 +51,11 @@ public class CartBean {
         this.currency = currency;
     }
 
-    public ArrayList<ProductBean> getData() {
+    public ArrayList<ProductListBean> getData() {
         return data;
     }
 
-    public void setData(ArrayList<ProductBean> data) {
+    public void setData(ArrayList<ProductListBean> data) {
         this.data = data;
     }
 }

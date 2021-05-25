@@ -50,7 +50,7 @@ import static pro.network.jsbroilers.app.AppConfig.usernameKey;
 
 public class SettingsActivity extends BaseActivity {
     final int UPI_PAYMENT = 0;
-    TextView userNameHeader, phoneNameHeader,userPinHeader;
+    TextView userNameHeader, phoneNameHeader;
     Button login, logout;
     LinearLayout loginLayout;
     ProgressDialog pDialog;
@@ -66,13 +66,21 @@ public class SettingsActivity extends BaseActivity {
         logout = findViewById(R.id.logout);
         loginLayout = findViewById(R.id.loginLayout);
         db = new DatabaseHelperYalu(SettingsActivity.this);
-        userPinHeader=findViewById(R.id.userPinHeader);
+
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AppConfig.logout(sharedpreferences, SettingsActivity.this);
                 changeHeaderContent();
+            }
+        });
+        ((LinearLayout) findViewById(R.id.contactus)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel: 919790294942"));
+                startActivity(intent);
             }
         });
         login.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +110,7 @@ public class SettingsActivity extends BaseActivity {
     private void showBottomDialog() {
         final RoundedBottomSheetDialog mBottomSheetDialog = new RoundedBottomSheetDialog(SettingsActivity.this);
         LayoutInflater inflater = SettingsActivity.this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.bottomsheet, null);
+        View dialogView = inflater.inflate(R.layout.bottom_sheet_layout, null);
 
 
         final TextInputEditText username = dialogView.findViewById(R.id.username);
@@ -113,9 +121,12 @@ public class SettingsActivity extends BaseActivity {
         final TextInputLayout usernameTxt = dialogView.findViewById(R.id.usernameTxt);
         TextInputLayout passwordText = dialogView.findViewById(R.id.passwordText);
 
+
         final TextView accountTxt = dialogView.findViewById(R.id.accountTxt);
         final Button login = dialogView.findViewById(R.id.login);
         final Button request = dialogView.findViewById(R.id.request);
+
+        TextView forgotPassword = dialogView.findViewById(R.id.forgotPassword);
 
         request.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,14 +136,27 @@ public class SettingsActivity extends BaseActivity {
                     request.setText("Login");
                     login.setText("Sign up");
                     usernameTxt.setVisibility(View.VISIBLE);
+
                 } else {
                     accountTxt.setText("No Account? ");
                     login.setText("Login");
                     request.setText("Sign up");
                     usernameTxt.setVisibility(View.GONE);
+
+
                 }
             }
         });
+
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBottomSheetDialog.hide();
+                Intent intent = new Intent(new SettingsActivity(), ChangePassword.class);
+                startActivity(intent);
+            }
+        });
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -174,10 +198,65 @@ public class SettingsActivity extends BaseActivity {
         });
         mBottomSheetDialog.show();
     }
+    private void checkLogin(final String username, final String password, final RoundedBottomSheetDialog mBottomSheetDialog) {
+        String tag_string_req = "req_register";
+        pDialog.setMessage("Login ...");
+        showDialog();
+        // showDialog();
+        StringRequest strReq = new StringRequest(Request.Method.POST, AppConfig.LOGIN_USER, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("Register Response: ", response);
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    int success = jObj.getInt("success");
+                    String msg = jObj.getString("message");
+                    if (success == 1) {
+                        String auth_key = jObj.getString("auth_key");
+                        String user_id = jObj.getString("user_id");
+                        String name = jObj.getString("name");
+
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                        editor.putBoolean(AppConfig.isLogin, true);
+                        editor.putString(AppConfig.configKey, username);
+                        editor.putString(AppConfig.usernameKey, name);
+                        editor.putString(AppConfig.auth_key, auth_key);
+                        editor.putString(AppConfig.user_id, user_id);
+                        editor.commit();
+                        mBottomSheetDialog.dismiss();
+                    }
+                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+
+                } catch (Exception e) {
+                    Log.e("xxxxxxxxxx", e.toString());
+                }
+                hideDialog();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),
+                        "Slow network found.Try again later", Toast.LENGTH_LONG).show();
+                hideDialog();
+            }
+        }) {
+            protected Map<String, String> getParams() {
+                HashMap localHashMap = new HashMap();
+                localHashMap.put("phone", username);
+                localHashMap.put("password", password);
+                return localHashMap;
+            }
+        };
+        strReq.setRetryPolicy(AppConfig.getPolicy());
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
     private void registerUser(final String phoneNumber, final String username, final String password, final RoundedBottomSheetDialog mBottomSheetDialog) {
         String tag_string_req = "req_register";
-        pDialog.setMessage("Loading...");
+        pDialog.setMessage("Processing ...");
         showDialog();
+        // showDialog();
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 REGISTER_USER, new Response.Listener<String>() {
             @Override
@@ -192,11 +271,11 @@ public class SettingsActivity extends BaseActivity {
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.putString(AppConfig.configKey, phoneNumber);
                         editor.commit();
-                        sendMessageToCustomer(phoneNumber, username, password, mBottomSheetDialog);
+                        checkLogin(username, password, mBottomSheetDialog);
                     }
-                    Toast.makeText(getApplication(), msg, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
-                    Toast.makeText(getBaseContext(), "Some Network Error.Try after some time", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Some Network Error.Try after some time", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -204,10 +283,9 @@ public class SettingsActivity extends BaseActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                hideDialog();
-                Toast.makeText(getBaseContext(),
+                Toast.makeText(getApplicationContext(),
                         "Some Network Error.Try after some time", Toast.LENGTH_LONG).show();
-
+                hideDialog();
             }
         }) {
             protected Map<String, String> getParams() {
@@ -223,99 +301,6 @@ public class SettingsActivity extends BaseActivity {
         AppController.getInstance().addToRequestQueue(strReq);
     }
 
-    private void sendMessageToCustomer(final String phone, final String username, final String password,
-                                       final RoundedBottomSheetDialog mBottomSheetDialog) {
-        String tag_string_req = "req_register";
-        pDialog.setMessage("Processing...");
-        showDialog();
-        String express = "https://www.smsalert.co.in/api/push.json?apikey=602c77796012b&sender=CHFRSH&mobileno="
-                + phone
-                + "&text=Hi " + username
-                + ", Thanks for Registering with Chennai Fresh. For any queries contact our support team.";
-        StringRequest strReq = new StringRequest(Request.Method.GET, express, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                hideDialog();
-                checkLogin(username, password, mBottomSheetDialog);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                hideDialog();
-                checkLogin(username, password, mBottomSheetDialog);
-            }
-        }) {
-            protected Map<String, String> getParams() {
-                HashMap localHashMap = new HashMap();
-                return localHashMap;
-            }
-        };
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-    }
-
-    private void checkLogin(final String username, final String password, final RoundedBottomSheetDialog mBottomSheetDialog) {
-        String tag_string_req = "req_register";
-        pDialog.setMessage("Login...");
-        showDialog();
-        StringRequest strReq = new StringRequest(Request.Method.POST, AppConfig.LOGIN_USER, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                hideDialog();
-                Log.d("Register Response: ", response);
-                try {
-                    JSONObject jObj = new JSONObject(response);
-                    int success = jObj.getInt("success");
-                    String msg = jObj.getString("message");
-                    if (success == 1) {
-                        String auth_key = jObj.getString("auth_key");
-                        String user_id = jObj.getString("user_id");
-                        String name = jObj.getString("name");
-                        String phone = jObj.getString("phone");
-
-                        SharedPreferences.Editor editor = sharedpreferences.edit();
-                        editor.putBoolean(AppConfig.isLogin, true);
-                        editor.putString(AppConfig.configKey, username);
-                        editor.putString(usernameKey, name);
-                        editor.putString(AppConfig.auth_key, auth_key);
-                        editor.putString(AppConfig.phone, phone);
-                        editor.putString(AppConfig.user_id, user_id);
-                        editor.commit();
-                        mBottomSheetDialog.dismiss();
-
-                        ArrayList<ProductListBean> productListTemp = db.getAllMainbeansyalu("guest");
-                        db.deleteAllyalu("guest");
-                        for (int k = 0; k < productListTemp.size(); k++) {
-                            db.insertMainbeanyalu(productListTemp.get(k), user_id);
-                        }
-
-                        changeHeaderContent();
-                    }
-                    Toast.makeText(getBaseContext(), msg, Toast.LENGTH_SHORT).show();
-
-                } catch (Exception e) {
-                    Log.e("xxxxxxxxxx", e.toString());
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                hideDialog();
-                Toast.makeText(getBaseContext(),
-                        "Slow network found.Try again later", Toast.LENGTH_LONG).show();
-            }
-        }) {
-            protected Map<String, String> getParams() {
-                HashMap localHashMap = new HashMap();
-                localHashMap.put("phone", username);
-                localHashMap.put("password", password);
-                return localHashMap;
-            }
-        };
-        strReq.setRetryPolicy(AppConfig.getPolicy());
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-    }
-
 
     private void changeHeaderContent() {
         if (sharedpreferences.getString(user_id, "guest").equals("guest")) {
@@ -323,13 +308,11 @@ public class SettingsActivity extends BaseActivity {
             loginLayout.setVisibility(View.GONE);
             userNameHeader.setText("");
             phoneNameHeader.setText("");
-            userPinHeader.setText("");
         } else {
             login.setVisibility(View.GONE);
             loginLayout.setVisibility(View.VISIBLE);
             userNameHeader.setText(sharedpreferences.getString(usernameKey, ""));
             phoneNameHeader.setText(sharedpreferences.getString(phone, ""));
-            userPinHeader.setText(sharedpreferences.getString("toPincode", "Pincode"));
          }
 
     }

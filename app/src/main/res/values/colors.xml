@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <color name="colorPrimarylight">#4D0000A0</color>
+    <color name="colorPrimarylight">#800000A0</color>
     <color name="colorPrimary">#0000A0 </color>
     <color name="colorPrimaryDark">#000083</color>
     <color name="colorAccent">#0000A0 </color>
@@ -9,7 +9,7 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="product">#322d89</color>
-    <color name="chipSelected">#80FBC4C8</color>
+    <color name="chipSelected">#330000A0</color>
     <color name="chipUnSelect">#FBF7F7</color>
     <color name="light_gray">#EAEAEA</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#fff</color>

@@ -17,7 +17,7 @@
         <ImageView
             android:id="@+id/product_image"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="500px"
             android:layout_gravity="top"
             android:scaleType="centerCrop"
             android:src="@drawable/jsbroilers" />
@@ -37,7 +37,7 @@
             android:background="@color/colorPrimary"
             android:orientation="horizontal">
             <TextView
-                android:id="@+id/rate"
+                android:id="@+id/rqty"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -68,6 +68,13 @@
             android:layout_gravity="bottom"
             android:background="@color/white"
             android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/product_name"
@@ -91,6 +98,7 @@
                 android:layout_marginLeft="5dp"
                 android:fontFamily="@font/sans"
                 android:layout_marginTop="5dp"
+                android:layout_marginBottom="10px"
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:maxLines="3"
@@ -99,12 +107,13 @@
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
-
+        </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:gravity="center"
+                android:layout_weight="1"
+                android:gravity="bottom"
                 android:orientation="horizontal">
                 <LinearLayout
                     android:layout_width="100dp"
@@ -119,7 +128,7 @@
                     android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/minus"
+                    android:id="@+id/plus"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
@@ -139,7 +148,7 @@
                     android:textSize="20dp" />
 
                 <ImageView
-                    android:id="@+id/plus"
+                    android:id="@+id/minus"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
@@ -161,7 +170,6 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="17dp" />
                 <LinearLayout
-                    android:id="@+id/cart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="3dp"
@@ -170,12 +178,14 @@
                     android:gravity="right"
                     android:orientation="horizontal">
                 <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                    android:id="@+id/cart"
                     android:layout_width="115dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/colorPrimary"
                     app:icon="@drawable/ic_baseline_add_24"
                     android:textSize="15dp"
                     android:textColor="@color/white"
+                    android:layout_marginRight="5dp"
                     app:iconTint="@color/white"
                     android:text="Add"/>
 

@@ -12,7 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -130,8 +132,8 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
         LayoutInflater inflater = CartActivity.this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.alert_dialog, null);
         TextView title = dialogView.findViewById(R.id.title);
-        RadioButton cod = dialogView.findViewById(R.id.cod);
-        RadioButton upi = dialogView.findViewById(R.id.upi);
+        final RadioButton cod = dialogView.findViewById(R.id.cod);
+        final RadioButton upi = dialogView.findViewById(R.id.upi);
         final TextInputEditText address = dialogView.findViewById(R.id.address);
 
         if (sharedpreferences.contains(AppConfig.address)) {
@@ -154,12 +156,36 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
                         }
                     }
                 })
+
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.cancel();
                     }
                 });
+        cod.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    cod.setChecked(true);
+                    upi.setChecked(false);
+                } else {
+                    cod.setChecked(false);
+                }
+            }
+        });
+        upi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    cod.setChecked(false);
+                    upi.setChecked(true);
+                    showBottomupi();
+                } else {
+                    upi.setChecked(false);
+                }
+            }
+        });
         dialogBuilder.setView(dialogView);
         final AlertDialog b = dialogBuilder.create();
         b.setCancelable(false);
@@ -223,6 +249,39 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
                 }
             }
         });
+        mBottomSheetDialog.setContentView(dialogView);
+        mBottomSheetDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        mBottomSheetDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(final DialogInterface dialog) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        RoundedBottomSheetDialog d = (RoundedBottomSheetDialog) dialog;
+                        FrameLayout bottomSheet = d.findViewById(R.id.design_bottom_sheet);
+                        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                    }
+                }, 0);
+            }
+        });
+        mBottomSheetDialog.show();
+    }
+    private void showBottomupi() {
+        final RoundedBottomSheetDialog mBottomSheetDialog = new RoundedBottomSheetDialog(CartActivity.this);
+        LayoutInflater inflater = CartActivity.this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.bottom_scan, null);
+
+        final ImageView scan = dialogView.findViewById(R.id.scan);
+        final Button paid = dialogView.findViewById(R.id.paid);
+        final Button cancel = dialogView.findViewById(R.id.cancel);
+paid.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        orderpage(AppConfig.address.toString());
+    }
+});
+
         mBottomSheetDialog.setContentView(dialogView);
         mBottomSheetDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         mBottomSheetDialog.setOnShowListener(new DialogInterface.OnShowListener() {

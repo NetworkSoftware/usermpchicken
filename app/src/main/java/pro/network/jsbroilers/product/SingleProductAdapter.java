@@ -13,6 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.gson.Gson;
 
 import java.lang.reflect.Type;
@@ -42,8 +43,8 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
         private final View outOfStock;
         private CardView product_card;
         private ImageView product_image, minus, plus;
-        private TextView product_name, product_rupee_final,brand,quantity,product_price, product_total_price;
-        LinearLayout cart;
+        private TextView product_name, product_rupee_final,brand,quantity,rqty,product_price, product_total_price;
+        ExtendedFloatingActionButton cart;
 
         public MyViewHolder(View view) {
             super((view));
@@ -51,12 +52,14 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
             product_image = (ImageView) view.findViewById(R.id.product_image);
             cart = view.findViewById(R.id.cart);
             product_name = (TextView) view.findViewById(R.id.product_name);
+            rqty = (TextView) view.findViewById(R.id.rqty);
             product_price = view.findViewById(R.id.product_price);
             product_total_price = view.findViewById(R.id.product_total_price);
             quantity = (TextView) view.findViewById(R.id.quantity);
             brand = (TextView) view.findViewById(R.id.brand);
             minus = view.findViewById(R.id.minus);
             plus = view.findViewById(R.id.plus);
+
             product_rupee_final = (TextView) view.findViewById(R.id.product_rupee_final);
             outOfStock = view.findViewById(R.id.outOfStock);
         }
@@ -94,6 +97,7 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
 
         holder.product_name.setText(productBean.getModel());
         holder.brand.setText(productBean.getBrand());
+        holder.rqty.setText(productBean.getRqty() +"/"+ productBean.getRqtyType());
         ArrayList<String> urls = new Gson().fromJson(productBean.image, (Type) List.class);
         Glide.with(mainActivityUser)
                 .load(AppConfig.getResizedImage(urls.get(0), true))

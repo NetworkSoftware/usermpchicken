@@ -9,13 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import pro.network.jsbroilers.product.ProductBean;
+import pro.network.jsbroilers.product.ProductListBean;
 
 import java.util.List;
 
 public class SearchProdcutAdapter extends RecyclerView.Adapter<SearchProdcutAdapter.SearchProductView> {
 
-    private List<ProductBean> searchList;
+    private List<ProductListBean> searchList;
 
     public class SearchProductView extends RecyclerView.ViewHolder {
         public TextView title;
@@ -27,7 +27,7 @@ public class SearchProdcutAdapter extends RecyclerView.Adapter<SearchProdcutAdap
     }
 
 
-    public SearchProdcutAdapter(List<ProductBean> searchList) {
+    public SearchProdcutAdapter(List<ProductListBean> searchList) {
         this.searchList = searchList;
     }
 
@@ -42,7 +42,7 @@ public class SearchProdcutAdapter extends RecyclerView.Adapter<SearchProdcutAdap
 
     @Override
     public void onBindViewHolder(SearchProductView holder, int position) {
-        ProductBean ss = searchList.get(position);
+        ProductListBean ss = searchList.get(position);
         holder.title.setText(ss.getName());
     }
 

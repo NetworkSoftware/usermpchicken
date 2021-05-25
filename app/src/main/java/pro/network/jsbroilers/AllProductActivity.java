@@ -127,6 +127,8 @@ public class AllProductActivity extends BaseActivity implements ProductItemClick
                             productListBean.setModel(jsonObject.getString("model"));
                             productListBean.setImage(jsonObject.getString("image"));
                             productListBean.setDescription(jsonObject.getString("description"));
+                            productListBean.setRqtyType(jsonObject.getString("rqtyType"));
+                            productListBean.setRqty(jsonObject.getString("rqty"));
                             productListBean.setStock_update(jsonObject.getString("stock_update"));
                             productList.add(productListBean);
                         }

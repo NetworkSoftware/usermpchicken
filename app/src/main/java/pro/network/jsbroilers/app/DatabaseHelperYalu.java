@@ -49,7 +49,8 @@ public class DatabaseHelperYalu extends SQLiteOpenHelper {
     public boolean isInCartyalu(String id, String userid) {
         if (userid.length() > 0) {
             SQLiteDatabase db = this.getWritableDatabase();
-            String qry = "Select *  from " + ProductListBean.TABLE_NAME + " where " + ProductListBean.COLUMN_PRO_ID + " = " + id + " AND " + ProductListBean.USER_ID + " = '" + userid+"'";
+            String qry = "Select *  from " + ProductListBean.TABLE_NAME + " where " +
+                    ProductListBean.COLUMN_PRO_ID + " = " + id + " AND " + ProductListBean.USER_ID + " = '" + userid + "'";
             Cursor cursor = db.rawQuery(qry, null);
             cursor.moveToFirst();
             return cursor.getCount() > 0;
@@ -75,9 +76,11 @@ public class DatabaseHelperYalu extends SQLiteOpenHelper {
                 values.put(ProductListBean.COLUMN_PRO_ID, mainbean.getId());
                 values.put(ProductListBean.USER_ID, userId);
                 values.put(ProductListBean.COLUMN_CART, mainbean.getCart());
+                values.put(ProductListBean.COLUMN_RQTY_TYPE, mainbean.getRqtyType());
                 values.put(ProductListBean.COLUMN_BRAND, mainbean.getBrand());
                 values.put(ProductListBean.COLUMN_NAME, mainbean.getName());
                 values.put(ProductListBean.COLUMN_ROM, mainbean.getRom());
+                values.put(ProductListBean.COLUMN_RQTY, mainbean.getRqty());
                 values.put(ProductListBean.COLUMN_RAM, mainbean.getRam());
                 values.put(ProductListBean.COLUMN_PRICE, mainbean.getPrice());
                 values.put(ProductListBean.COLUMN_MODEL, mainbean.getModel());
@@ -103,56 +106,6 @@ public class DatabaseHelperYalu extends SQLiteOpenHelper {
         }
     }
 
-    public ProductListBean getproductbeanyalu(long id) {
-        // get readable database as we are not inserting anything
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.query(ProductListBean.TABLE_NAME,
-                new String[]{
-                        ProductListBean.COLUMN_ID,
-                        ProductListBean.COLUMN_CART,
-                        ProductListBean.COLUMN_BRAND,
-                        ProductListBean.COLUMN_NAME,
-                        ProductListBean.COLUMN_ROM,
-                        ProductListBean.COLUMN_RAM,
-                        ProductListBean.COLUMN_PRICE,
-                        ProductListBean.COLUMN_MODEL,
-                        ProductListBean.COLUMN_IMAGE,
-                        ProductListBean.COLUMN_DESCRIPTION,
-                        ProductListBean.COLUMN_QTY,
-                        ProductListBean.COLUMN_STOCKUPDATE
-
-
-                },
-                ProductListBean.COLUMN_ID + "=?",
-                new String[]{String.valueOf(id)}, null, null, null, null);
-
-        if (cursor != null)
-            cursor.moveToFirst();
-
-        // prepare Mainbean object
-        ProductListBean productListBean = new ProductListBean(
-                cursor.getString(cursor.getColumnIndex(ProductListBean.COLUMN_ID)),
-                cursor.getString(cursor.getColumnIndex(ProductListBean.USER_ID)),
-                cursor.getString(cursor.getColumnIndex(ProductListBean.COLUMN_CART)),
-                cursor.getString(cursor.getColumnIndex(ProductListBean.COLUMN_BRAND)),
-                cursor.getString(cursor.getColumnIndex(ProductListBean.COLUMN_NAME)),
-                cursor.getString(cursor.getColumnIndex(ProductListBean.COLUMN_ROM)),
-                cursor.getString(cursor.getColumnIndex(ProductListBean.COLUMN_RAM)),
-                cursor.getString(cursor.getColumnIndex(ProductListBean.COLUMN_PRICE)),
-                cursor.getString(cursor.getColumnIndex(ProductListBean.COLUMN_MODEL)),
-                cursor.getString(cursor.getColumnIndex(ProductListBean.COLUMN_DESCRIPTION)),
-                cursor.getString(cursor.getColumnIndex(ProductListBean.COLUMN_QTY)),
-                cursor.getString(cursor.getColumnIndex(ProductListBean.COLUMN_STOCKUPDATE))
-
-
-        );
-
-        // close the db connection
-        cursor.close();
-
-        return productListBean;
-    }
 
     public ArrayList<ProductListBean> getAllMainbeansyalu(String userid) {
         if (userid.length() <= 0) {
@@ -161,7 +114,7 @@ public class DatabaseHelperYalu extends SQLiteOpenHelper {
         ArrayList<ProductListBean> productListBeans = new ArrayList<>();
 
 
-        String selectQuery = "SELECT  * FROM " + ProductListBean.TABLE_NAME + " WHERE " + ProductListBean.USER_ID + " = '" + userid+"'";
+        String selectQuery = "SELECT  * FROM " + ProductListBean.TABLE_NAME + " WHERE " + ProductListBean.USER_ID + " = '" + userid + "'";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -177,14 +130,14 @@ public class DatabaseHelperYalu extends SQLiteOpenHelper {
                 productListBean.setName(cursor.getString(cursor.getColumnIndex(ProductListBean.COLUMN_NAME)));
                 productListBean.setRom(cursor.getString(cursor.getColumnIndex(ProductListBean.COLUMN_ROM)));
                 productListBean.setRam(cursor.getString(cursor.getColumnIndex(ProductListBean.COLUMN_RAM)));
+                productListBean.setRqty(cursor.getString(cursor.getColumnIndex(ProductListBean.COLUMN_RQTY)));
                 productListBean.setPrice(cursor.getString(cursor.getColumnIndex(ProductListBean.COLUMN_PRICE)));
                 productListBean.setModel(cursor.getString(cursor.getColumnIndex(ProductListBean.COLUMN_MODEL)));
                 productListBean.setImage(cursor.getString(cursor.getColumnIndex(ProductListBean.COLUMN_IMAGE)));
                 productListBean.setDescription(cursor.getString(cursor.getColumnIndex(ProductListBean.COLUMN_DESCRIPTION)));
                 productListBean.setQty(cursor.getString(cursor.getColumnIndex(ProductListBean.COLUMN_QTY)));
                 productListBean.setStock_update(cursor.getString(cursor.getColumnIndex(ProductListBean.COLUMN_STOCKUPDATE)));
-
-
+                productListBean.setRqtyType(cursor.getString(cursor.getColumnIndex(ProductListBean.COLUMN_RQTY_TYPE)));
                 productListBeans.add(productListBean);
             } while (cursor.moveToNext());
         }
@@ -197,10 +150,10 @@ public class DatabaseHelperYalu extends SQLiteOpenHelper {
     }
 
     public int getCartCountYalu(String userId) {
-        if(userId==null || userId.length()<=0){
+        if (userId == null || userId.length() <= 0) {
             return 0;
         }
-        String countQuery = "SELECT  * FROM " + ProductListBean.TABLE_NAME + " WHERE " + ProductListBean.USER_ID + " = '" + userId+"'";
+        String countQuery = "SELECT  * FROM " + ProductListBean.TABLE_NAME + " WHERE " + ProductListBean.USER_ID + " = '" + userId + "'";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
 
@@ -222,12 +175,14 @@ public class DatabaseHelperYalu extends SQLiteOpenHelper {
         values.put(ProductListBean.COLUMN_BRAND, mainbean.getBrand());
         values.put(ProductListBean.COLUMN_NAME, mainbean.getName());
         values.put(ProductListBean.COLUMN_ROM, mainbean.getRom());
+        values.put(ProductListBean.COLUMN_RQTY, mainbean.getRqty());
         values.put(ProductListBean.COLUMN_RAM, mainbean.getRam());
         values.put(ProductListBean.COLUMN_PRICE, mainbean.getPrice());
         values.put(ProductListBean.COLUMN_MODEL, mainbean.getModel());
         values.put(ProductListBean.COLUMN_IMAGE, mainbean.getImage());
         values.put(ProductListBean.COLUMN_DESCRIPTION, mainbean.getDescription());
         values.put(ProductListBean.COLUMN_QTY, mainbean.getQty());
+        values.put(ProductListBean.COLUMN_RQTY_TYPE, mainbean.getRqtyType());
 
 
         // updating row
@@ -237,7 +192,7 @@ public class DatabaseHelperYalu extends SQLiteOpenHelper {
 
     public void deleteMainbeanyalu(ProductListBean productListBean, String userid) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(ProductListBean.TABLE_NAME, productListBean.COLUMN_PRO_ID + " = ? AND " + ProductListBean.USER_ID + " = ?",
+        db.delete(ProductListBean.TABLE_NAME, ProductListBean.COLUMN_PRO_ID + " = ? AND " + ProductListBean.USER_ID + " = ?",
                 new String[]{productListBean.getId(), userid});
         db.close();
     }

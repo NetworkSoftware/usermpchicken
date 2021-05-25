@@ -5,13 +5,14 @@ import java.io.Serializable;
 public class ProductListBean implements Serializable {
     public static final String TABLE_NAME = "jsbroilers";
     public static final String COLUMN_PRO_ID = "proid";
-
     public static final String COLUMN_ID = "id";
     public static final String USER_ID = "userId";
     public static final String COLUMN_CART = "cart";
+    public static final String COLUMN_RQTY_TYPE = "rqtyType";
     public static final String COLUMN_BRAND = "brand";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_ROM = "rom";
+    public static final String COLUMN_RQTY = "rqty";
     public static final String COLUMN_RAM = "ram";
     public static final String COLUMN_PRICE = "price";
     public static final String COLUMN_MODEL = "model";
@@ -19,6 +20,8 @@ public class ProductListBean implements Serializable {
     public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_QTY = "qty";
     public static final String COLUMN_STOCKUPDATE = "stock_update";
+    public static final String COLUMN_CATEGORY = "category";
+
 
 
     // Create table SQL query
@@ -30,6 +33,7 @@ public class ProductListBean implements Serializable {
                     + COLUMN_CART + " cart,"
                     + COLUMN_BRAND + " brand,"
                     + COLUMN_NAME + " name,"
+                    + COLUMN_RQTY + " rqty,"
                     + COLUMN_ROM + " rom,"
                     + COLUMN_RAM + " ram,"
                     + COLUMN_PRICE + " price,"
@@ -37,7 +41,9 @@ public class ProductListBean implements Serializable {
                     + COLUMN_IMAGE + " image,"
                     + COLUMN_DESCRIPTION + " description,"
                     + COLUMN_QTY + " qty,"
-                    + COLUMN_STOCKUPDATE + " stock_update"
+                    + COLUMN_STOCKUPDATE + " stock_update,"
+                    + COLUMN_CATEGORY + " category,"
+                    + COLUMN_RQTY_TYPE + " rqtyType"
                     + ")";
 
     public String id;
@@ -51,15 +57,20 @@ public class ProductListBean implements Serializable {
     public String price;
     public String model;
     public String image;
+    public String rqty;
     public String description;
     public String qty;
     public String stock_update;
-
+    public String category;
+    public String rqtyType;
+    public String expressStock;
 
     public ProductListBean() {
     }
 
-    public ProductListBean(String userId, String cart, String brand, String name, String rom, String ram, String price, String model, String image, String description, String qty,String stock_update) {
+    public ProductListBean(String userId, String cart, String brand, String rqty, String name, String rom, String ram,
+                           String price, String model, String image, String description, String qty, String stock_update,
+                           String category, String rqtyType) {
         this.userId = userId;
         this.cart = cart;
         this.brand = brand;
@@ -68,10 +79,36 @@ public class ProductListBean implements Serializable {
         this.ram = ram;
         this.price = price;
         this.model = model;
+        this.rqty = rqty;
         this.image = image;
         this.description = description;
         this.qty = qty;
-        this.stock_update=stock_update;
+        this.stock_update = stock_update;
+        this.category = category;
+        this.rqtyType = rqtyType;
+    }
+
+
+    public ProductListBean(String userId, String cart, String rqty, String brand, String name, String rom, String ram, String price,
+                           String model, String image, String description, String qty, String stock_update, String category) {
+        this.userId = userId;
+        this.cart = cart;
+        this.brand = brand;
+        this.name = name;
+        this.rom = rom;
+        this.rqty = rqty;
+        this.ram = ram;
+        this.price = price;
+        this.model = model;
+        this.image = image;
+        this.description = description;
+        this.qty = qty;
+        this.stock_update = stock_update;
+        this.category = category;
+    }
+
+    public static String getColumnRqty() {
+        return COLUMN_RQTY;
     }
 
     public static String getTableName() {
@@ -88,6 +125,78 @@ public class ProductListBean implements Serializable {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public static String getColumnCart() {
+        return COLUMN_CART;
+    }
+
+    public static String getColumnBrand() {
+        return COLUMN_BRAND;
+    }
+
+    public static String getColumnName() {
+        return COLUMN_NAME;
+    }
+
+    public static String getColumnRom() {
+        return COLUMN_ROM;
+    }
+
+    public static String getColumnRam() {
+        return COLUMN_RAM;
+    }
+
+    public static String getColumnPrice() {
+        return COLUMN_PRICE;
+    }
+
+    public static String getColumnModel() {
+        return COLUMN_MODEL;
+    }
+
+    public static String getColumnImage() {
+        return COLUMN_IMAGE;
+    }
+
+    public static String getCreateTable() {
+        return CREATE_TABLE;
+    }
+
+    public static String getColumnProId() {
+        return COLUMN_PRO_ID;
+    }
+
+    public static String getColumnDescription() {
+        return COLUMN_DESCRIPTION;
+    }
+
+    public static String getColumnQty() {
+        return COLUMN_QTY;
+    }
+
+    public static String getColumnStockupdate() {
+        return COLUMN_STOCKUPDATE;
+    }
+
+    public static String getColumnCategory() {
+        return COLUMN_CATEGORY;
+    }
+
+    public String getRqtyType() {
+        return rqtyType;
+    }
+
+    public void setRqtyType(String rqtyType) {
+        this.rqtyType = rqtyType;
+    }
+
+    public String getRqty() {
+        return rqty;
+    }
+
+    public void setRqty(String rqty) {
+        this.rqty = rqty;
     }
 
     public String getCart() {
@@ -154,60 +263,12 @@ public class ProductListBean implements Serializable {
         this.image = image;
     }
 
-    public static String getColumnCart() {
-        return COLUMN_CART;
-    }
-
-    public static String getColumnBrand() {
-        return COLUMN_BRAND;
-    }
-
-    public static String getColumnName() {
-        return COLUMN_NAME;
-    }
-
-    public static String getColumnRom() {
-        return COLUMN_ROM;
-    }
-
-    public static String getColumnRam() {
-        return COLUMN_RAM;
-    }
-
-    public static String getColumnPrice() {
-        return COLUMN_PRICE;
-    }
-
-    public static String getColumnModel() {
-        return COLUMN_MODEL;
-    }
-
-    public static String getColumnImage() {
-        return COLUMN_IMAGE;
-    }
-
-    public static String getCreateTable() {
-        return CREATE_TABLE;
-    }
-
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public static String getColumnProId() {
-        return COLUMN_PRO_ID;
-    }
-
-    public static String getColumnDescription() {
-        return COLUMN_DESCRIPTION;
-    }
-
-    public static String getColumnQty() {
-        return COLUMN_QTY;
     }
 
     public String getDescription() {
@@ -226,13 +287,27 @@ public class ProductListBean implements Serializable {
         this.qty = qty;
     }
 
-    public static String getColumnStockupdate() {
-        return COLUMN_STOCKUPDATE;
-    }
     public String getStock_update() {
         return stock_update;
     }
+
     public void setStock_update(String stock_update) {
         this.stock_update = stock_update;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getExpressStock() {
+        return expressStock;
+    }
+
+    public void setExpressStock(String expressStock) {
+        this.expressStock = expressStock;
     }
 }
