@@ -139,33 +139,6 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
         if (sharedpreferences.contains(AppConfig.address)) {
             address.setText(sharedpreferences.getString(AppConfig.address, ""));
         }
-
-        title.setText("* Do you want to confirm this order? If yes Order will be Placed and WeBring admin will contact you shortly.");
-        dialogBuilder.setTitle("Alert")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (address.getText().toString().length() > 0) {
-                            SharedPreferences.Editor editor = sharedpreferences.edit();
-                            editor.putString(AppConfig.address, address.getText().toString());
-                            editor.commit();
-                        } else if (cod.isChecked()) {
-                            orderpage(address.getText().toString());
-                        }else if (upi.isChecked()) {
-                            showBottomupi();
-
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Enter valid address", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                })
-
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                    }
-                });
         cod.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -188,11 +161,40 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
                 }
             }
         });
+        title.setText("* Do you want to confirm this order? If yes Order will be Placed and WeBring admin will contact you shortly.");
+        dialogBuilder.setTitle("Alert")
+
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (address.getText().toString().length() > 0 && cod.isChecked()) {
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+                            editor.putString(AppConfig.address, address.getText().toString());
+                            editor.commit();
+                            orderpage(address.getText().toString());
+                            dialog.cancel();
+                        }else if (upi.isChecked()) {
+                            showBottomupi();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Enter valid address", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+
         dialogBuilder.setView(dialogView);
         final AlertDialog b = dialogBuilder.create();
         b.setCancelable(false);
         b.show();
     }
+
+
 
     private void showBottomDialog() {
         final RoundedBottomSheetDialog mBottomSheetDialog = new RoundedBottomSheetDialog(CartActivity.this);
