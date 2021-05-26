@@ -106,9 +106,6 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
                 .load(AppConfig.getResizedImage(urls.get(0), true))
                 .into(holder.product_image);
         holder.product_rupee_final.setText("Rs." + productBean.getPrice());
-//        float total = Float.parseFloat(productBean.price) * Integer.parseInt(productBean.getQty());
-//        holder.product_total_price.setText(productBean.getQty() + " * " + (productBean.price));
-    //    holder.product_price.setText("₹" + decimalFormat.format(total) + ".00");
 
 
         holder.cart.setOnClickListener(new View.OnClickListener() {
