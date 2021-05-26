@@ -82,6 +82,14 @@ public class SettingsActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+        ((LinearLayout) findViewById(R.id.contactus2)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel: 919043535953"));
+                startActivity(intent);
+            }
+        });
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

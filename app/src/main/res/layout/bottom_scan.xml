@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,49 +20,67 @@
     <ImageView
         android:id="@+id/scan"
         android:layout_width="match_parent"
-        android:layout_height="550dp"
+        android:layout_height="400dp"
         android:layout_margin="30dp"
         android:scaleType="fitCenter"
         android:src="@drawable/scan" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/copyClip"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:fontFamily="@font/sans"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="9790294942@okbizaxis"
+        android:textAllCaps="false"
+        app:icon="@drawable/ic_outline_file_copy_24"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        app:strokeColor="@color/colorPrimary" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/paid"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:fontFamily="@font/sans"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="20dp"
             android:layout_weight="1"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
+            android:fontFamily="@font/sans"
             android:gravity="center"
-            app:strokeColor="@color/colorPrimary"
             android:includeFontPadding="false"
-            android:text="Paid"
+            android:text="பணம்\nசெலுத்திவிட்டேன்"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:strokeColor="@color/colorPrimary" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/cancel"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_gravity="center"
+            android:layout_margin="5dp"
             android:fontFamily="@font/sans"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
             android:gravity="center"
-            app:strokeColor="@color/colorPrimary"
             android:includeFontPadding="false"
             android:text="Cancel"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:strokeColor="@color/colorPrimary" />
 
 
     </LinearLayout>

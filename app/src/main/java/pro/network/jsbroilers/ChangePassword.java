@@ -50,8 +50,8 @@ public class ChangePassword extends BaseActivity {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (newpassword.getText().toString().length() < 8) {
-                    showToast("Password minimum 8 characters needed");
+                if (newpassword.getText().toString().length() < 4) {
+                    showToast("Password minimum 4 characters needed");
                 } else if (!newpassword.getText().toString().equals(newCpassword.getText().toString())) {
                     showToast("Password not match");
                 } else if (username.getText().toString().length() > 0 && password.getText().toString().length() > 0) {

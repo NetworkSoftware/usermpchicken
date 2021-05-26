@@ -105,11 +105,23 @@
             android:layout_gravity="center"
             android:backgroundTint="@color/gray"
             android:fontFamily="@font/sans"
-            android:inputType="text"
+            android:inputType="number"
             android:textColorHint="#c6c6c6"
             android:textSize="15dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_margin="10dp"
+        android:clickable="true"
+        android:fontFamily="@font/sans"
+        android:gravity="left"
+        android:text=" பாஸ்வேர்டை மறந்துவிடாதீர்கள்.எழுதி வைத்துக் கொள்ளவும்."
+        android:visibility="visible"
+        android:textColor="@color/colorTex"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -59,24 +59,18 @@ public class BannerActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
 
-                if (getCallingActivity() != null &&
-                        getCallingActivity().getPackageName().equals("pro.network.webring")) {
-                    try {
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse("http://api.whatsapp.com/send?phone=+919744915106"
-                                + "&text=" + "Hi WeBring, I would like buy this " + getIntent().getStringExtra("description") + " Place"));
-                        intent.setPackage("com.whatsapp.w4b");
-                        startActivity(intent);
-                    } catch (ActivityNotFoundException e) {
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse("http://api.whatsapp.com/send?phone=+919744915106"
-                                + "&text=" + "Hi WeBring, I would like buy this " + getIntent().getStringExtra("description") + " Place"));
-                        intent.setPackage("com.whatsapp");
-                        startActivity(intent);
-                    } catch (Exception e) {
-                        Toast.makeText(getApplicationContext(), "Whatsapp Not found", Toast.LENGTH_SHORT).show();
-                    }
-
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse("http://api.whatsapp.com/send?phone=919790294942"
+                            + "&text=" + "Hi"));
+                    intent.setPackage("com.whatsapp.w4b");
+                    startActivity(intent);
+                } catch (ActivityNotFoundException e) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse("http://api.whatsapp.com/send?phone=919790294942"
+                            + "&text=" + "Hi"));
+                    intent.setPackage("com.whatsapp");
+                    startActivity(intent);
                 }
 
             }

@@ -1,9 +1,14 @@
 package pro.network.jsbroilers.cart;
 
 import android.app.ProgressDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -195,7 +200,7 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
     private void showBottomDialog() {
         final RoundedBottomSheetDialog mBottomSheetDialog = new RoundedBottomSheetDialog(CartActivity.this);
         LayoutInflater inflater = CartActivity.this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.bottomsheet, null);
+        View dialogView = inflater.inflate(R.layout.bottom_sheet_layout, null);
 
 
         final TextInputEditText username = dialogView.findViewById(R.id.username);
@@ -276,6 +281,7 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
         final ImageView scan = dialogView.findViewById(R.id.scan);
         final Button paid = dialogView.findViewById(R.id.paid);
         final Button cancel = dialogView.findViewById(R.id.cancel);
+        final Button copyClip = dialogView.findViewById(R.id.copyClip);
         paid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -286,6 +292,16 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
             @Override
             public void onClick(View v) {
                 mBottomSheetDialog.cancel();
+            }
+        });
+        copyClip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("UPI id", copyClip.getText().toString());
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(CartActivity.this, copyClip.getText().toString() + " Copied",
+                        Toast.LENGTH_SHORT).show();
             }
         });
 

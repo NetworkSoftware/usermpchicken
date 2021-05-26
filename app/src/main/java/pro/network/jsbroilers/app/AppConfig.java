@@ -201,7 +201,7 @@ public class  AppConfig {
 
     public static boolean checkReturnExpired(String time) {
         try {
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy hh:mm", Locale.ENGLISH);
             df.setTimeZone(TimeZone.getTimeZone("UTC"));
             Calendar c = Calendar.getInstance();
             c.setTime(df.parse(time));
