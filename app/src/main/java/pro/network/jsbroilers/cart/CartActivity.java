@@ -31,17 +31,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-
-import pro.network.jsbroilers.R;
-import pro.network.jsbroilers.app.AppConfig;
-import pro.network.jsbroilers.app.AppController;
-import pro.network.jsbroilers.app.DatabaseHelperYalu;
-
-
-import pro.network.jsbroilers.orders.MyOrderListAdapter;
-import pro.network.jsbroilers.orders.MyorderBean;
-import pro.network.jsbroilers.product.ProductListBean;
-
 import com.deishelon.roundedbottomsheet.RoundedBottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -58,6 +47,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import pro.network.jsbroilers.R;
+import pro.network.jsbroilers.app.AppConfig;
+import pro.network.jsbroilers.app.AppController;
+import pro.network.jsbroilers.app.DatabaseHelperYalu;
+import pro.network.jsbroilers.orders.MyOrderListAdapter;
+import pro.network.jsbroilers.orders.MyorderBean;
+import pro.network.jsbroilers.product.ProductListBean;
+
 import static pro.network.jsbroilers.app.AppConfig.ORDER_CREATE;
 import static pro.network.jsbroilers.app.AppConfig.REGISTER_USER;
 import static pro.network.jsbroilers.app.AppConfig.decimalFormat;
@@ -66,18 +63,12 @@ import static pro.network.jsbroilers.app.AppConfig.user_id;
 
 public class CartActivity extends AppCompatActivity implements CartItemClick {
 
-    public interface OnCartItemChange {
-        void onCartChange();
-    }
-
-    private List<MyorderBean> myorderBeans = new ArrayList<>();
+    private final List<MyorderBean> myorderBeans = new ArrayList<>();
+    private final String TAG = getClass().getSimpleName();
     MyOrderListAdapter myOrderListAdapter;
     RecyclerView cart_list;
-    private List<ProductListBean> productList = new ArrayList<>();
     CartListAdapter cartListAdapter;
     ProgressDialog pDialog;
-    private String TAG = getClass().getSimpleName();
-    private DatabaseHelperYalu db;
     TextView total;
     Button order;
     View view;
@@ -86,6 +77,8 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
     CardView continueCard;
     LinearLayout empty_product;
     SharedPreferences sharedpreferences;
+    private List<ProductListBean> productList = new ArrayList<>();
+    private DatabaseHelperYalu db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,6 +132,8 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
         if (sharedpreferences.contains(AppConfig.address)) {
             address.setText(sharedpreferences.getString(AppConfig.address, ""));
         }
+        upi.setChecked(true);
+
         cod.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -161,40 +156,41 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
                 }
             }
         });
-        title.setText("* Do you want to confirm this order? If yes Order will be Placed and WeBring admin will contact you shortly.");
-        dialogBuilder.setTitle("Alert")
-
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (address.getText().toString().length() > 0 && cod.isChecked()) {
-                            SharedPreferences.Editor editor = sharedpreferences.edit();
-                            editor.putString(AppConfig.address, address.getText().toString());
-                            editor.commit();
-                            orderpage(address.getText().toString());
-                            dialog.cancel();
-                        }else if (upi.isChecked()) {
-                            showBottomupi();
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Enter valid address", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                })
-
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                    }
-                });
-
+        title.setText("* Do you want to confirm this order? If yes Order will be Placed and Js broilers admin will contact you shortly.");
+        dialogBuilder.setPositiveButton("Yes", null);
+        dialogBuilder.setNegativeButton("Cancel", null);
+        dialogBuilder.setTitle("Alert");
         dialogBuilder.setView(dialogView);
         final AlertDialog b = dialogBuilder.create();
         b.setCancelable(false);
         b.show();
+        Button positive = b.getButton(AlertDialog.BUTTON_POSITIVE);
+        positive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (address.getText().toString().length() > 0) {
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putString(AppConfig.address, address.getText().toString());
+                    editor.commit();
+                    if (cod.isChecked()) {
+                        orderpage(address.getText().toString());
+                    } else {
+                        showBottomupi();
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Enter valid address", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        Button negative = b.getButton(AlertDialog.BUTTON_NEGATIVE);
+        negative.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                b.cancel();
+            }
+        });
+
     }
-
-
 
     private void showBottomDialog() {
         final RoundedBottomSheetDialog mBottomSheetDialog = new RoundedBottomSheetDialog(CartActivity.this);
@@ -271,6 +267,7 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
         });
         mBottomSheetDialog.show();
     }
+
     private void showBottomupi() {
         final RoundedBottomSheetDialog mBottomSheetDialog = new RoundedBottomSheetDialog(CartActivity.this);
         LayoutInflater inflater = CartActivity.this.getLayoutInflater();
@@ -279,18 +276,18 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
         final ImageView scan = dialogView.findViewById(R.id.scan);
         final Button paid = dialogView.findViewById(R.id.paid);
         final Button cancel = dialogView.findViewById(R.id.cancel);
-paid.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        orderpage(AppConfig.address.toString());
-    }
-});
-cancel.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        mBottomSheetDialog.cancel();
-    }
-});
+        paid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                orderpage(AppConfig.address);
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBottomSheetDialog.cancel();
+            }
+        });
 
         mBottomSheetDialog.setContentView(dialogView);
         mBottomSheetDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
@@ -470,6 +467,7 @@ cancel.setOnClickListener(new View.OnClickListener() {
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.putBoolean(AppConfig.isLogin, true);
                         editor.putString(AppConfig.configKey, username);
+                        editor.putString(AppConfig.phone, jObj.getString("phone"));
                         editor.putString(AppConfig.usernameKey, name);
                         editor.putString(AppConfig.auth_key, auth_key);
                         editor.putString(AppConfig.user_id, user_id);
@@ -558,6 +556,9 @@ cancel.setOnClickListener(new View.OnClickListener() {
         AppController.getInstance().addToRequestQueue(strReq);
     }
 
+    public interface OnCartItemChange {
+        void onCartChange();
+    }
 
 
 }

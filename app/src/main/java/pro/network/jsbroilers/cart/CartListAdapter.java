@@ -12,10 +12,6 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import pro.network.jsbroilers.R;
-import pro.network.jsbroilers.app.AppConfig;
-import pro.network.jsbroilers.product.ProductListBean;
-
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
@@ -23,36 +19,20 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import pro.network.jsbroilers.R;
+import pro.network.jsbroilers.app.AppConfig;
+import pro.network.jsbroilers.product.ProductListBean;
+
 import static pro.network.jsbroilers.app.AppConfig.decimalFormat;
 
 
 public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.MyViewHolder> {
 
-    private Context mainActivityUser;
-    private List<ProductListBean> productBeans;
-    SharedPreferences preferences;
     public CartItemClick cartItemClick;
+    SharedPreferences preferences;
     int selectedPosition = 0;
-
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-
-        private ImageView product_image, minus, plus;
-        private TextView product_name, product_price, product_total_price, quantity;
-        LinearLayout delete;
-
-        public MyViewHolder(View view) {
-            super((view));
-            product_image = (ImageView) view.findViewById(R.id.product_image);
-            product_name = (TextView) view.findViewById(R.id.product_name);
-            product_price = view.findViewById(R.id.product_price);
-            product_total_price = view.findViewById(R.id.product_total_price);
-            minus = view.findViewById(R.id.minus);
-            plus = view.findViewById(R.id.plus);
-            quantity = view.findViewById(R.id.quantity);
-            delete = view.findViewById(R.id.delete);
-
-        }
-    }
+    private final Context mainActivityUser;
+    private List<ProductListBean> productBeans;
 
     public CartListAdapter(Context mainActivityUser, List<ProductListBean> productBeans, CartItemClick cartItemClick) {
         this.mainActivityUser = mainActivityUser;
@@ -93,7 +73,8 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.MyView
         }
 
         float total = Float.parseFloat(productBean.price) * Integer.parseInt(productBean.getQty());
-        holder.product_total_price.setText(productBean.getQty() + " * " + (productBean.price));
+        holder.product_total_price.setText(productBean.getQty() + " * " + "₹" + productBean.getPrice() + "/" +
+                productBean.getRqty() + " " + productBean.getRqtyType());
         holder.product_price.setText("₹" + decimalFormat.format(total) + ".00");
 
         holder.quantity.setText(productBean.getQty());
@@ -146,6 +127,31 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.MyView
 
     public int getItemCount() {
         return productBeans.size();
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+
+        LinearLayout delete;
+        private final ImageView product_image;
+        private final ImageView minus;
+        private final ImageView plus;
+        private final TextView product_name;
+        private final TextView product_price;
+        private final TextView product_total_price;
+        private final TextView quantity;
+
+        public MyViewHolder(View view) {
+            super((view));
+            product_image = (ImageView) view.findViewById(R.id.product_image);
+            product_name = (TextView) view.findViewById(R.id.product_name);
+            product_price = view.findViewById(R.id.product_price);
+            product_total_price = view.findViewById(R.id.product_total_price);
+            minus = view.findViewById(R.id.minus);
+            plus = view.findViewById(R.id.plus);
+            quantity = view.findViewById(R.id.quantity);
+            delete = view.findViewById(R.id.delete);
+
+        }
     }
 
 }

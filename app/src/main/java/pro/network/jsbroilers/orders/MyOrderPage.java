@@ -1,6 +1,5 @@
 package pro.network.jsbroilers.orders;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -22,12 +21,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-
-import pro.network.jsbroilers.R;
-import pro.network.jsbroilers.app.AppController;
-import pro.network.jsbroilers.app.BaseActivity;
-import pro.network.jsbroilers.product.ProductListBean;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -43,26 +36,26 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import pro.network.jsbroilers.R;
 import pro.network.jsbroilers.app.AppConfig;
+import pro.network.jsbroilers.app.AppController;
+import pro.network.jsbroilers.app.BaseActivity;
+import pro.network.jsbroilers.product.ProductListBean;
 
 import static pro.network.jsbroilers.app.AppConfig.ORDER_CHANGE_STATUS;
 
 public class MyOrderPage extends BaseActivity implements ReturnOnClick {
-    private static final int FINE_LOCATION_CODE = 199;
-    ProgressDialog pDialog;
-
     RecyclerView myorders_list;
-    private ArrayList<MyorderBean> myorderBeans = new ArrayList<>();
     MyOrderListAdapter myOrderListAdapter;
     SharedPreferences sharedpreferences;
     NestedScrollView scroll;
     LinearLayout empty_product;
+    private ArrayList<MyorderBean> myorderBeans = new ArrayList<>();
 
     @Override
     protected void startDemo() {
         setContentView(R.layout.activity_myorder);
-        pDialog = new ProgressDialog(getApplicationContext());
-        pDialog.setCancelable(false);
+
         sharedpreferences = getApplicationContext().getSharedPreferences(AppConfig.mypreference, Context.MODE_PRIVATE);
 
         myorders_list = findViewById(R.id.myorders_list);
@@ -87,7 +80,7 @@ public class MyOrderPage extends BaseActivity implements ReturnOnClick {
                 AppConfig.ORDER_GET_ALL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("Register Response: ", response.toString());
+                Log.d("Register Response: ", response);
                 hideDialog();
                 try {
                     JSONObject jObj = new JSONObject(response);
@@ -182,11 +175,12 @@ public class MyOrderPage extends BaseActivity implements ReturnOnClick {
         TextView title = dialogView.findViewById(R.id.title);
         final TextInputEditText address = dialogView.findViewById(R.id.address);
         address.setHint("Reason for return");
-
+        LinearLayout radioLayout = dialogView.findViewById(R.id.radioLayout);
+        radioLayout.setVisibility(View.GONE);
         final TextInputLayout addressText = dialogView.findViewById(R.id.addressText);
         addressText.setHint("Reason for return");
 
-        title.setText("* Do you want to return this order? If yes Order will be returned and Spirtual admin will contact you shortly.");
+        title.setText("* Do you want to return this order? If yes Order will be returned and JS broilers admin will contact you shortly.");
         dialogBuilder.setTitle("Alert")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
@@ -218,7 +212,7 @@ public class MyOrderPage extends BaseActivity implements ReturnOnClick {
                 ORDER_CHANGE_STATUS, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("Register Response: ", response.toString());
+                Log.d("Register Response: ", response);
                 try {
                     JSONObject jObj = new JSONObject(response);
                     int success = jObj.getInt("success");

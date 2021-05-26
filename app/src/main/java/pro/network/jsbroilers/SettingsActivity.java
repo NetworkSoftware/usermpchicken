@@ -53,7 +53,6 @@ public class SettingsActivity extends BaseActivity {
     TextView userNameHeader, phoneNameHeader;
     Button login, logout;
     LinearLayout loginLayout;
-    ProgressDialog pDialog;
     DatabaseHelperYalu db;
     private SharedPreferences sharedpreferences;
 
@@ -202,7 +201,6 @@ public class SettingsActivity extends BaseActivity {
         String tag_string_req = "req_register";
         pDialog.setMessage("Login ...");
         showDialog();
-        // showDialog();
         StringRequest strReq = new StringRequest(Request.Method.POST, AppConfig.LOGIN_USER, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -218,12 +216,14 @@ public class SettingsActivity extends BaseActivity {
 
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.putBoolean(AppConfig.isLogin, true);
+                        editor.putString(AppConfig.phone, jObj.getString("phone"));
                         editor.putString(AppConfig.configKey, username);
                         editor.putString(AppConfig.usernameKey, name);
                         editor.putString(AppConfig.auth_key, auth_key);
                         editor.putString(AppConfig.user_id, user_id);
                         editor.commit();
                         mBottomSheetDialog.dismiss();
+                        changeHeaderContent();
                     }
                     Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
 

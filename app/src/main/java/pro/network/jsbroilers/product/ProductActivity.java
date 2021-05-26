@@ -17,12 +17,6 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import pro.network.jsbroilers.R;
-import pro.network.jsbroilers.app.AppConfig;
-import pro.network.jsbroilers.app.BaseActivity;
-import pro.network.jsbroilers.app.DatabaseHelperYalu;
-import pro.network.jsbroilers.cart.CartActivity;
-
 import com.bumptech.glide.Glide;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -36,17 +30,21 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import pro.network.jsbroilers.R;
+import pro.network.jsbroilers.app.AppConfig;
+import pro.network.jsbroilers.app.BaseActivity;
+import pro.network.jsbroilers.app.DatabaseHelperYalu;
+import pro.network.jsbroilers.cart.CartActivity;
+
 import static pro.network.jsbroilers.app.AppConfig.mypreference;
 
 public class ProductActivity extends BaseActivity implements ViewClick {
-    private DatabaseHelperYalu db;
-    SharedPreferences sharedpreferences;
     public ArrayList<ProductListBean> productBeans;
-
+    SharedPreferences sharedpreferences;
     TextView product_price, product_descrpition, product_name;
-
     ExtendedFloatingActionButton cart;
     int currentImage = 0;
+    private DatabaseHelperYalu db;
     private PhotoView photoView;
     private RecyclerView baseList;
     private AttachmentViewAdapter attachmentBaseAdapter;
@@ -97,27 +95,27 @@ public class ProductActivity extends BaseActivity implements ViewClick {
         cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-                productBean.setQty("1");
-                long insert = db.insertMainbeanyalu(productBean, sharedpreferences.getString(AppConfig.user_id, ""));
-                if (insert == 1) {
-                    Toast.makeText(getApplicationContext(), "Item added successfully", Toast.LENGTH_SHORT).show();
+                if (db.isInCartyalu(productBean.id, sharedpreferences.getString(AppConfig.user_id, ""))) {
                     startActivity(new Intent(ProductActivity.this, CartActivity.class));
                     finish();
                 } else {
-                    Toast.makeText(getApplication(), getString(R.string.sign), Toast.LENGTH_SHORT).show();
-
+                    productBean.setQty("1");
+                    long insert = db.insertMainbeanyalu(productBean, sharedpreferences.getString(AppConfig.user_id, ""));
+                    if (insert == 1) {
+                        Toast.makeText(getApplicationContext(), "Item added successfully", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(ProductActivity.this, CartActivity.class));
+                        finish();
+                    } else {
+                        Toast.makeText(getApplication(), getString(R.string.sign), Toast.LENGTH_SHORT).show();
+                    }
                 }
-
-
             }
         });
 
         if (db.isInCartyalu(productBean.id, sharedpreferences.getString(AppConfig.user_id, ""))) {
-            cart.setVisibility(View.GONE);
+            cart.setText("Go to cart");
         } else {
-            cart.setVisibility(View.VISIBLE);
+            cart.setText("Add to cart");
         }
 
 
@@ -133,9 +131,19 @@ public class ProductActivity extends BaseActivity implements ViewClick {
                 .into(photoView);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // User clicked on a menu option in the app bar overflow menu
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private class UploadFileToServer extends AsyncTask<String, Integer, Bitmap> {
-        String filepath;
         public long totalSize = 0;
+        String filepath;
 
         @Override
         protected void onPreExecute() {
@@ -147,7 +155,7 @@ public class ProductActivity extends BaseActivity implements ViewClick {
 
         @Override
         protected void onProgressUpdate(Integer... progress) {
-            pDialog.setMessage("Uploading..." + (String.valueOf(progress[0])));
+            pDialog.setMessage("Uploading..." + (progress[0]));
         }
 
         @Override
@@ -201,16 +209,6 @@ public class ProductActivity extends BaseActivity implements ViewClick {
             super.onPostExecute(bitmap);
         }
 
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // User clicked on a menu option in the app bar overflow menu
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-        }
-        return super.onOptionsItemSelected(item);
     }
 
 

@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
@@ -37,20 +36,17 @@ import pro.network.jsbroilers.app.AppController;
 import pro.network.jsbroilers.app.BaseActivity;
 import pro.network.jsbroilers.app.DatabaseHelperYalu;
 import pro.network.jsbroilers.cart.CartActivity;
-import pro.network.jsbroilers.chip.CategoryAdapter;
 import pro.network.jsbroilers.chip.ChipAdapter;
 import pro.network.jsbroilers.chip.ChipBean;
 import pro.network.jsbroilers.chip.OnChip;
 import pro.network.jsbroilers.product.ProductActivity;
 import pro.network.jsbroilers.product.ProductItemClick;
-import pro.network.jsbroilers.product.ProductListAdapter;
 import pro.network.jsbroilers.product.ProductListBean;
 import pro.network.jsbroilers.product.SingleProductAdapter;
 
-import static pro.network.jsbroilers.app.AppConfig.GET_ALL_CATEGORIES;
-
 public class AllProductActivity extends BaseActivity implements ProductItemClick, OnChip {
     private final String TAG = getClass().getSimpleName();
+    private final ArrayList<ChipBean> chipBeans = new ArrayList<>();
     ProgressDialog pDialog;
     RecyclerView recycler_product;
     SingleProductAdapter productListAdapter;
@@ -62,7 +58,6 @@ public class AllProductActivity extends BaseActivity implements ProductItemClick
     private List<ProductListBean> productList = new ArrayList<>();
     private SearchView searchView;
     private TextView cart_badge, title;
-    private ArrayList<ChipBean> chipBeans = new ArrayList<>();
     private String selectedType = "COMBO PACK";
     private ImageView bannerImage;
 
@@ -184,7 +179,19 @@ public class AllProductActivity extends BaseActivity implements ProductItemClick
 
     @Override
     public void OnQuantityChange(int position, int qty) {
-
+        if (qty <= 0) {
+            db.deleteMainbeanyalu(productList.get(position)
+                    , sharedpreferences.getString(AppConfig.user_id, ""));
+        } else {
+            productList.get(position).setQty(qty + "");
+            db.insertMainbeanyalu(productList.get(position),
+                    sharedpreferences.getString(AppConfig.user_id, ""));
+            if (onCartItemChange != null) {
+                onCartItemChange.onCartChange();
+            }
+        }
+        setupBadge();
+        productListAdapter.notifyData(productList);
     }
 
     @Override

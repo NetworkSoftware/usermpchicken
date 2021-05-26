@@ -6,9 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import pro.network.jsbroilers.product.ProductListBean;
-
 import java.util.ArrayList;
+
+import pro.network.jsbroilers.product.ProductListBean;
 
 
 /**
@@ -21,7 +21,7 @@ public class DatabaseHelperYalu extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     // Database Name
-    private static final String DATABASE_NAME ="jsbroilers";
+    private static final String DATABASE_NAME = "jsbroilers";
 
 
     public DatabaseHelperYalu(Context context) {
@@ -59,12 +59,29 @@ public class DatabaseHelperYalu extends SQLiteOpenHelper {
         }
     }
 
+
+    public String getQuantityInCart(String id, String userid) {
+        if (userid.length() > 0) {
+            SQLiteDatabase db = this.getWritableDatabase();
+            String qry = "Select *  from " + ProductListBean.TABLE_NAME + " where " +
+                    ProductListBean.COLUMN_PRO_ID + " = " + id + " AND " + ProductListBean.USER_ID + " = '" + userid + "'";
+            Cursor cursor = db.rawQuery(qry, null);
+            cursor.moveToFirst();
+            return cursor.getString(cursor.getColumnIndex(ProductListBean.COLUMN_QTY));
+        } else {
+            return "1";
+        }
+
+    }
+
     public long insertMainbeanyalu(ProductListBean mainbean, String userId) {
         if (userId.length() > 0) {
 
 
             if (isInCartyalu(mainbean.id, userId)) {
-                mainbean.setQty("1");
+                if (mainbean.getQty() == null || mainbean.getQty().equalsIgnoreCase("null")) {
+                    mainbean.setQty("1");
+                }
                 updateMainbeanyalu(mainbean, userId);
             } else {
                 // get writable database as we want to write data

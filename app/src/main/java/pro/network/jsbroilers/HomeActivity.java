@@ -143,7 +143,7 @@ public class HomeActivity extends BaseActivity implements ProductItemClick , OnC
                         chipBeans = new ArrayList<>();
                         for (int i = 0; i < jsonArray.length(); i++) {
                             chipBeans.add(new ChipBean(jsonArray.getJSONObject(i)
-                                    .getString("title").toUpperCase(),
+                                    .getString("title"),
                                     jsonArray.getJSONObject(i).getString("image")));
                         }
                         categoryAdapter.notifyData(chipBeans);

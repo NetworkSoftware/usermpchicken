@@ -69,7 +69,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:hint="Phone/Name"
+        android:hint="Phone number"
         app:errorEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -79,7 +79,7 @@
             android:layout_gravity="center"
             android:backgroundTint="@color/gray"
             android:fontFamily="@font/sans"
-            android:inputType="text"
+            android:inputType="number"
             android:text=""
             android:textColorHint="#c6c6c6"
             android:textSize="15dp" />
@@ -128,6 +128,7 @@
             android:includeFontPadding="false"
             android:padding="5dp"
             android:text="Forgot Password"
+            android:visibility="gone"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold" />
