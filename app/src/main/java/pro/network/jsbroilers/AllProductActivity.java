@@ -34,7 +34,7 @@ import java.util.Map;
 import pro.network.jsbroilers.app.AppConfig;
 import pro.network.jsbroilers.app.AppController;
 import pro.network.jsbroilers.app.BaseActivity;
-import pro.network.jsbroilers.app.DatabaseHelperYalu;
+import pro.network.jsbroilers.app.DbCart;
 import pro.network.jsbroilers.cart.CartActivity;
 import pro.network.jsbroilers.chip.ChipAdapter;
 import pro.network.jsbroilers.chip.ChipBean;
@@ -54,7 +54,7 @@ public class AllProductActivity extends BaseActivity implements ProductItemClick
     CartActivity.OnCartItemChange onCartItemChange;
     RecyclerView recycler_chips;
     ChipAdapter chipAdapter;
-    private DatabaseHelperYalu db;
+    private DbCart db;
     private List<ProductListBean> productList = new ArrayList<>();
     private SearchView searchView;
     private TextView cart_badge, title;
@@ -71,7 +71,7 @@ public class AllProductActivity extends BaseActivity implements ProductItemClick
         edit.putString(AppConfig.userId, sharedpreferences.getString(AppConfig.user_id, ""));
         edit.commit();
 
-        db = new DatabaseHelperYalu(getApplicationContext());
+        db = new DbCart(getApplicationContext());
         recycler_product = findViewById(R.id.recycler_product);
         productList = new ArrayList<>();
         productListAdapter = new SingleProductAdapter(getApplicationContext(), productList, this, sharedpreferences);
@@ -155,7 +155,7 @@ public class AllProductActivity extends BaseActivity implements ProductItemClick
 
     private void addToCart(ProductListBean productListBean) {
         productListBean.setQty("1");
-        db.insertMainbeanyalu(productListBean, sharedpreferences.getString(AppConfig.user_id, ""));
+        db.insertProductInCart(productListBean, sharedpreferences.getString(AppConfig.user_id, ""));
         Toast.makeText(getApplication(), "Item added successfully", Toast.LENGTH_SHORT).show();
         if (onCartItemChange != null) {
             onCartItemChange.onCartChange();
@@ -180,11 +180,11 @@ public class AllProductActivity extends BaseActivity implements ProductItemClick
     @Override
     public void OnQuantityChange(int position, int qty) {
         if (qty <= 0) {
-            db.deleteMainbeanyalu(productList.get(position)
+            db.deleteProductById(productList.get(position)
                     , sharedpreferences.getString(AppConfig.user_id, ""));
         } else {
             productList.get(position).setQty(qty + "");
-            db.insertMainbeanyalu(productList.get(position),
+            db.insertProductInCart(productList.get(position),
                     sharedpreferences.getString(AppConfig.user_id, ""));
             if (onCartItemChange != null) {
                 onCartItemChange.onCartChange();

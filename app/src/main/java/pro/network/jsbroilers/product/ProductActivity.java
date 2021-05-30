@@ -33,7 +33,7 @@ import java.util.List;
 import pro.network.jsbroilers.R;
 import pro.network.jsbroilers.app.AppConfig;
 import pro.network.jsbroilers.app.BaseActivity;
-import pro.network.jsbroilers.app.DatabaseHelperYalu;
+import pro.network.jsbroilers.app.DbCart;
 import pro.network.jsbroilers.cart.CartActivity;
 
 import static pro.network.jsbroilers.app.AppConfig.mypreference;
@@ -44,7 +44,7 @@ public class ProductActivity extends BaseActivity implements ViewClick {
     TextView product_price, product_descrpition, product_name;
     ExtendedFloatingActionButton cart;
     int currentImage = 0;
-    private DatabaseHelperYalu db;
+    private DbCart db;
     private PhotoView photoView;
     private RecyclerView baseList;
     private AttachmentViewAdapter attachmentBaseAdapter;
@@ -60,7 +60,7 @@ public class ProductActivity extends BaseActivity implements ViewClick {
         StrictMode.setThreadPolicy(policy);
 
 
-        db = new DatabaseHelperYalu(this);
+        db = new DbCart(this);
         sharedpreferences = this.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
 
 
@@ -95,12 +95,12 @@ public class ProductActivity extends BaseActivity implements ViewClick {
         cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (db.isInCartyalu(productBean.id, sharedpreferences.getString(AppConfig.user_id, ""))) {
+                if (db.isInCart(productBean.id, sharedpreferences.getString(AppConfig.user_id, ""))) {
                     startActivity(new Intent(ProductActivity.this, CartActivity.class));
                     finish();
                 } else {
                     productBean.setQty("1");
-                    long insert = db.insertMainbeanyalu(productBean, sharedpreferences.getString(AppConfig.user_id, ""));
+                    long insert = db.insertProductInCart(productBean, sharedpreferences.getString(AppConfig.user_id, ""));
                     if (insert == 1) {
                         Toast.makeText(getApplicationContext(), "Item added successfully", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(ProductActivity.this, CartActivity.class));
@@ -112,7 +112,7 @@ public class ProductActivity extends BaseActivity implements ViewClick {
             }
         });
 
-        if (db.isInCartyalu(productBean.id, sharedpreferences.getString(AppConfig.user_id, ""))) {
+        if (db.isInCart(productBean.id, sharedpreferences.getString(AppConfig.user_id, ""))) {
             cart.setText("Go to cart");
         } else {
             cart.setText("Add to cart");

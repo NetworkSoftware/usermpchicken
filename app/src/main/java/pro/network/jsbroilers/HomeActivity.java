@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,10 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
@@ -25,7 +21,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapRecyclerView;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.network.moeidbannerlibrary.banner.BannerBean;
 import com.network.moeidbannerlibrary.banner.BannerLayout;
@@ -43,7 +38,7 @@ import java.util.Map;
 import pro.network.jsbroilers.app.AppConfig;
 import pro.network.jsbroilers.app.AppController;
 import pro.network.jsbroilers.app.BaseActivity;
-import pro.network.jsbroilers.app.DatabaseHelperYalu;
+import pro.network.jsbroilers.app.DbCart;
 import pro.network.jsbroilers.cart.CartActivity;
 import pro.network.jsbroilers.chip.CategoryAdapter;
 import pro.network.jsbroilers.chip.ChipBean;
@@ -55,17 +50,14 @@ import pro.network.jsbroilers.product.ProductActivity;
 import pro.network.jsbroilers.product.ProductItemClick;
 import pro.network.jsbroilers.product.ProductListAdapter;
 import pro.network.jsbroilers.product.ProductListBean;
-import pro.network.jsbroilers.recentproducts.CategoryProduct;
-import pro.network.jsbroilers.recentproducts.CategoryWiseProductAdapter;
 
 import static pro.network.jsbroilers.app.AppConfig.CATEGORIES_GET_ALL;
-import static pro.network.jsbroilers.app.AppConfig.mypreference;
 
 public class HomeActivity extends BaseActivity implements ProductItemClick , OnChip {
 
     ProgressDialog pDialog;
     private String TAG = getClass().getSimpleName();
-    private DatabaseHelperYalu db;
+    private DbCart db;
     RecyclerView recycler_product;
     private List<CategoryBeen> categoryList = new ArrayList<>();
     CartActivity.OnCartItemChange onCartItemChange;
@@ -94,10 +86,10 @@ public class HomeActivity extends BaseActivity implements ProductItemClick , OnC
         if (sharedpreferences.contains(AppConfig.usernameKey)) {
             getSupportActionBar().setSubtitle(sharedpreferences.getString(AppConfig.usernameKey, ""));
         }
-        db = new DatabaseHelperYalu(getApplicationContext());
+        db = new DbCart(getApplicationContext());
         recycler_product = findViewById(R.id.recycler_product);
         categoryProgress = findViewById(R.id.categoryProgress);
-        db = new DatabaseHelperYalu(getApplicationContext());
+        db = new DbCart(getApplicationContext());
         categoryList = new ArrayList<>();
         fetchBanner();
         showCategories();
@@ -290,7 +282,7 @@ public class HomeActivity extends BaseActivity implements ProductItemClick , OnC
 
     private void addtocart(ProductListBean productListBean) {
         productListBean.setQty("1");
-        db.insertMainbeanyalu(productListBean, sharedpreferences.getString(AppConfig.user_id, ""));
+        db.insertProductInCart(productListBean, sharedpreferences.getString(AppConfig.user_id, ""));
         Toast.makeText(getApplication(), "Item added successfully", Toast.LENGTH_SHORT).show();
         if (onCartItemChange != null) {
             onCartItemChange.onCartChange();

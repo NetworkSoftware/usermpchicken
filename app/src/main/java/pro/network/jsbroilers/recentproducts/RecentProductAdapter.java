@@ -21,7 +21,7 @@ import java.util.List;
 
 import pro.network.jsbroilers.R;
 import pro.network.jsbroilers.app.AppConfig;
-import pro.network.jsbroilers.app.DatabaseHelperYalu;
+import pro.network.jsbroilers.app.DbCart;
 import pro.network.jsbroilers.product.ProductItemClick;
 import pro.network.jsbroilers.product.ProductListBean;
 
@@ -31,7 +31,7 @@ public class RecentProductAdapter extends RecyclerView.Adapter<RecentProductAdap
     public ProductItemClick productItemClick;
     SharedPreferences preferences;
     int selectedPosition = 0;
-    DatabaseHelperYalu databaseHelper;
+    DbCart databaseHelper;
     SharedPreferences sharedpreferences;
     private List<ProductListBean> productBeans;
 
@@ -41,7 +41,7 @@ public class RecentProductAdapter extends RecyclerView.Adapter<RecentProductAdap
         this.productBeans = productBeans;
         this.productItemClick = productItemClick;
         sharedpreferences = mainActivityUser.getSharedPreferences(AppConfig.mypreference, Context.MODE_PRIVATE);
-        databaseHelper = new DatabaseHelperYalu(mainActivityUser);
+        databaseHelper = new DbCart(mainActivityUser);
     }
 
     public void notifyData(List<ProductListBean> productBeans) {
@@ -87,7 +87,7 @@ public class RecentProductAdapter extends RecyclerView.Adapter<RecentProductAdap
                 //do nothing
             }
         });
-        if (databaseHelper.isInCartyalu(productBean.id, sharedpreferences.getString(AppConfig.user_id, ""))) {
+        if (databaseHelper.isInCart(productBean.id, sharedpreferences.getString(AppConfig.user_id, ""))) {
             holder.cart.setVisibility(View.GONE);
         } else {
             holder.cart.setVisibility(View.VISIBLE);

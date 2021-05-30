@@ -15,7 +15,7 @@ import pro.network.jsbroilers.product.ProductListBean;
  * Created by ravi on 15/03/18.
  */
 
-public class DatabaseHelperYalu extends SQLiteOpenHelper {
+public class DbCart extends SQLiteOpenHelper {
 
     // Database Version
     private static final int DATABASE_VERSION = 1;
@@ -24,7 +24,7 @@ public class DatabaseHelperYalu extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "jsbroilers";
 
 
-    public DatabaseHelperYalu(Context context) {
+    public DbCart(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -46,7 +46,7 @@ public class DatabaseHelperYalu extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean isInCartyalu(String id, String userid) {
+    public boolean isInCart(String id, String userid) {
         if (userid.length() > 0) {
             SQLiteDatabase db = this.getWritableDatabase();
             String qry = "Select *  from " + ProductListBean.TABLE_NAME + " where " +
@@ -74,15 +74,15 @@ public class DatabaseHelperYalu extends SQLiteOpenHelper {
 
     }
 
-    public long insertMainbeanyalu(ProductListBean mainbean, String userId) {
+    public long insertProductInCart(ProductListBean mainbean, String userId) {
         if (userId.length() > 0) {
 
 
-            if (isInCartyalu(mainbean.id, userId)) {
+            if (isInCart(mainbean.id, userId)) {
                 if (mainbean.getQty() == null || mainbean.getQty().equalsIgnoreCase("null")) {
                     mainbean.setQty("1");
                 }
-                updateMainbeanyalu(mainbean, userId);
+                updateProductsInCart(mainbean, userId);
             } else {
                 // get writable database as we want to write data
                 SQLiteDatabase db = this.getWritableDatabase();
@@ -124,7 +124,7 @@ public class DatabaseHelperYalu extends SQLiteOpenHelper {
     }
 
 
-    public ArrayList<ProductListBean> getAllMainbeansyalu(String userid) {
+    public ArrayList<ProductListBean> getAllProductsInCart(String userid) {
         if (userid.length() <= 0) {
             return new ArrayList<>();
         }
@@ -182,7 +182,7 @@ public class DatabaseHelperYalu extends SQLiteOpenHelper {
         return count;
     }
 
-    public int updateMainbeanyalu(ProductListBean mainbean, String userId) {
+    public int updateProductsInCart(ProductListBean mainbean, String userId) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -207,14 +207,14 @@ public class DatabaseHelperYalu extends SQLiteOpenHelper {
                 new String[]{mainbean.getId(), userId});
     }
 
-    public void deleteMainbeanyalu(ProductListBean productListBean, String userid) {
+    public void deleteProductById(ProductListBean productListBean, String userid) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(ProductListBean.TABLE_NAME, ProductListBean.COLUMN_PRO_ID + " = ? AND " + ProductListBean.USER_ID + " = ?",
                 new String[]{productListBean.getId(), userid});
         db.close();
     }
 
-    public void deleteAllyalu(String userid) {
+    public void deleteAllInCart(String userid) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(ProductListBean.TABLE_NAME, ProductListBean.USER_ID + " = ?",
                 new String[]{userid});

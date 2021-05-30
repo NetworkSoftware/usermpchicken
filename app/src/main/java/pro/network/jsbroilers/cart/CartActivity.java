@@ -5,10 +5,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -55,7 +52,7 @@ import java.util.Map;
 import pro.network.jsbroilers.R;
 import pro.network.jsbroilers.app.AppConfig;
 import pro.network.jsbroilers.app.AppController;
-import pro.network.jsbroilers.app.DatabaseHelperYalu;
+import pro.network.jsbroilers.app.DbCart;
 import pro.network.jsbroilers.orders.MyOrderListAdapter;
 import pro.network.jsbroilers.orders.MyorderBean;
 import pro.network.jsbroilers.product.ProductListBean;
@@ -83,7 +80,7 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
     LinearLayout empty_product;
     SharedPreferences sharedpreferences;
     private List<ProductListBean> productList = new ArrayList<>();
-    private DatabaseHelperYalu db;
+    private DbCart db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +88,7 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
         setContentView(R.layout.activity_cart);
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
-        db = new DatabaseHelperYalu(this);
+        db = new DbCart(this);
         sharedpreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
 
         cart_list = findViewById(R.id.cart_list);
@@ -326,7 +323,7 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
 
     private void getAllCart() {
         productList.clear();
-        productList = db.getAllMainbeansyalu(sharedpreferences.getString(user_id, ""));
+        productList = db.getAllProductsInCart(sharedpreferences.getString(user_id, ""));
         float grandTotal = 0f;
         for (int i = 0; i < productList.size(); i++) {
             String qty = productList.get(i).qty;
@@ -375,8 +372,8 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
                     boolean success = jsonObject.getBoolean("success");
                     String msg = jsonObject.getString("message");
                     if (success) {
-                        db.deleteAllyalu("guest");
-                        db.deleteAllyalu(sharedpreferences.getString(user_id, ""));
+                        db.deleteAllInCart("guest");
+                        db.deleteAllInCart(sharedpreferences.getString(user_id, ""));
                         finish();
                     }
                     Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
@@ -432,7 +429,7 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
     public void OnQuantityChange(int position, int qty) {
 
         productList.get(position).setQty(qty + "");
-        db.updateMainbeanyalu(productList.get(position), sharedpreferences.getString(user_id, ""));
+        db.updateProductsInCart(productList.get(position), sharedpreferences.getString(user_id, ""));
         if (onCartItemChange != null) {
             onCartItemChange.onCartChange();
         }
@@ -442,7 +439,7 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
 
     @Override
     public void ondeleteClick(int position) {
-        db.deleteMainbeanyalu(productList.get(position), sharedpreferences.getString(user_id, ""));
+        db.deleteProductById(productList.get(position), sharedpreferences.getString(user_id, ""));
         productList.remove(position);
         cartListAdapter.notifyData(position);
         Toast.makeText(getApplication(), "Deleted Successfully", Toast.LENGTH_SHORT).show();
@@ -488,6 +485,13 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
                         editor.putString(AppConfig.auth_key, auth_key);
                         editor.putString(AppConfig.user_id, user_id);
                         editor.commit();
+
+                        ArrayList<ProductListBean> productListTemp = db.getAllProductsInCart("guest");
+                        for (int k = 0; k < productListTemp.size(); k++) {
+                            db.insertProductInCart(productListTemp.get(k), user_id);
+                        }
+                        db.deleteAllInCart("guest");
+
                         mBottomSheetDialog.dismiss();
                         new Handler().postDelayed(new Runnable() {
                             @Override

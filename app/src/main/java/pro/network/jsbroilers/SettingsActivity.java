@@ -9,8 +9,6 @@ import android.net.Uri;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -38,8 +36,7 @@ import java.util.Map;
 import pro.network.jsbroilers.app.AppConfig;
 import pro.network.jsbroilers.app.AppController;
 import pro.network.jsbroilers.app.BaseActivity;
-import pro.network.jsbroilers.app.DatabaseHelperYalu;
-import pro.network.jsbroilers.cart.CartActivity;
+import pro.network.jsbroilers.app.DbCart;
 import pro.network.jsbroilers.product.ProductListBean;
 
 import static pro.network.jsbroilers.app.AppConfig.REGISTER_USER;
@@ -53,7 +50,7 @@ public class SettingsActivity extends BaseActivity {
     TextView userNameHeader, phoneNameHeader;
     Button login, logout;
     LinearLayout loginLayout;
-    DatabaseHelperYalu db;
+    DbCart db;
     private SharedPreferences sharedpreferences;
 
     @Override
@@ -64,7 +61,7 @@ public class SettingsActivity extends BaseActivity {
         login = findViewById(R.id.login);
         logout = findViewById(R.id.logout);
         loginLayout = findViewById(R.id.loginLayout);
-        db = new DatabaseHelperYalu(SettingsActivity.this);
+        db = new DbCart(SettingsActivity.this);
 
 
         logout.setOnClickListener(new View.OnClickListener() {
@@ -230,6 +227,13 @@ public class SettingsActivity extends BaseActivity {
                         editor.putString(AppConfig.auth_key, auth_key);
                         editor.putString(AppConfig.user_id, user_id);
                         editor.commit();
+
+                        ArrayList<ProductListBean> productListTemp = db.getAllProductsInCart("guest");
+                        for (int k = 0; k < productListTemp.size(); k++) {
+                            db.insertProductInCart(productListTemp.get(k), user_id);
+                        }
+                        db.deleteAllInCart("guest");
+
                         mBottomSheetDialog.dismiss();
                         changeHeaderContent();
                     }

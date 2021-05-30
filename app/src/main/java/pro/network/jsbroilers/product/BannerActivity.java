@@ -27,12 +27,12 @@ import java.net.URL;
 import pro.network.jsbroilers.R;
 import pro.network.jsbroilers.app.AppConfig;
 import pro.network.jsbroilers.app.BaseActivity;
-import pro.network.jsbroilers.app.DatabaseHelperYalu;
+import pro.network.jsbroilers.app.DbCart;
 
 import static pro.network.jsbroilers.app.AppConfig.mypreference;
 
 public class BannerActivity extends BaseActivity {
-    private DatabaseHelperYalu db;
+    private DbCart db;
     SharedPreferences sharedpreferences;
 
     TextView product_descrpition;
@@ -75,7 +75,7 @@ public class BannerActivity extends BaseActivity {
 
             }
         });
-        db = new DatabaseHelperYalu(this);
+        db = new DbCart(this);
         sharedpreferences = this.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
 
 

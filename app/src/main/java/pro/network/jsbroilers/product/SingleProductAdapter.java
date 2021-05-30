@@ -22,7 +22,7 @@ import java.util.List;
 
 import pro.network.jsbroilers.R;
 import pro.network.jsbroilers.app.AppConfig;
-import pro.network.jsbroilers.app.DatabaseHelperYalu;
+import pro.network.jsbroilers.app.DbCart;
 
 
 public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdapter.MyViewHolder> {
@@ -31,7 +31,7 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
     public ProductItemClick productItemClick;
     SharedPreferences preferences;
     int selectedPosition = 0;
-    DatabaseHelperYalu databaseHelper;
+    DbCart databaseHelper;
     SharedPreferences sharedpreferences;
     private List<ProductListBean> productBeans;
 
@@ -40,7 +40,7 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
         this.productBeans = productBeans;
         this.productItemClick = productItemClick;
         sharedpreferences = mainActivityUser.getSharedPreferences(AppConfig.mypreference, Context.MODE_PRIVATE);
-        databaseHelper = new DatabaseHelperYalu(mainActivityUser);
+        databaseHelper = new DbCart(mainActivityUser);
     }
 
     public void notifyData(List<ProductListBean> productBeans) {
@@ -117,7 +117,7 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
             }
         });
 
-        if (databaseHelper.isInCartyalu(productBean.id,
+        if (databaseHelper.isInCart(productBean.id,
                 sharedpreferences.getString(AppConfig.user_id, ""))) {
             holder.cart.setVisibility(View.GONE);
             holder.add_qty.setVisibility(View.VISIBLE);
