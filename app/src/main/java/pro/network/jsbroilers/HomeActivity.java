@@ -241,7 +241,7 @@ public class HomeActivity extends BaseActivity implements ProductItemClick , OnC
                             bannerBeans.add(bannerBean);
                         }
                         BaseBannerAdapter webBannerAdapter = new BaseBannerAdapter(getApplicationContext(), bannerBeans);
-                        webBannerAdapter.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
+                     /*   webBannerAdapter.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
                             @Override
                             public void onItemClick(BannerBean bannerBean) {
                                 Intent intent = new Intent(HomeActivity.this, BannerActivity.class);
@@ -249,7 +249,7 @@ public class HomeActivity extends BaseActivity implements ProductItemClick , OnC
                                 intent.putExtra("image", bannerBean.getImages());
                                 startActivityForResult(intent,100);
                             }
-                        });
+                        });*/
                         banner.setAdapter(webBannerAdapter);
 
                     } else {
