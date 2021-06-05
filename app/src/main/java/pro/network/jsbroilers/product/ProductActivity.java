@@ -41,7 +41,7 @@ import static pro.network.jsbroilers.app.AppConfig.mypreference;
 public class ProductActivity extends BaseActivity implements ViewClick {
     public ArrayList<ProductListBean> productBeans;
     SharedPreferences sharedpreferences;
-    TextView product_price, product_descrpition, product_name;
+    TextView product_price, product_descrpition, product_name,outOfStock;
     ExtendedFloatingActionButton cart;
     int currentImage = 0;
     private DbCart db;
@@ -67,6 +67,7 @@ public class ProductActivity extends BaseActivity implements ViewClick {
         product_name = findViewById(R.id.product_name);
         product_price = findViewById(R.id.product_price);
         product_descrpition = findViewById(R.id.product_descrpition);
+        outOfStock = findViewById(R.id.outOfStock);
 
         cart = findViewById(R.id.cart);
 
@@ -81,8 +82,14 @@ public class ProductActivity extends BaseActivity implements ViewClick {
                 .into(photoView);
         product_price.setText("Rs. " + productBean.getPrice());
         product_name.setText(productBean.getBrand());
-
-
+        outOfStock.setText(productBean.getStock_update());
+        if (productBean.getStock_update().equalsIgnoreCase("Currently Unavailable")) {
+            outOfStock.setVisibility(View.VISIBLE);
+            cart.setVisibility(View.GONE);
+        } else {
+            outOfStock.setVisibility(View.GONE);
+            cart.setVisibility(View.VISIBLE);
+        }
         product_descrpition.setText(productBean.getDescription());
 
         baseList = (RecyclerView) findViewById(R.id.attachmentList);

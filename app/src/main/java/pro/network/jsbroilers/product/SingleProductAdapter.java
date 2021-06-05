@@ -79,11 +79,11 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
             public void onClick(View v) {
                 productItemClick.onCartClick(productBean);
                 holder.quantity.setText(productBean.getQty());
-                if (productBean.getQty().equalsIgnoreCase("0")) {
+              /*  if (productBean.getQty().equalsIgnoreCase("0")) {
                     holder.add_qty.setVisibility(View.INVISIBLE);
                 } else {
                     holder.add_qty.setVisibility(View.VISIBLE);
-                }
+                }*/
             }
         });
 
@@ -104,10 +104,24 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
             }
         });
 
-        if (productBean.getStock_update().equalsIgnoreCase("In Stock")) {
+        if (databaseHelper.isInCart(productBean.id,
+                sharedpreferences.getString(AppConfig.user_id, ""))) {
+            holder.cart.setVisibility(View.GONE);
+            holder.add_qty.setVisibility(View.VISIBLE);
+            holder.quantity.setText(databaseHelper.getQuantityInCart(productBean.id,
+                    sharedpreferences.getString(AppConfig.user_id, "")));
+
+        } else if(productBean.getStock_update().equalsIgnoreCase("In Stock")) {
             holder.outOfStock.setVisibility(View.GONE);
-        } else {
+            holder.cart.setVisibility(View.VISIBLE);
+            holder.add_qty.setVisibility(View.GONE);
+        } else if(productBean.getStock_update().equalsIgnoreCase("Currently Unavailable")) {
             holder.outOfStock.setVisibility(View.VISIBLE);
+            holder.cart.setVisibility(View.GONE);
+            holder.add_qty.setVisibility(View.GONE);
+        }else {
+            holder.outOfStock.setVisibility(View.VISIBLE);
+            holder.cart.setVisibility(View.GONE);
         }
 
         holder.outOfStock.setOnClickListener(new View.OnClickListener() {
@@ -117,16 +131,6 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
             }
         });
 
-        if (databaseHelper.isInCart(productBean.id,
-                sharedpreferences.getString(AppConfig.user_id, ""))) {
-            holder.cart.setVisibility(View.GONE);
-            holder.add_qty.setVisibility(View.VISIBLE);
-            holder.quantity.setText(databaseHelper.getQuantityInCart(productBean.id,
-                    sharedpreferences.getString(AppConfig.user_id, "")));
-        } else {
-            holder.cart.setVisibility(View.VISIBLE);
-            holder.add_qty.setVisibility(View.GONE);
-        }
 
         holder.product_card.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,7 +160,7 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private final View outOfStock;
+        private final TextView outOfStock;
         private final CardView product_card;
         private final ImageView product_image;
         private final ImageView minus;
@@ -173,7 +177,7 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
             super((view));
             product_card = (CardView) view.findViewById(R.id.product_card);
             product_image = (ImageView) view.findViewById(R.id.product_image);
-            cart = view.findViewById(R.id.cart);
+            cart = view.findViewById(R.id.add_cart);
             product_name = (TextView) view.findViewById(R.id.product_name);
             rqty = (TextView) view.findViewById(R.id.rqty);
             quantity = (TextView) view.findViewById(R.id.quantity);

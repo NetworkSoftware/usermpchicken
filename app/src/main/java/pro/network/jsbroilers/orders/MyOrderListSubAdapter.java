@@ -65,7 +65,7 @@ public class MyOrderListSubAdapter extends RecyclerView.Adapter<MyOrderListSubAd
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         final ProductListBean myorderBean = myorderBeans.get(position);
 
-        holder.qty.setText(myorderBean.getQty() + " "+myorderBean.getBrand());
+        holder.qty.setText(myorderBean.getQty() + " "+myorderBean.getBrand()+" - "+myorderBean.getModel());
         Picasso.with(mainActivityUser)
                 .load(AppConfig.getResizedImage(myorderBean.getImage(), true))
                 .placeholder(R.drawable.vivo)

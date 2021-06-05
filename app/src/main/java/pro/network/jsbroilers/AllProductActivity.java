@@ -262,6 +262,7 @@ public class AllProductActivity extends BaseActivity implements ProductItemClick
         return super.onOptionsItemSelected(item);
     }
 
+
     private void setupBadge() {
         int cartCountYalu = db.getCartCountYalu(sharedpreferences.getString(AppConfig.user_id, ""));
         if (cart_badge != null) {

@@ -17,6 +17,7 @@ import pro.network.jsbroilers.app.AppConfig;
 import pro.network.jsbroilers.app.DbCart;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
 
 import java.lang.reflect.Type;
@@ -40,16 +41,16 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         private CardView product_card;
         private ImageView product_image;
         private TextView product_name, product_rupee_final;
-        LinearLayout cart;
+        MaterialButton cart;
 
         public MyViewHolder(View view) {
             super((view));
             product_card = (CardView) view.findViewById(R.id.product_card);
             product_image = (ImageView) view.findViewById(R.id.product_image);
-            cart = view.findViewById(R.id.cart);
+            cart = view.findViewById(R.id.add_cart);
             product_name = (TextView) view.findViewById(R.id.product_name);
             product_rupee_final = (TextView) view.findViewById(R.id.product_rupee_final);
-            outOfStock = view.findViewById(R.id.outOfStock);
+            outOfStock = (TextView) view.findViewById(R.id.outOfStock);
         }
     }
 
@@ -96,10 +97,12 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 productItemClick.onCartClick(productBean);
             }
         });
-        if (productBean.getStock_update().equalsIgnoreCase("In Stock")) {
-            holder.outOfStock.setVisibility(View.GONE);
-        } else {
+        if (productBean.getStock_update().equalsIgnoreCase("Currently Unavailable")) {
             holder.outOfStock.setVisibility(View.VISIBLE);
+            holder.cart.setVisibility(View.GONE);
+        } else {
+            holder.outOfStock.setVisibility(View.GONE);
+            holder.cart.setVisibility(View.VISIBLE);
         }
         holder.outOfStock.setOnClickListener(new View.OnClickListener() {
             @Override

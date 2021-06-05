@@ -78,8 +78,10 @@ public class RecentProductAdapter extends RecyclerView.Adapter<RecentProductAdap
         });
         if (productBean.getStock_update().equalsIgnoreCase("In Stock")) {
             holder.outOfStock.setVisibility(View.GONE);
+            holder.cart.setVisibility(View.VISIBLE);
         } else {
             holder.outOfStock.setVisibility(View.VISIBLE);
+            holder.cart.setVisibility(View.GONE);
         }
         holder.outOfStock.setOnClickListener(new View.OnClickListener() {
             @Override

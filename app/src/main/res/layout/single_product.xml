@@ -181,7 +181,7 @@
                             android:orientation="horizontal">
 
                             <com.google.android.material.button.MaterialButton
-                                android:id="@+id/cart"
+                                android:id="@+id/add_cart"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Add"
@@ -194,14 +194,18 @@
                                 app:iconTint="@color/colorPrimary" />
                         </LinearLayout>
                     </LinearLayout>
-
-                    <View
+                    <TextView
                         android:id="@+id/outOfStock"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:alpha="0.6"
-                        android:background="@color/gray"
-                        android:visibility="gone" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="10dp"
+                        android:gravity="center"
+                        android:visibility="gone"
+                        android:text="Currently Unavailable"
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
                 </LinearLayout>
 
 
