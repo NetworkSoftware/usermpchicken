@@ -5,6 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
+    android:backgroundTint="@color/white"
     app:cardCornerRadius="5dp"
     android:elevation="10dp"
     android:orientation="vertical">
@@ -19,17 +20,17 @@
             android:id="@+id/product_image"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_gravity="bottom"
+            android:layout_gravity="center"
             android:src="@drawable/vivo" />
 
         <TextView
             android:id="@+id/qty"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:gravity="center"
             android:text="4 items"
-            android:fontFamily="@font/sans"
             android:textColor="#000"
-            android:textSize="15dp" />
+            android:textSize="18dp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

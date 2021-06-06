@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,7 +45,6 @@ import pro.network.jsbroilers.chip.CategoryAdapter;
 import pro.network.jsbroilers.chip.ChipBean;
 import pro.network.jsbroilers.chip.OnChip;
 import pro.network.jsbroilers.orders.MyOrderPage;
-import pro.network.jsbroilers.product.BannerActivity;
 import pro.network.jsbroilers.product.CategoryBeen;
 import pro.network.jsbroilers.product.ProductActivity;
 import pro.network.jsbroilers.product.ProductItemClick;
@@ -53,24 +53,27 @@ import pro.network.jsbroilers.product.ProductListBean;
 
 import static pro.network.jsbroilers.app.AppConfig.CATEGORIES_GET_ALL;
 
-public class HomeActivity extends BaseActivity implements ProductItemClick , OnChip {
+public class HomeActivity extends BaseActivity implements ProductItemClick, OnChip {
 
     ProgressDialog pDialog;
-    private String TAG = getClass().getSimpleName();
-    private DbCart db;
     RecyclerView recycler_product;
-    private List<CategoryBeen> categoryList = new ArrayList<>();
     CartActivity.OnCartItemChange onCartItemChange;
     BannerLayout banner;
+    ProgressBar categoryProgress;
+    ArrayList<ChipBean> chipBeans = new ArrayList<>();
+    ProductListAdapter productListAdapter;
+    SharedPreferences sharedpreferences;
+    TextView description, title;
+    LinearLayout newsCard;
+    private final String TAG = getClass().getSimpleName();
+    private DbCart db;
+    private List<CategoryBeen> categoryList = new ArrayList<>();
     private List<ProductListBean> productList = new ArrayList<>();
     private TextView cart_badge;
     private CategoryAdapter categoryAdapter;
-    ProgressBar categoryProgress;
-    ArrayList<ChipBean> chipBeans = new ArrayList<>();
-    private ArrayList<ChipBean> category = new ArrayList<>();
-    ProductListAdapter productListAdapter;
-    SharedPreferences sharedpreferences;
+    private final ArrayList<ChipBean> category = new ArrayList<>();
     private FloatingActionButton phone;
+
     @Override
     protected void startDemo() {
         setContentView(R.layout.activity_home);
@@ -87,6 +90,10 @@ public class HomeActivity extends BaseActivity implements ProductItemClick , OnC
             getSupportActionBar().setSubtitle(sharedpreferences.getString(AppConfig.usernameKey, ""));
         }
         db = new DbCart(getApplicationContext());
+        description = findViewById(R.id.description);
+        newsCard = findViewById(R.id.newsCard);
+        title = findViewById(R.id.title);
+
         recycler_product = findViewById(R.id.recycler_product);
         categoryProgress = findViewById(R.id.categoryProgress);
         db = new DbCart(getApplicationContext());
@@ -107,8 +114,7 @@ public class HomeActivity extends BaseActivity implements ProductItemClick , OnC
 
     }
 
-    private void showCategories()
-    {
+    private void showCategories() {
         GravitySnapRecyclerView categoryRecyclerView = findViewById(R.id.categoryRecyclerView);
         final GridLayoutManager addManager1 = new GridLayoutManager(getApplication(), 2);
         categoryRecyclerView.setLayoutManager(addManager1);
@@ -118,6 +124,7 @@ public class HomeActivity extends BaseActivity implements ProductItemClick , OnC
         getAllCategories();
 
     }
+
     private void getAllCategories() {
         String tag_string_req = "req_register";
         categoryProgress.setVisibility(View.VISIBLE);
@@ -166,7 +173,7 @@ public class HomeActivity extends BaseActivity implements ProductItemClick , OnC
                 AppConfig.PRODUCT_GET_ALL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("Register Response: ", response.toString());
+                Log.d("Register Response: ", response);
                 try {
                     JSONObject jObj = new JSONObject(response);
                     int success = jObj.getInt("success");
@@ -223,7 +230,7 @@ public class HomeActivity extends BaseActivity implements ProductItemClick , OnC
                 AppConfig.BANNERS_GET_ALL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("Register Response: ", response.toString());
+                Log.d("Register Response: ", response);
                 try {
                     JSONObject jObj = new JSONObject(response);
                     int success = jObj.getInt("success");
@@ -241,16 +248,20 @@ public class HomeActivity extends BaseActivity implements ProductItemClick , OnC
                             bannerBeans.add(bannerBean);
                         }
                         BaseBannerAdapter webBannerAdapter = new BaseBannerAdapter(getApplicationContext(), bannerBeans);
-                     /*   webBannerAdapter.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
-                            @Override
-                            public void onItemClick(BannerBean bannerBean) {
-                                Intent intent = new Intent(HomeActivity.this, BannerActivity.class);
-                                intent.putExtra("description", bannerBean.getDescription());
-                                intent.putExtra("image", bannerBean.getImages());
-                                startActivityForResult(intent,100);
-                            }
-                        });*/
                         banner.setAdapter(webBannerAdapter);
+
+                        if (jObj.has("enabled") &&
+                                jObj.getString("enabled").equalsIgnoreCase("1")) {
+                            newsCard.setVisibility(View.VISIBLE);
+                            if(jObj.has("title")){
+                                title.setText(jObj.getString("title"));
+                            }
+                            if(jObj.has("descriptionAn")){
+                                description.setText(jObj.getString("descriptionAn"));
+                            }
+                        } else {
+                            newsCard.setVisibility(View.GONE);
+                        }
 
                     } else {
                         Toast.makeText(getApplication(), jObj.getString("message"), Toast.LENGTH_SHORT).show();
@@ -375,6 +386,7 @@ public class HomeActivity extends BaseActivity implements ProductItemClick , OnC
             }
         }
     }
+
     private void fetchProductList(final String searchKey) {
         String tag_string_req = "req_register";
         // showDialog();
@@ -382,7 +394,7 @@ public class HomeActivity extends BaseActivity implements ProductItemClick , OnC
                 AppConfig.PRODUCT_GET_ALL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("Register Response: ", response.toString());
+                Log.d("Register Response: ", response);
                 try {
                     JSONObject jObj = new JSONObject(response);
                     int success = jObj.getInt("success");
@@ -403,7 +415,7 @@ public class HomeActivity extends BaseActivity implements ProductItemClick , OnC
                             productListBean.setStock_update(jsonObject.getString("stock_update"));
                             productList.add(productListBean);
                         }
-                       } else {
+                    } else {
                         Toast.makeText(getApplication(), jObj.getString("message"), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
@@ -430,6 +442,7 @@ public class HomeActivity extends BaseActivity implements ProductItemClick , OnC
         strReq.setRetryPolicy(AppConfig.getPolicy());
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
+
     @Override
     protected void onStart() {
         super.onStart();

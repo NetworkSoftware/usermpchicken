@@ -2,6 +2,7 @@ package pro.network.jsbroilers.product;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,11 +80,6 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
             public void onClick(View v) {
                 productItemClick.onCartClick(productBean);
                 holder.quantity.setText(productBean.getQty());
-              /*  if (productBean.getQty().equalsIgnoreCase("0")) {
-                    holder.add_qty.setVisibility(View.INVISIBLE);
-                } else {
-                    holder.add_qty.setVisibility(View.VISIBLE);
-                }*/
             }
         });
 
@@ -104,6 +100,14 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
             }
         });
 
+        if(productBean.getStock_update().equalsIgnoreCase("Currently Unavailable")) {
+            holder.linearPro.setBackgroundColor(Color.parseColor("#b0afaf"));
+            holder.linearPro.setAlpha(0.5f);
+        }else {
+            holder.linearPro.setBackgroundColor(Color.parseColor("#ffffff"));
+            holder.linearPro.setAlpha(1f);
+        }
+
         if (databaseHelper.isInCart(productBean.id,
                 sharedpreferences.getString(AppConfig.user_id, ""))) {
             holder.cart.setVisibility(View.GONE);
@@ -111,31 +115,20 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
             holder.quantity.setText(databaseHelper.getQuantityInCart(productBean.id,
                     sharedpreferences.getString(AppConfig.user_id, "")));
 
-        } else if(productBean.getStock_update().equalsIgnoreCase("In Stock")) {
-            holder.outOfStock.setVisibility(View.GONE);
+        }else {
             holder.cart.setVisibility(View.VISIBLE);
             holder.add_qty.setVisibility(View.GONE);
-        } else if(productBean.getStock_update().equalsIgnoreCase("Currently Unavailable")) {
-            holder.outOfStock.setVisibility(View.VISIBLE);
-            holder.cart.setVisibility(View.GONE);
-            holder.add_qty.setVisibility(View.GONE);
-        }else {
-            holder.outOfStock.setVisibility(View.VISIBLE);
-            holder.cart.setVisibility(View.GONE);
+            holder.quantity.setText("0");
         }
 
-        holder.outOfStock.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //do nothing
-            }
-        });
 
 
         holder.product_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                productItemClick.onProductClick(productBean);
+                if(!productBean.getStock_update().equalsIgnoreCase("Currently Unavailable")) {
+                    productItemClick.onProductClick(productBean);
+                }
             }
         });
 
@@ -160,7 +153,6 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private final TextView outOfStock;
         private final CardView product_card;
         private final ImageView product_image;
         private final ImageView minus;
@@ -170,7 +162,7 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
         private final TextView brand;
         private final TextView quantity;
         private final TextView rqty;
-        private final LinearLayout add_qty;
+        private final LinearLayout add_qty,linearPro;
         MaterialButton cart;
 
         public MyViewHolder(View view) {
@@ -185,9 +177,9 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
             minus = view.findViewById(R.id.minus);
             plus = view.findViewById(R.id.plus);
             add_qty = view.findViewById(R.id.add_qty);
+            linearPro=view.findViewById(R.id.linearPro);
 
             product_rupee_final = (TextView) view.findViewById(R.id.product_rupee_final);
-            outOfStock = view.findViewById(R.id.outOfStock);
         }
     }
 

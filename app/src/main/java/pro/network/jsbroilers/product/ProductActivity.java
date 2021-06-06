@@ -80,9 +80,10 @@ public class ProductActivity extends BaseActivity implements ViewClick {
         Glide.with(ProductActivity.this)
                 .load(AppConfig.getResizedImage(urls.get(currentImage), false))
                 .into(photoView);
-        product_price.setText("Rs. " + productBean.getPrice());
+        product_price.setText("Rs. " + productBean.getPrice() +"/"+productBean.getRqty() + "" + productBean.getRqtyType());
         product_name.setText(productBean.getBrand());
         outOfStock.setText(productBean.getStock_update());
+
         if (productBean.getStock_update().equalsIgnoreCase("Currently Unavailable")) {
             outOfStock.setVisibility(View.VISIBLE);
             cart.setVisibility(View.GONE);
@@ -90,6 +91,7 @@ public class ProductActivity extends BaseActivity implements ViewClick {
             outOfStock.setVisibility(View.GONE);
             cart.setVisibility(View.VISIBLE);
         }
+
         product_descrpition.setText(productBean.getDescription());
 
         baseList = (RecyclerView) findViewById(R.id.attachmentList);
