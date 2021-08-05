@@ -234,7 +234,7 @@
                         android:layout_alignStart="@android:id/title"
                         android:layout_alignLeft="@android:id/title"
                         android:maxLines="10"
-                        android:text="(9790294942) 24/7 customer support"
+                        android:text="(9841778659) 24/7 customer support"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:textColor="?android:textColorSecondary"
                         android:typeface="sans" />
@@ -284,7 +284,7 @@
                         android:layout_alignStart="@android:id/title"
                         android:layout_alignLeft="@android:id/title"
                         android:maxLines="10"
-                        android:text="(9043535953) 24/7 customer support"
+                        android:text="(9841778659) 24/7 customer support"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:textColor="?android:textColorSecondary"
                         android:typeface="sans" />
@@ -305,7 +305,7 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="marquee"
                         android:singleLine="true"
-                        android:text="முகவரி"
+                        android:text="Address"
                         android:textAppearance="?attr/textAppearanceListItem"
                         android:textColor="?android:textColorPrimary" />
 
@@ -318,7 +318,7 @@
                         android:layout_alignStart="@android:id/title"
                         android:layout_alignLeft="@android:id/title"
                         android:maxLines="10"
-                        android:text="No 8,அகிம்சாபுரம்  6வது தெரு\n,செல்லூர் மார்க்கெட்,\nமதுரை 625002"
+                        android:text="No.32,Kakkan Nagar,1st Main Road,Adambakkam,Chennai - 600 088."
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:textColor="?android:textColorSecondary"
                         android:typeface="sans" />

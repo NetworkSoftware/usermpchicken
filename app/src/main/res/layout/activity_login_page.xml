@@ -170,7 +170,7 @@
         android:layout_gravity="top|center"
         android:layout_marginTop="90dp"
         android:backgroundTint="@color/white"
-        android:src="@drawable/jsbroilers"
+        android:src="@drawable/fresh_icon"
         android:visibility="visible" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

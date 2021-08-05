@@ -35,7 +35,7 @@
         android:layout_weight="0">
         <ImageView
             android:id="@+id/icon"
-            android:src="@drawable/jsbroilers"
+            android:src="@drawable/fresh_icon"
             android:layout_width="50dp"
             android:scaleType="centerCrop"
             android:layout_height="50dp"/>

@@ -29,7 +29,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/jsbroilers" />
+                    android:src="@drawable/fresh_icon" />
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
@@ -46,6 +46,7 @@
                         android:layout_gravity="center"
                         android:background="@color/colorPrimary"
                         android:gravity="center"
+                        android:visibility="gone"
                         android:orientation="horizontal">
 
                         <TextView
@@ -116,8 +117,8 @@
                     android:fontFamily="@font/sans"
                     android:gravity="center"
                     android:text="Rs.120.00"
-                    android:textColor="@color/black"
-                    android:textSize="17dp" />
+                    android:textColor="@color/colorTex"
+                    android:textSize="16dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="pro.network.jsbroilers">
+    package="pro.network.freshcatch">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -9,14 +9,14 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:name="pro.network.jsbroilers.app.AppController"
+        android:name="pro.network.freshcatch.app.AppController"
         android:allowBackup="true"
-        android:icon="@drawable/jsbroilers"
+        android:icon="@drawable/fresh_icon"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:networkSecurityConfig="@xml/network_security_config"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@drawable/jsbroilers"
+        android:roundIcon="@drawable/fresh_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
@@ -25,7 +25,7 @@
             android:required="false" />
 
         <activity
-            android:name="pro.network.jsbroilers.SplashActivity"
+            android:name="pro.network.freshcatch.SplashActivity"
             android:theme="@style/AppThemeNowhite">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,45 +34,49 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HomeActivity"
+            android:name="pro.network.freshcatch.HomeActivity"
             android:theme="@style/AppTheme" />
 
 
         <activity
-            android:name="pro.network.jsbroilers.ChangePassword"
+            android:name="pro.network.freshcatch.ChangePassword"
             android:theme="@style/AppTheme" />
 
         <activity
-            android:name="pro.network.jsbroilers.cart.CartActivity"
+            android:name="pro.network.freshcatch.cart.CartActivity"
             android:label="Cart"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="pro.network.jsbroilers.AllProductActivity"
+            android:name="pro.network.freshcatch.AllProductActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="pro.network.jsbroilers.orders.MyOrderPage"
+            android:name="pro.network.freshcatch.orders.MyOrderPage"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="pro.network.jsbroilers.product.ProductActivity"
+            android:name="pro.network.freshcatch.product.ProductActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="pro.network.jsbroilers.product.BannerActivity"
+            android:name="pro.network.freshcatch.product.BannerActivity"
             android:theme="@style/AppThemeImage" />
         <activity
-            android:name="pro.network.jsbroilers.SettingsActivity"
+            android:name="pro.network.freshcatch.SettingsActivity"
             android:label="Settings"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="pro.network.jsbroilers.ImageZoomActivity"
+            android:name="pro.network.freshcatch.ImageZoomActivity"
             android:theme="@style/AppThemeNowhite" />
 
         <meta-data
             android:name="com.razorpay.ApiKey"
             android:value="rzp_test_7fnnn7WTaard4h" />
-
+        <activity
+            android:name=".payment.PaymentActivity"
+            android:label="Payment"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
 
         <service
-            android:name="pro.network.jsbroilers.app.FirebaseMessageReceiver"
+            android:name="pro.network.freshcatch.app.FirebaseMessageReceiver"
             android:exported="false"
             android:stopWithTask="false">
             <intent-filter>

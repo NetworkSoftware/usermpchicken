@@ -11,10 +11,9 @@
 
 
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:background="@drawable/jsbroilers"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:background="@drawable/fresh_icon"
         android:foregroundGravity="center">
 
     </ImageView>

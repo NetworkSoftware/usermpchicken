@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">JS FRESH MEAT</string>
+    <string name="app_name">FRESH CATCH</string>
     <string name="products">View Products</string>
-    <string name="app_name_home">JS FRESH MEAT</string>
-    <string name="app_name_one">JS FRESH MEAT</string>
+    <string name="app_name_home">FRESH CATCH</string>
+    <string name="app_name_one">FRESH CATCH</string>
     <string name="submit">SUBMIT</string>
     <string name="cancel">CANCEL</string>
     <string name="locationPermissionAlert">Please Enable this permission to identify  your password and send to your mobile as SMS</string>

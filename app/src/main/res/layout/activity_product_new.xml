@@ -21,34 +21,37 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <com.github.chrisbanes.photoview.PhotoView
-                android:id="@+id/product_image"
-                android:layout_width="match_parent"
-                android:layout_margin="10dp"
-                android:layout_height="180dp"
-                android:layout_gravity="center"
-                android:scaleType="centerCrop"
-                android:background="#fff"
-                android:src="@drawable/vivo" />
-
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#f2f2f2"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/attachmentList"
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/pager"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="10dp" />
-            </LinearLayout>
+                    android:layout_height="320dp"
+                    android:layout_margin="5dp" />
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.shuhart.bubblepagerindicator.BubblePageIndicator
+                        android:id="@+id/indicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="290dp"
+                        android:layout_marginBottom="10dp"
+                        app:bpi_fillColor="@color/colorAccent"
+                        app:bpi_marginBetweenCircles="5dp"
+                        app:bpi_onSurfaceCount="@integer/default_bubble_indicator_on_surface_count"
+                        app:bpi_pageColor="@color/colorPrimary"
+                        app:bpi_radius="3dp"
+                        app:bpi_risingCount="@integer/default_bubble_indicator_rising_count" />
+
+                </RelativeLayout>
+            </FrameLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

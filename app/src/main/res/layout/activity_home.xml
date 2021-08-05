@@ -8,8 +8,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/corona">
+        android:layout_height="match_parent">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -35,11 +34,127 @@
                     app:showIndicator="true" />
 
 
+
+                <LinearLayout
+                    android:id="@+id/newsCard"
+                    android:visibility="visible"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:backgroundTint="#B3F57F17"
+                        android:elevation="10dp"
+                        app:cardCornerRadius="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:background="#B3F57F17"
+                            android:padding="5dp">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:padding="5dp"
+                                android:src="@drawable/news" />
+
+                            <TextView
+                                android:id="@+id/title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/sans"
+                                android:gravity="center"
+                                android:maxLines="2"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"
+                                android:text="Title"
+                                android:textColor="@color/white"
+                                android:textSize="18dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="10dp"
+                        android:fontFamily="@font/sans"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="5dp"
+                        android:text="Title"
+                        android:textColor="@color/colorTex"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:orientation="vertical">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="2dp"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:elevation="20dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_gravity="center"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/cuter"
+                                app:tint="@color/white" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="left"
+                                android:text="Explore by Category"
+                                android:textColor="@color/white"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <com.github.rubensousa.gravitysnaphelper.GravitySnapRecyclerView
+                        android:id="@+id/categoryRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="3dp"
+                        app:snapGravity="start" />
+
+                    <ProgressBar
+                        android:id="@+id/categoryProgress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:gravity="center"
+                    android:layout_marginBottom="10dp"
                     android:orientation="vertical">
 
                     <androidx.cardview.widget.CardView
@@ -47,7 +162,7 @@
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
                         android:elevation="10dp"
-                        app:cardCornerRadius="40dp">
+                        app:cardCornerRadius="5dp">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -176,215 +291,47 @@
 
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/newsCard"
-                    android:visibility="gone"
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:backgroundTint="#B3F57F17"
-                        android:elevation="10dp"
-                        app:cardCornerRadius="5dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            android:background="#B3F57F17"
-                            android:padding="5dp">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:padding="5dp"
-                                android:src="@drawable/news" />
-
-                            <TextView
-                                android:id="@+id/title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:fontFamily="@font/sans"
-                                android:gravity="center"
-                                android:maxLines="2"
-                                android:paddingLeft="5dp"
-                                android:paddingRight="5dp"
-                                android:text="Title"
-                                android:textColor="@color/colorPrimary"
-                                android:textSize="18dp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
+                    android:layout_height="70dp"
+                    android:layout_alignParentBottom="true"
+                    android:elevation="10dp"
+                    app:cardCornerRadius="0dp">
 
                     <TextView
-                        android:id="@+id/description"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="100dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_margin="10dp"
-                        android:fontFamily="@font/sans"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="5dp"
-                        android:text="Title"
-                        android:textColor="@color/colorTex"
-                        android:textSize="16dp" />
+                        android:background="@drawable/bg_gradient_card"
+                        android:gravity="center"
+                        android:text="© 2021 Fresh Catch. All Rights Reserved."
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="10dp" />
 
-                </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:orientation="vertical">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginBottom="2dp"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:elevation="20dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="60dp"
-                                android:layout_height="60dp"
-                                android:layout_gravity="center"
-                                android:scaleType="fitCenter"
-                                android:src="@drawable/cuter"
-                                app:tint="@color/white" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="left"
-                                android:text="Explore by Category"
-                                android:textColor="@color/white"
-                                android:textSize="15dp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <com.github.rubensousa.gravitysnaphelper.GravitySnapRecyclerView
-                        android:id="@+id/categoryRecyclerView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="3dp"
-                        app:snapGravity="start" />
-
-                    <ProgressBar
-                        android:id="@+id/categoryProgress"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone" />
-                </LinearLayout>
             </LinearLayout>
+
         </FrameLayout>
+
+
 
     </androidx.core.widget.NestedScrollView>
 
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floting_call"
+        android:id="@+id/floting_whatsapp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="90dp"
-        android:src="@drawable/ic_outline_call_24"
-        app:backgroundTint="#03A9F4"
+        android:src="@drawable/iconwhatsapp"
+        app:backgroundTint="#25D366"
         app:fabSize="normal"
+        android:layout_marginBottom="10dp"
         app:tint="@android:color/white" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/corona"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="5dp"
-        android:elevation="20dp"
-        app:cardCornerRadius="10dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/reasonshadowback"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/covid" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="Stay Home"
-                    android:textColor="@color/white"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="Break the Chain"
-                    android:textColor="@color/white"
-                    android:textSize="12dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:text="#COVID-19"
-                    android:textColor="@color/white"
-                    android:textSize="10dp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
 

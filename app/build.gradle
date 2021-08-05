@@ -6,11 +6,11 @@ android {
     buildToolsVersion "30.0.0"
 
     defaultConfig {
-        applicationId "pro.network.jsbroilers"
+        applicationId "pro.network.freshcatch"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 2
-        versionName "1.0.1"
+        versionCode 3
+        versionName "1.0.2"
         multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -56,6 +56,8 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.0'
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
     implementation 'com.github.rubensousa:gravitysnaphelper:2.2.1'
+    //Payment
+    implementation 'com.razorpay:checkout:1.6.6'
 
 
     implementation 'me.himanshusoni.quantityview:quantity-view:1.2.0'
@@ -80,6 +82,7 @@ dependencies {
 
     // Add the Firebase Crashlytics SDK.
     implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
+    implementation project(':bubblepagerindicator')
 
     implementation 'com.fasterxml.jackson.core:jackson-core:2.10.1'
     implementation (

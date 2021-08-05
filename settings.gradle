@@ -1,2 +1,2 @@
-include ':app',':moeidbannerlibrary'
-rootProject.name = "JS Broilers"
+include ':app',':moeidbannerlibrary',':bubblepagerindicator'
+rootProject.name = "Fresh Catch"

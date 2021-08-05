@@ -23,7 +23,7 @@
         android:layout_height="400dp"
         android:layout_margin="30dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/scan" />
+        android:src="@drawable/qr_freshcatch" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/copyClip"
@@ -35,12 +35,13 @@
         android:fontFamily="@font/sans"
         android:gravity="center"
         android:includeFontPadding="false"
-        android:text="9790294942@okbizaxis"
+        android:text="damusanju@okhdfcbank"
         android:textAllCaps="false"
         app:icon="@drawable/ic_outline_file_copy_24"
-        android:textColor="@color/colorPrimary"
+        app:iconTint="#5AA7F4"
+        android:textColor="#5AA7F4"
         android:textStyle="bold"
-        app:strokeColor="@color/colorPrimary" />
+        app:strokeColor="#5AA7F4" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -60,7 +61,7 @@
             android:fontFamily="@font/sans"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:text="பணம்\nசெலுத்திவிட்டேன்"
+            android:text="Paid"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
@@ -74,6 +75,7 @@
             android:layout_gravity="center"
             android:layout_margin="5dp"
             android:fontFamily="@font/sans"
+            android:layout_weight="1"
             android:gravity="center"
             android:includeFontPadding="false"
             android:text="Cancel"
