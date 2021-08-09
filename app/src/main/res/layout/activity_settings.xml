@@ -175,6 +175,57 @@
 
 
                     </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/changeEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:foreground="?selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:minHeight="?android:attr/listPreferredItemHeight"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="10dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:paddingTop="16dp"
+                            android:paddingBottom="16dp">
+
+                            <TextView
+                                android:id="@android:id/title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="marquee"
+                                android:singleLine="true"
+                                android:text="Change Email"
+                                android:textAppearance="?attr/textAppearanceListItem"
+                                android:textColor="?android:textColorPrimary" />
+
+                            <TextView
+                                android:id="@+id/emailText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@android:id/title"
+                                android:layout_alignStart="@android:id/title"
+                                android:layout_alignLeft="@android:id/title"
+                                android:maxLines="10"
+                                android:text="Tap here Change email"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                android:textColor="?android:textColorSecondary"
+                                android:typeface="sans" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:src="@drawable/ic_outline_mark_email_unread_24"
+                            app:tint="@color/colorPrimary" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -256,7 +307,7 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="marquee"
                         android:singleLine="true"
-                        android:text="Support"
+                        android:text="Support one"
                         android:textAppearance="?attr/textAppearanceListItem"
                         android:textColor="?android:textColorPrimary" />
 
@@ -284,7 +335,41 @@
                         android:layout_alignStart="@android:id/title"
                         android:layout_alignLeft="@android:id/title"
                         android:maxLines="10"
-                        android:text="(9841778659) 24/7 customer support"
+                        android:text="(9940786660) 24/7 customer support"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="?android:textColorSecondary"
+                        android:typeface="sans" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/contactus3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:foreground="?selectableItemBackground"
+                    android:orientation="vertical"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="16dp">
+
+                    <TextView
+                        android:id="@android:id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:text="WebSite"
+                        android:textAppearance="?attr/textAppearanceListItem"
+                        android:textColor="?android:textColorPrimary" />
+
+
+                    <TextView
+                        android:id="@+id/web"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@android:id/title"
+                        android:layout_alignStart="@android:id/title"
+                        android:layout_alignLeft="@android:id/title"
+                        android:maxLines="10"
+                        android:text="www.freshcatch.info"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:textColor="?android:textColorSecondary"
                         android:typeface="sans" />

@@ -39,6 +39,7 @@ import pro.network.freshcatch.app.AppConfig;
 import pro.network.freshcatch.app.AppController;
 import pro.network.freshcatch.app.BaseActivity;
 import pro.network.freshcatch.app.DbCart;
+import pro.network.freshcatch.app.web.WebActivity;
 import pro.network.freshcatch.product.ProductListBean;
 
 import static pro.network.freshcatch.app.AppConfig.REGISTER_USER;
@@ -53,16 +54,20 @@ public class SettingsActivity extends BaseActivity {
     Button login, logout;
     LinearLayout loginLayout;
     DbCart db;
+    LinearLayout changeEmail;
     private SharedPreferences sharedpreferences;
+    private TextView emailText;
 
     @Override
     protected void startDemo() {
         setContentView(R.layout.activity_settings);
         userNameHeader = findViewById(R.id.userNameHeader);
         phoneNameHeader = findViewById(R.id.userPhoneHeader);
+        emailText = findViewById(R.id.emailText);
         login = findViewById(R.id.login);
         logout = findViewById(R.id.logout);
         loginLayout = findViewById(R.id.loginLayout);
+        changeEmail = findViewById(R.id.changeEmail);
         db = new DbCart(SettingsActivity.this);
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_round_arrow_back_24);
@@ -88,7 +93,17 @@ public class SettingsActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel: 919043535953"));
+                intent.setData(Uri.parse("tel: 919940786660"));
+                startActivity(intent);
+            }
+        });
+
+        ((LinearLayout) findViewById(R.id.contactus3)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingsActivity.this, WebActivity.class);
+                intent.putExtra("url", "www.freshcatch.info");
+                intent.putExtra("name", "freshcatch.info");
                 startActivity(intent);
             }
         });
@@ -107,15 +122,106 @@ public class SettingsActivity extends BaseActivity {
                 startActivity(new Intent(SettingsActivity.this, ChangePassword.class));
             }
         });
+        changeEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showChangeEmailDialog();
+            }
+        });
 
         pDialog = new ProgressDialog(SettingsActivity.this);
         pDialog.setCancelable(false);
-
         changeHeaderContent();
         return;
     }
 
+    private void showChangeEmailDialog() {
+        final RoundedBottomSheetDialog mBottomSheetDialog = new RoundedBottomSheetDialog(SettingsActivity.this);
+        LayoutInflater inflater = SettingsActivity.this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.bottom_reviews_layout, null);
 
+        final TextInputEditText review = dialogView.findViewById(R.id.review);
+        TextInputLayout reviewTxt = dialogView.findViewById(R.id.reviewTxt);
+        TextView title = dialogView.findViewById(R.id.title);
+        final Button submit = dialogView.findViewById(R.id.submit);
+        title.setText("Change Email");
+        reviewTxt.setHint("Enter Email");
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (review.getText().toString().length() <= 0 || !AppConfig.emailValidator(review.getText().toString())) {
+                    Toast.makeText(SettingsActivity.this, "Enter Valid Email", Toast.LENGTH_LONG).show();
+                    return;
+                } else {
+                    changeEmail(review.getText().toString(), mBottomSheetDialog);
+                }
+            }
+        });
+        mBottomSheetDialog.setContentView(dialogView);
+        review.requestFocus();
+        mBottomSheetDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        mBottomSheetDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(final DialogInterface dialog) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        RoundedBottomSheetDialog d = (RoundedBottomSheetDialog) dialog;
+                        FrameLayout bottomSheet = d.findViewById(R.id.design_bottom_sheet);
+                        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                    }
+                }, 0);
+            }
+        });
+        mBottomSheetDialog.show();
+    }
+    private void changeEmail(final String email, final RoundedBottomSheetDialog mBottomSheetDialog) {
+        String tag_string_req = "req_register";
+        pDialog.setMessage("Updating profile  ...");
+        showDialog();
+        StringRequest strReq = new StringRequest(Request.Method.POST, AppConfig.UPDATE_EMAIL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("Register Response: ", response);
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean success = jObj.getBoolean("success");
+                    String msg = jObj.getString("message");
+                    if (success) {
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                        editor.putString(AppConfig.emailKey, email);
+                        editor.commit();
+
+                        emailText.setText(email.length() > 0 ? email : "Tap here Change email");
+                        mBottomSheetDialog.hide();
+                    }
+                    Toast.makeText(SettingsActivity.this, msg, Toast.LENGTH_SHORT).show();
+
+                } catch (Exception e) {
+                    Log.e("xxxxxxxxxx", e.toString());
+                }
+                hideDialog();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(SettingsActivity.this,
+                        "Slow network found.Try again later", Toast.LENGTH_LONG).show();
+                hideDialog();
+            }
+        }) {
+            protected Map<String, String> getParams() {
+                HashMap localHashMap = new HashMap();
+                localHashMap.put("email", email);
+                localHashMap.put("user", sharedpreferences.getString(AppConfig.user_id, ""));
+                return localHashMap;
+            }
+        };
+        strReq.setRetryPolicy(AppConfig.getPolicy());
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
     private void showBottomDialog() {
         final RoundedBottomSheetDialog mBottomSheetDialog = new RoundedBottomSheetDialog(SettingsActivity.this);
         LayoutInflater inflater = SettingsActivity.this.getLayoutInflater();
@@ -125,7 +231,8 @@ public class SettingsActivity extends BaseActivity {
         final TextInputEditText username = dialogView.findViewById(R.id.username);
         final TextInputEditText phoneNumber = dialogView.findViewById(R.id.phoneNumber);
         final TextInputEditText password = dialogView.findViewById(R.id.password);
-
+        final TextInputLayout emailTxt = dialogView.findViewById(R.id.emailTxt);
+        final TextInputEditText email = dialogView.findViewById(R.id.email);
         TextInputLayout phoneNumberTxt = dialogView.findViewById(R.id.phoneNumberTxt);
         final TextInputLayout usernameTxt = dialogView.findViewById(R.id.usernameTxt);
         TextInputLayout passwordText = dialogView.findViewById(R.id.passwordText);
@@ -145,12 +252,14 @@ public class SettingsActivity extends BaseActivity {
                     request.setText("Login");
                     login.setText("Sign up");
                     usernameTxt.setVisibility(View.VISIBLE);
+                    emailTxt.setVisibility(View.VISIBLE);
 
                 } else {
                     accountTxt.setText("No Account? ");
                     login.setText("Login");
                     request.setText("Sign up");
                     usernameTxt.setVisibility(View.GONE);
+                    emailTxt.setVisibility(View.GONE);
 
 
                 }
@@ -185,7 +294,7 @@ public class SettingsActivity extends BaseActivity {
                             password.getText().toString(), mBottomSheetDialog);
                 } else {
                     registerUser(phoneNumber.getText().toString(),
-                            username.getText().toString(), password.getText().toString(), mBottomSheetDialog);
+                            username.getText().toString(), password.getText().toString(),email.getText().toString(), mBottomSheetDialog);
                 }
             }
         });
@@ -207,6 +316,7 @@ public class SettingsActivity extends BaseActivity {
         });
         mBottomSheetDialog.show();
     }
+
     private void checkLogin(final String username, final String password, final RoundedBottomSheetDialog mBottomSheetDialog) {
         String tag_string_req = "req_register";
         pDialog.setMessage("Login ...");
@@ -230,6 +340,7 @@ public class SettingsActivity extends BaseActivity {
                         editor.putString(AppConfig.configKey, username);
                         editor.putString(AppConfig.usernameKey, name);
                         editor.putString(AppConfig.auth_key, auth_key);
+                        editor.putString(AppConfig.emailKey, jObj.getString("email"));
                         editor.putString(AppConfig.user_id, user_id);
                         editor.commit();
 
@@ -269,7 +380,7 @@ public class SettingsActivity extends BaseActivity {
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
-    private void registerUser(final String phoneNumber, final String username, final String password, final RoundedBottomSheetDialog mBottomSheetDialog) {
+    private void registerUser(final String phoneNumber, final String username, final String password, final String email, final  RoundedBottomSheetDialog mBottomSheetDialog) {
         String tag_string_req = "req_register";
         pDialog.setMessage("Processing ...");
         showDialog();
@@ -310,6 +421,7 @@ public class SettingsActivity extends BaseActivity {
                 localHashMap.put("name", username);
                 localHashMap.put("phone", phoneNumber);
                 localHashMap.put("password", password);
+                localHashMap.put("email", email);
 
                 return localHashMap;
             }
@@ -342,11 +454,14 @@ public class SettingsActivity extends BaseActivity {
             loginLayout.setVisibility(View.GONE);
             userNameHeader.setText("");
             phoneNameHeader.setText("");
+            emailText.setText("Tap here Change email");
         } else {
             login.setVisibility(View.GONE);
             loginLayout.setVisibility(View.VISIBLE);
             userNameHeader.setText(sharedpreferences.getString(usernameKey, ""));
             phoneNameHeader.setText(sharedpreferences.getString(phone, ""));
+            String emailVal = sharedpreferences.getString(AppConfig.emailKey, "");
+            emailText.setText(emailVal.length() > 0 && !emailVal.equalsIgnoreCase("null") ? emailVal : "Tap here Change email");
          }
 
     }

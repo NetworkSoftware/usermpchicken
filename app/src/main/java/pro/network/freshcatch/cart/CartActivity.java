@@ -67,15 +67,10 @@ import static pro.network.freshcatch.app.AppConfig.user_id;
 
 public class CartActivity extends AppCompatActivity implements CartItemClick {
 
-    private final List<MyorderBean> myorderBeans = new ArrayList<>();
-    private final String TAG = getClass().getSimpleName();
-    MyOrderListAdapter myOrderListAdapter;
     RecyclerView cart_list;
     CartListAdapter cartListAdapter;
     ProgressDialog pDialog;
-    TextView total;
     Button order;
-    View view;
     OnCartItemChange onCartItemChange;
     NestedScrollView nestedScrollView;
     CardView continueCard;
@@ -122,77 +117,6 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
         getAllCart();
     }
 
-    private void showAddressPopup() {
-        MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(CartActivity.this, R.style.RoundShapeTheme);
-        LayoutInflater inflater = CartActivity.this.getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.alert_dialog, null);
-        TextView title = dialogView.findViewById(R.id.title);
-        final RadioButton cod = dialogView.findViewById(R.id.cod);
-        final RadioButton upi = dialogView.findViewById(R.id.upi);
-        final TextInputEditText address = dialogView.findViewById(R.id.address);
-
-        if (sharedpreferences.contains(AppConfig.address)) {
-            address.setText(sharedpreferences.getString(AppConfig.address, ""));
-        }
-        upi.setChecked(true);
-
-        cod.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    cod.setChecked(true);
-                    upi.setChecked(false);
-                } else {
-                    cod.setChecked(false);
-                }
-            }
-        });
-        upi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    cod.setChecked(false);
-                    upi.setChecked(true);
-                } else {
-                    upi.setChecked(false);
-                }
-            }
-        });
-        title.setText("* Do you want to confirm this order? If yes Order will be Placed and Fresh Catch admin will contact you shortly.");
-        dialogBuilder.setPositiveButton("Yes", null);
-        dialogBuilder.setNegativeButton("Cancel", null);
-        dialogBuilder.setTitle("Alert");
-        dialogBuilder.setView(dialogView);
-        final AlertDialog b = dialogBuilder.create();
-        b.setCancelable(false);
-        b.show();
-        Button positive = b.getButton(AlertDialog.BUTTON_POSITIVE);
-        positive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (address.getText().toString().length() > 0) {
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
-                    editor.putString(AppConfig.address, address.getText().toString());
-                    editor.commit();
-                    if (cod.isChecked()) {
-                        orderpage(address.getText().toString());
-                    } else {
-                        showBottomupi();
-                    }
-                } else {
-                    Toast.makeText(getApplicationContext(), "Enter valid address", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        Button negative = b.getButton(AlertDialog.BUTTON_NEGATIVE);
-        negative.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                b.cancel();
-            }
-        });
-
-    }
 
     private void showBottomDialog() {
         final RoundedBottomSheetDialog mBottomSheetDialog = new RoundedBottomSheetDialog(CartActivity.this);
@@ -207,6 +131,8 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
         TextInputLayout phoneNumberTxt = dialogView.findViewById(R.id.phoneNumberTxt);
         final TextInputLayout usernameTxt = dialogView.findViewById(R.id.usernameTxt);
         TextInputLayout passwordText = dialogView.findViewById(R.id.passwordText);
+        final TextInputLayout emailTxt = dialogView.findViewById(R.id.emailTxt);
+        final TextInputEditText email = dialogView.findViewById(R.id.email);
 
         final TextView accountTxt = dialogView.findViewById(R.id.accountTxt);
         final Button login = dialogView.findViewById(R.id.login);
@@ -220,11 +146,13 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
                     request.setText("Login");
                     login.setText("Sign up");
                     usernameTxt.setVisibility(View.VISIBLE);
+                    emailTxt.setVisibility(View.VISIBLE);
                 } else {
                     accountTxt.setText("No Account? ");
                     login.setText("Login");
                     request.setText("Sign up");
                     usernameTxt.setVisibility(View.GONE);
+                    emailTxt.setVisibility(View.GONE);
                 }
             }
         });
@@ -247,61 +175,10 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
                             password.getText().toString(), mBottomSheetDialog);
                 } else {
                     registerUser(phoneNumber.getText().toString(),
-                            username.getText().toString(), password.getText().toString(), mBottomSheetDialog);
+                            username.getText().toString(), password.getText().toString(), email.getText().toString(),mBottomSheetDialog);
                 }
             }
         });
-        mBottomSheetDialog.setContentView(dialogView);
-        mBottomSheetDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        mBottomSheetDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(final DialogInterface dialog) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        RoundedBottomSheetDialog d = (RoundedBottomSheetDialog) dialog;
-                        FrameLayout bottomSheet = d.findViewById(R.id.design_bottom_sheet);
-                        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                    }
-                }, 0);
-            }
-        });
-        mBottomSheetDialog.show();
-    }
-
-    private void showBottomupi() {
-        final RoundedBottomSheetDialog mBottomSheetDialog = new RoundedBottomSheetDialog(CartActivity.this);
-        LayoutInflater inflater = CartActivity.this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.bottom_scan, null);
-
-        final ImageView scan = dialogView.findViewById(R.id.scan);
-        final Button paid = dialogView.findViewById(R.id.paid);
-        final Button cancel = dialogView.findViewById(R.id.cancel);
-        final Button copyClip = dialogView.findViewById(R.id.copyClip);
-        paid.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                orderpage(AppConfig.address);
-            }
-        });
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mBottomSheetDialog.cancel();
-            }
-        });
-        copyClip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("UPI id", copyClip.getText().toString());
-                clipboard.setPrimaryClip(clip);
-                Toast.makeText(CartActivity.this, copyClip.getText().toString() + " Copied",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-
         mBottomSheetDialog.setContentView(dialogView);
         mBottomSheetDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         mBottomSheetDialog.setOnShowListener(new DialogInterface.OnShowListener() {
@@ -354,65 +231,6 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
             continueCard.setVisibility(View.VISIBLE);
         }
 
-    }
-
-    private void orderpage(final String address) {
-        String tag_string_req = "req_register";
-        pDialog.setMessage("Processing ...");
-        showDialog();
-        // showDialog();
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                ORDER_CREATE, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.d("Register Response: ", response);
-                hideDialog();
-                try {
-                    JSONObject jsonObject = new JSONObject(response.split("0000")[1]);
-                    boolean success = jsonObject.getBoolean("success");
-                    String msg = jsonObject.getString("message");
-                    if (success) {
-                        db.deleteAllInCart("guest");
-                        db.deleteAllInCart(sharedpreferences.getString(user_id, ""));
-                        finish();
-                    }
-                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
-                } catch (JSONException e) {
-                    Toast.makeText(getApplicationContext(), "Some Network Error.Try after some time", Toast.LENGTH_SHORT).show();
-
-                }
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),
-                        "Some Network Error.Try after some time", Toast.LENGTH_LONG).show();
-                hideDialog();
-            }
-        }) {
-            protected Map<String, String> getParams() {
-                HashMap localHashMap = new HashMap();
-                localHashMap.put("quantity", String.valueOf(productList.size()));
-                localHashMap.put("price", ((TextView) findViewById(R.id.grandtotal)).getText().toString());
-                localHashMap.put("status", "ordered");
-                localHashMap.put("address", address);
-                localHashMap.put("reason", "Ordered by " + sharedpreferences.getString(AppConfig.usernameKey, ""));
-                localHashMap.put("user", sharedpreferences.getString(user_id, ""));
-                ArrayList<ProductListBean> productListBeans = new ArrayList<>();
-                for (int i = 0; i < productList.size(); i++) {
-                    ProductListBean productListBean = productList.get(i);
-                    ArrayList<String> urls = new Gson().fromJson(productListBean.image, (Type) List.class);
-                    productListBean.setImage(urls.get(0));
-                    productListBeans.add(productListBean);
-                }
-                localHashMap.put("items", new Gson().toJson(productListBeans));
-                return localHashMap;
-            }
-        };
-        strReq.setRetryPolicy(AppConfig.getPolicy());
-        AppController.getInstance().addToRequestQueue(strReq);
     }
 
     private void hideDialog() {
@@ -484,6 +302,7 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
                         editor.putString(AppConfig.usernameKey, name);
                         editor.putString(AppConfig.auth_key, auth_key);
                         editor.putString(AppConfig.user_id, user_id);
+                        editor.putString(AppConfig.emailKey, jObj.getString("email"));
                         editor.commit();
 
                         ArrayList<ProductListBean> productListTemp = db.getAllProductsInCart("guest");
@@ -496,7 +315,7 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                showAddressPopup();
+                                getToPayment();
                             }
                         }, 500);
                     }
@@ -527,7 +346,7 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
-    private void registerUser(final String phoneNumber, final String username, final String password, final RoundedBottomSheetDialog mBottomSheetDialog) {
+    private void registerUser(final String phoneNumber, final String username, final String password, final String email, final RoundedBottomSheetDialog mBottomSheetDialog) {
         String tag_string_req = "req_register";
         pDialog.setMessage("Processing ...");
         showDialog();
@@ -568,6 +387,7 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
                 localHashMap.put("name", username);
                 localHashMap.put("phone", phoneNumber);
                 localHashMap.put("password", password);
+                localHashMap.put("email", email);
 
                 return localHashMap;
             }

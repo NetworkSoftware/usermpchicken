@@ -57,6 +57,10 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
         holder.pincode.setText(addressItem.pincode);
         holder.name.setText(addressItem.name);
         holder.comments.setText(addressItem.comments);
+        holder.comments.setVisibility(View.VISIBLE);
+        if(addressItem.comments.equalsIgnoreCase("NA")){
+            holder.comments.setVisibility(View.GONE);
+        }
 
         holder.itemLinear.setOnClickListener(new View.OnClickListener() {
             @Override

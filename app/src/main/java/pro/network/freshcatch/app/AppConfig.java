@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.telephony.SmsManager;
 import android.util.Log;
+import android.util.Patterns;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -37,26 +38,29 @@ public class  AppConfig {
     public static final String address = "address";
     public static final String phone = "phone";
 
-    public static final String name = "nameKey";
-
     public static final String mypreference = "mypref";
 
 
     //YALU Mobiles_NetworkSoftware
     public static final String ip = "http://thestockbazaar.com/admin/e-commerce/freshcatch";
+   // public static final String ip = "http://192.168.43.217:8103/prisma/freshcatch";
+
     public static final String configKey = "configKey";
     public static final String usernameKey = "usernameKey";
     public static final String user_id = "user_id";
     public static final String IMAGE_URL = ip + "/images/";
     public static final String auth_key = "auth_key";
     public static final String loginis = "true";
-
+    public static final String emailKey = "emailKey";
     //login and Register
     public static final String REGISTER_USER = ip + "/user_register.php";
     public static final String LOGIN_USER = ip + "/user_login.php";
     public static final String CHANGE_PASSWORD = ip + "/change_password.php";
     public static final String CATEGORIES_GET_ALL = ip + "/get_all_category.php";
     public static final String GET_ALL_CATEGORIES = ip + "/get_all_category.php";
+
+    //Mail
+    public static final String UPDATE_EMAIL = ip + "/update_email.php";
 
     //Product
     public static final String PRODUCT_GET_ALL = ip + "/dataFetchAll.php";
@@ -67,19 +71,17 @@ public class  AppConfig {
     public static final String ORDER_GET_ALL = ip + "/dataFetchAll_order.php";
     public static final String ORDER_CREATE = ip + "/create_order.php";
     public static final String ORDER_CHANGE_STATUS = ip + "/order_change_status.php";
-//address
+    //address
     public static final String ADD_ADDRESS = ip + "/create_address.php";
     public static final String UPDATE_ADDRESS = ip + "/update_address.php";
     public static final String GET_ALL_ADDRESS = ip + "/get_all_address.php";
     public static final String DELETE_ADDRESS = ip + "/delete_address.php";
-
     public static void openPdfFile(Context context, String name) {
         File fileBrochure = new File(Environment.getExternalStorageDirectory() + "/" + name);
         if (!fileBrochure.exists()) {
             CopyAssetsbrochure(context, name);
         }
 
-        /** PDF reader code */
         File file = new File(Environment.getExternalStorageDirectory() + "/" + name);
 
         Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -102,7 +104,12 @@ public class  AppConfig {
         editor.commit();
         context.startActivity(new Intent(context, HomeActivity.class));
     }
-
+    public static DefaultRetryPolicy getTimeOut() {
+        return new DefaultRetryPolicy(
+                50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+    }
     public static void sendSMS(String phoneNo, String msg, Context context) {
         try {
             SmsManager smsManager = SmsManager.getDefault();
@@ -115,7 +122,6 @@ public class  AppConfig {
     }
 
 
-    //method to write the PDFs file to sd card
     private static void CopyAssetsbrochure(Context context, String name) {
         AssetManager assetManager = context.getAssets();
         String[] files = null;
@@ -155,29 +161,17 @@ public class  AppConfig {
     }
 
     public static boolean isValidGSTNo(String str) {
-        // Regex to check valid
-        // GST (Goods and Services Tax) number
         String regex = "^[0-9]{2}[A-Z]{5}[0-9]{4}"
                 + "[A-Z]{1}[1-9A-Z]{1}"
                 + "Z[0-9A-Z]{1}$";
 
-        // Compile the ReGex
         Pattern p = Pattern.compile(regex);
 
-        // If the string is empty
-        // return false
         if (str == null) {
             return false;
         }
-
-        // Pattern class contains matcher()
-        // method to find the matching
-        // between the given string
-        // and the regular expression.
         Matcher m = p.matcher(str);
 
-        // Return if the string
-        // matched the ReGex
         return m.matches();
     }
 
@@ -222,5 +216,11 @@ public class  AppConfig {
                 50000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+    }
+    public static boolean emailValidator(String email) {
+        if (email == null) {
+            return false;
+        }
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 }

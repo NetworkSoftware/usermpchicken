@@ -74,6 +74,13 @@
             android:label="Payment"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="pro.network.freshcatch.orders.SingleOrderPage"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="pro.network.freshcatch.app.web.WebActivity"
+            android:theme="@style/AppTheme" />
+
 
         <service
             android:name="pro.network.freshcatch.app.FirebaseMessageReceiver"
@@ -83,6 +90,15 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        <provider
+            android:name="pro.network.freshcatch.app.GenericFileProvider"
+            android:authorities="pro.network.freshcatch.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
     </application>
 
 </manifest>

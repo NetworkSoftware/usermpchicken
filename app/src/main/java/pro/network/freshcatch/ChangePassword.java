@@ -1,5 +1,6 @@
 package pro.network.freshcatch;
 
+import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,7 +42,8 @@ public class ChangePassword extends BaseActivity {
         newCpasswordText = findViewById(R.id.newCpasswordText);
         newpassword = findViewById(R.id.newpassword);
         newpasswordText = findViewById(R.id.newpasswordText);
-
+        usernameTxt.setHint("Phone");
+        username.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         if (sharedpreferences.contains(AppConfig.configKey)) {
             username.setText(sharedpreferences.getString(AppConfig.configKey, ""));
         }

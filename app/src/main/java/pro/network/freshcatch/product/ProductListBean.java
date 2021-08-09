@@ -2,6 +2,8 @@ package pro.network.freshcatch.product;
 
 import java.io.Serializable;
 
+import pro.network.freshcatch.orders.MyorderBean;
+
 public class ProductListBean implements Serializable {
     public static final String TABLE_NAME = "freshcatch";
     public static final String COLUMN_PRO_ID = "proid";
@@ -21,6 +23,8 @@ public class ProductListBean implements Serializable {
     public static final String COLUMN_QTY = "qty";
     public static final String COLUMN_STOCKUPDATE = "stock_update";
     public static final String COLUMN_CATEGORY = "category";
+
+
 
 
 

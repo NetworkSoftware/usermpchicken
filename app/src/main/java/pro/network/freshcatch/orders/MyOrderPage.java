@@ -2,6 +2,7 @@ package pro.network.freshcatch.orders;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,6 +41,7 @@ import pro.network.freshcatch.R;
 import pro.network.freshcatch.app.AppConfig;
 import pro.network.freshcatch.app.AppController;
 import pro.network.freshcatch.app.BaseActivity;
+import pro.network.freshcatch.payment.PaymentActivity;
 import pro.network.freshcatch.product.ProductListBean;
 
 import static pro.network.freshcatch.app.AppConfig.ORDER_CHANGE_STATUS;
@@ -52,6 +54,7 @@ public class MyOrderPage extends BaseActivity implements ReturnOnClick {
     LinearLayout empty_product;
     private ArrayList<MyorderBean> myorderBeans = new ArrayList<>();
 
+
     @Override
     protected void startDemo() {
         setContentView(R.layout.activity_myorder);
@@ -59,7 +62,7 @@ public class MyOrderPage extends BaseActivity implements ReturnOnClick {
         sharedpreferences = getApplicationContext().getSharedPreferences(AppConfig.mypreference, Context.MODE_PRIVATE);
 
         myorders_list = findViewById(R.id.myorders_list);
-        myOrderListAdapter = new MyOrderListAdapter(getApplicationContext(), myorderBeans, this);
+        myOrderListAdapter = new MyOrderListAdapter(getApplicationContext(), myorderBeans,this);
         final LinearLayoutManager addManager1 = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         myorders_list.setLayoutManager(addManager1);
         myorders_list.setAdapter(myOrderListAdapter);
@@ -98,7 +101,29 @@ public class MyOrderPage extends BaseActivity implements ReturnOnClick {
                             order.setQuantity(jsonObject.getString("quantity"));
                             order.setStatus(jsonObject.getString("status"));
                             order.setitems(jsonObject.getString("items"));
-                            order.setReson(jsonObject.getString("reason"));
+                            order.setToPincode(jsonObject.has("toPincode")?
+                                    jsonObject.getString("toPincode"):"NA");
+                            order.setDelivery(jsonObject.has("delivery")?
+                                    jsonObject.getString("delivery"):"NA");
+                            order.setPayment(jsonObject.has("payment")?
+                                    jsonObject.getString("payment"):"NA");
+                            order.setGrandCost(jsonObject.has("grandCost")?
+                                    jsonObject.getString("grandCost"):"NA");
+                            order.setShipCost(jsonObject.has("shipCost")?
+                                    jsonObject.getString("shipCost"):"NA");
+                            order.setAddress(jsonObject.getString("address"));
+                            order.setPaymentId(jsonObject.has("paymentId")?
+                                    jsonObject.getString("paymentId"):"NA");
+                            order.setComments(jsonObject.has("comments")?
+                                    jsonObject.getString("comments"):"NA");
+                            order.setDeliveryTime(jsonObject.has("deliveryTime")?
+                                    jsonObject.getString("deliveryTime"):"NA");
+                            order.setName(jsonObject.has("name")?
+                                    jsonObject.getString("name"):"NA");
+                            order.setPhone(jsonObject.has("phone")?
+                                    jsonObject.getString("phone"):"NA");
+                            order.setAddressOrg(jsonObject.has("addressOrg")?
+                                    jsonObject.getString("addressOrg"):"NA");
                             order.setCreatedon(jsonObject.getString("createdon"));
                             ObjectMapper mapper = new ObjectMapper();
                             Object listBeans = new Gson().fromJson(jsonObject.getString("items"),
@@ -125,7 +150,7 @@ public class MyOrderPage extends BaseActivity implements ReturnOnClick {
                     } else {
                         Toast.makeText(getApplicationContext(), jObj.getString("message"), Toast.LENGTH_SHORT).show();
                     }
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     Log.e("xxxxxxxxxxx", e.toString());
                     Toast.makeText(getApplicationContext(), "Some Network Error.Try after some time", Toast.LENGTH_SHORT).show();
 
@@ -204,6 +229,13 @@ public class MyOrderPage extends BaseActivity implements ReturnOnClick {
         final AlertDialog b = dialogBuilder.create();
         b.setCancelable(false);
         b.show();
+    }
+
+    @Override
+    public void onCartClick(MyorderBean orderId) {
+        Intent intent = new Intent(MyOrderPage.this, SingleOrderPage.class);
+        intent.putExtra("data", orderId);
+        startActivity(intent);
     }
 
     private void statusChange(final String id, final String status, final String reason) {

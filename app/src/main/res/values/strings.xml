@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">FRESH CATCH</string>
     <string name="products">View Products</string>
+    <string name="app_name_review">Chennai Fresh Mail</string>
     <string name="app_name_home">FRESH CATCH</string>
     <string name="app_name_one">FRESH CATCH</string>
     <string name="submit">SUBMIT</string>

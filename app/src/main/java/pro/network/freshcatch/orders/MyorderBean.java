@@ -2,11 +2,12 @@ package pro.network.freshcatch.orders;
 
 import pro.network.freshcatch.product.ProductListBean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MyorderBean {
+public class MyorderBean implements Serializable {
     String quantity, id, amount, status, items, createdon, reson;
-    String toPincode, coupon, couponCost, delivery, payment, grandCost, shipCost, address;
+    String toPincode,  delivery, payment, grandCost, shipCost, address;
     ArrayList<ProductListBean> productBeans;
     String paymentId;
     String comments, deliveryTime;
@@ -89,22 +90,6 @@ public class MyorderBean {
 
     public void setToPincode(String toPincode) {
         this.toPincode = toPincode;
-    }
-
-    public String getCoupon() {
-        return coupon;
-    }
-
-    public void setCoupon(String coupon) {
-        this.coupon = coupon;
-    }
-
-    public String getCouponCost() {
-        return couponCost;
-    }
-
-    public void setCouponCost(String couponCost) {
-        this.couponCost = couponCost;
     }
 
     public String getDelivery() {

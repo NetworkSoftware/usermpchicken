@@ -98,8 +98,8 @@ public class AllProductActivity extends BaseActivity implements ProductItemClick
                 try {
                     JSONObject jObj = new JSONObject(response);
                     int success = jObj.getInt("success");
-                    productList = new ArrayList<>();
                     if (success == 1) {
+                    productList = new ArrayList<>();
                         JSONArray jsonArray = jObj.getJSONArray("data");
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -201,8 +201,7 @@ public class AllProductActivity extends BaseActivity implements ProductItemClick
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu options from the res/menu/menu_editor.xml file.
-        // This adds menu items to the app bar.
+
         getMenuInflater().inflate(R.menu.product_menu, menu);
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
