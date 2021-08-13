@@ -18,5 +18,6 @@
     <color name="colordevider">#64dad8d8</color>
     <color name="windowBackground">#FFFFFF</color>
     <color name="colorpdf">#C6DBFB</color>
+    <color name="grayLight">#F5F5F6</color>
 
 </resources>

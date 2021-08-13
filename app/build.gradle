@@ -58,6 +58,7 @@ dependencies {
     implementation 'com.github.rubensousa:gravitysnaphelper:2.2.1'
     //Payment
     implementation 'com.razorpay:checkout:1.6.6'
+    implementation 'com.github.wisnukurniawan:date-time-range-picker-android:1.0.10'
 
 
     implementation 'me.himanshusoni.quantityview:quantity-view:1.2.0'

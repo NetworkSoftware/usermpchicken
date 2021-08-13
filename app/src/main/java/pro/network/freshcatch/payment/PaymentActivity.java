@@ -45,7 +45,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -62,7 +61,6 @@ import pro.network.freshcatch.orders.MyorderBean;
 import pro.network.freshcatch.orders.SingleOrderPage;
 import pro.network.freshcatch.product.ProductListBean;
 
-import static pro.network.freshcatch.app.AppConfig.address;
 import static pro.network.freshcatch.app.AppConfig.decimalFormat;
 import static pro.network.freshcatch.app.AppConfig.mypreference;
 import static pro.network.freshcatch.app.AppConfig.phone;
@@ -171,9 +169,9 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
         paynow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               if (addressArrayList.size() <= 0) {
+                if (addressArrayList.size() <= 0) {
                     Toast.makeText(PaymentActivity.this, "Enter valid address", Toast.LENGTH_SHORT).show();
-                }else if (online.isChecked()) {
+                } else if (online.isChecked()) {
                     callGpayOrOnline();
                 } else if (gpay.isChecked()) {
                     String emailVal = sharedpreferences.getString(AppConfig.emailKey, "");
@@ -199,8 +197,6 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getAllCart(0, 0, "0");
         fetchAddressList();
-
-
     }
 
     private void showChangeEmailDialog() {
@@ -308,10 +304,10 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
 
             object.put("currency", "INR");
             object.put("send_sms_hash", false);
-        //    object.put("amount", Float.parseFloat(subtotal.getText().toString().replace(
-            //        "₹", "").replace(".", "")));//pass amount in currency subunits
+                object.put("amount", Float.parseFloat(subtotal.getText().toString().replace(
+                    "₹", "").replace(".", "")));//pass amount in currency subunits
 
-            object.put("amount","100");
+           // object.put("amount", "100");
 
             JSONObject prefill = new JSONObject();
             String string1 = sharedpreferences.getString(AppConfig.emailKey, "");
@@ -426,11 +422,9 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
                         db.deleteAllInCart(sharedpreferences.getString(AppConfig.user_id, ""));
 
 
-
-
                         order.setId(jObj.getString("orderId"));
                         order.setAmount(subtotal.getText().toString());
-                        order.setAddress(addressArrayList.get(selectedAddressItem).getId());
+                        order.setAddress(addressArrayList.get(selectedAddressItem).getAddress());
                         order.setToPincode("");
                         order.setPayment(getPaymentMode());
                         order.setGrandCost(grandtotal.getText().toString());
@@ -452,7 +446,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
                 } catch (JSONException e) {
                     Toast.makeText(getApplicationContext(), "Some Network Exception", Toast.LENGTH_SHORT).show();
 
-                }catch (Exception e) {
+                } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Some Network Exception", Toast.LENGTH_SHORT).show();
 
                 }
@@ -606,7 +600,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
                     }
                     addOrUpdateAddress(address1, isUpdate, mBottomSheetDialog);
 
-//                    validatePincode(pincodeProgress, pincode, pincodeTxt, address1, isUpdate, mBottomSheetDialog);
+                    validatePincode(pincodeProgress, pincode, pincodeTxt, address1, isUpdate, mBottomSheetDialog);
                 }
             }
         });
@@ -629,6 +623,56 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
             }
         });
         mBottomSheetDialog.show();
+    }
+
+    private void validatePincode(final ProgressBar progressBar,
+                                 final TextInputEditText addressTxt,
+                                 final TextInputLayout addressText,
+
+                                 final Address address1, final boolean isUpdate, final RoundedBottomSheetDialog mBottomSheetDialog) {
+
+        String tag_string_req = "req_register";
+        progressBar.setVisibility(View.VISIBLE);
+        StringRequest strReq = new StringRequest(Request.Method.POST, AppConfig.GET_PINCODE, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                progressBar.setVisibility(View.GONE);
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    int success = jObj.getInt("success");
+                    if (success == 1) {
+                        String pincode = jObj.getString("pincode");
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                        boolean isValidPincode = false;
+                        if (pincode.length() > 0) {
+                            editor.putString("pincode", pincode);
+                            isValidPincode = true;
+                        }else {
+                            addressText.setError(getString(R.string.pincodeError));
+                        }
+                        editor.commit();
+                    } else {
+                        addressText.setError(getString(R.string.pincodeError));
+                    }
+                } catch (Exception e) {
+                    Log.e("xxxxxxxxxx", e.toString());
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressBar.setVisibility(View.GONE);
+            }
+        }) {
+            protected Map<String, String> getParams() {
+                HashMap localHashMap = new HashMap();
+                localHashMap.put("pincode", addressTxt.getText().toString());
+                return localHashMap;
+            }
+        };
+        strReq.setRetryPolicy(AppConfig.getPolicy());
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
     private void addOrUpdateAddress(final Address address1, final boolean isUpdate,

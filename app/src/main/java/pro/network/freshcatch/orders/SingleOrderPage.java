@@ -52,6 +52,7 @@ import pro.network.freshcatch.app.HeaderFooterPageEvent;
 import pro.network.freshcatch.app.PdfConfig;
 import pro.network.freshcatch.product.ProductListBean;
 
+import static pro.network.freshcatch.app.AppConfig.FETCH_ADDRESS;
 import static pro.network.freshcatch.app.AppConfig.GET_ALL_ADDRESS;
 import static pro.network.freshcatch.app.AppConfig.decimalFormat;
 
@@ -251,7 +252,7 @@ public class SingleOrderPage extends AppCompatActivity implements ReturnOnClick{
     private void fetchAddressById(final String id) {
         String tag_string_req = "req_register_add";
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                GET_ALL_ADDRESS, new Response.Listener<String>() {
+                FETCH_ADDRESS, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d("Register Response: ", response);
@@ -268,7 +269,7 @@ public class SingleOrderPage extends AppCompatActivity implements ReturnOnClick{
                         stringBuilder1.append(jsonObject.getString("landmark")).append("\n");
                         stringBuilder1.append(jsonObject.getString("pincode"));
                         address.setText(stringBuilder.toString() + "\n" + stringBuilder1.toString());
-                        myorderBean.setAddressOrg(stringBuilder1.toString());
+                        myorderBean.setAddress(stringBuilder1.toString());
                         myorderBean.setName(jsonObject.getString("name"));
                         myorderBean.setPhone(jsonObject.getString("mobile"));
 

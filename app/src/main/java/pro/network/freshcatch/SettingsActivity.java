@@ -41,6 +41,7 @@ import pro.network.freshcatch.app.BaseActivity;
 import pro.network.freshcatch.app.DbCart;
 import pro.network.freshcatch.app.web.WebActivity;
 import pro.network.freshcatch.product.ProductListBean;
+import pro.network.freshcatch.wallet.WalletActivity;
 
 import static pro.network.freshcatch.app.AppConfig.REGISTER_USER;
 import static pro.network.freshcatch.app.AppConfig.mypreference;
@@ -86,6 +87,13 @@ public class SettingsActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
                 intent.setData(Uri.parse("tel: 919841778659"));
+                startActivity(intent);
+            }
+        });
+        ((LinearLayout) findViewById(R.id.wallet)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingsActivity.this, WalletActivity.class);
                 startActivity(intent);
             }
         });

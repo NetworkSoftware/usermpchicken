@@ -29,7 +29,15 @@
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
-
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="10dp"
+                    android:fontFamily="@font/sans_bold"
+                    android:gravity="left"
+                    android:text="Order ID"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -92,7 +100,15 @@
                 android:layout_weight="0.8"
                 android:orientation="vertical">
 
-
+                <TextView
+                    android:id="@+id/orderid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="15dp"
+                    android:fontFamily="@font/sans_bold"
+                    android:gravity="left"
+                    android:text="Rs.5000" />
                 <TextView
                     android:id="@+id/quantity"
                     android:layout_width="match_parent"
@@ -144,27 +160,7 @@
                     android:text="2020-09-19" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_weight="1"
-                android:layout_margin="3dp"
-                android:gravity="right"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/return_product"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/sans_bold"
-                    android:text="Return"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:textSize="12dp" />
-
-            </LinearLayout>
-
-        </LinearLayout>
+ </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cart_sub_list"

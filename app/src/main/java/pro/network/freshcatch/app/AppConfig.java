@@ -49,9 +49,11 @@ public class  AppConfig {
     public static final String usernameKey = "usernameKey";
     public static final String user_id = "user_id";
     public static final String IMAGE_URL = ip + "/images/";
+    public static final String shopIdKey = "shopIdKey";
     public static final String auth_key = "auth_key";
     public static final String loginis = "true";
     public static final String emailKey = "emailKey";
+    public static final String usernameKeyclient = "usernameKeyclient";
     //login and Register
     public static final String REGISTER_USER = ip + "/user_register.php";
     public static final String LOGIN_USER = ip + "/user_login.php";
@@ -66,6 +68,12 @@ public class  AppConfig {
     public static final String PRODUCT_GET_ALL = ip + "/dataFetchAll.php";
     //Banner
     public static final String BANNERS_GET_ALL = ip + "/dataFetchAll_banner.php";
+    public static final String GET_PINCODE = ip + "/getpincode";
+    //Wellet
+    public static final String WALLET_GET_ALL = ip + "/get_all_wallet.php";
+    public static final String CREATE_WALLE = ip + "/create_wallet.php";
+    public static final String GET_LIST_WALLET = ip + "/freshcatch_wallet_mgmt.php";
+
 
     //Order
     public static final String ORDER_GET_ALL = ip + "/dataFetchAll_order.php";
@@ -76,6 +84,8 @@ public class  AppConfig {
     public static final String UPDATE_ADDRESS = ip + "/update_address.php";
     public static final String GET_ALL_ADDRESS = ip + "/get_all_address.php";
     public static final String DELETE_ADDRESS = ip + "/delete_address.php";
+    public static final String FETCH_ADDRESS = ip + "/fetch_address.php";
+
     public static void openPdfFile(Context context, String name) {
         File fileBrochure = new File(Environment.getExternalStorageDirectory() + "/" + name);
         if (!fileBrochure.exists()) {
@@ -114,7 +124,7 @@ public class  AppConfig {
         try {
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNo, null, msg, null, null);
-        } catch (Exception ex) {
+        }catch (Exception ex) {
             Toast.makeText(context, ex.getMessage().toString(),
                     Toast.LENGTH_LONG).show();
             ex.printStackTrace();
@@ -222,5 +232,13 @@ public class  AppConfig {
             return false;
         }
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+    public static String dayInMonthFormat(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("E, dd MMM yyyy HH:mm");
+        return sdf.format(date);
+    }
+    public static String getDate(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(date);
     }
 }
