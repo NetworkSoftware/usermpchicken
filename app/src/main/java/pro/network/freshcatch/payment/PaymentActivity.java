@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -73,10 +74,12 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
     SharedPreferences sharedpreferences;
     Button paynow;
     TextView orderDiabled;
+    LinearLayout walletLinear;
+    TextView walletTotal;
+    ProgressBar walletProgress;
     private DbCart db;
     private List<ProductListBean> productList = new ArrayList<>();
     private RadioButton cod, online, gpay;
-
     private ArrayList<Address> addressArrayList = new ArrayList<>();
     private AddressListAdapter addressListAdapter;
     private ProgressBar addressProgress;
@@ -92,6 +95,9 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
 
         orderDiabled = findViewById(R.id.orderDiabled);
         addressProgress = findViewById(R.id.addressProgress);
+        walletLinear = findViewById(R.id.walletLinear);
+        walletProgress = findViewById(R.id.walletProgress);
+        walletTotal = findViewById(R.id.walletTotal);
 
         SpannableString text = new SpannableString("View all Coupons");
         text.setSpan(new UnderlineSpan(), 0, text.toString().length() - 1, 0);
@@ -195,8 +201,10 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
         address_list.setAdapter(addressListAdapter);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_round_arrow_back_24);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getAllCart(0, 0, "0");
+        getAllCart(0);
         fetchAddressList();
+
+        getWalletAmount();
     }
 
     private void showChangeEmailDialog() {
@@ -304,10 +312,10 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
 
             object.put("currency", "INR");
             object.put("send_sms_hash", false);
-                object.put("amount", Float.parseFloat(subtotal.getText().toString().replace(
+            object.put("amount", Float.parseFloat(subtotal.getText().toString().replace(
                     "₹", "").replace(".", "")));//pass amount in currency subunits
 
-           // object.put("amount", "100");
+            // object.put("amount", "100");
 
             JSONObject prefill = new JSONObject();
             String string1 = sharedpreferences.getString(AppConfig.emailKey, "");
@@ -334,18 +342,21 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
     }
 
 
-    private void getAllCart(int amount, int percentage, String isPercent) {
+    private void getAllCart(int walletAmt) {
         productList.clear();
         productList = db.getAllProductsInCart(sharedpreferences.getString(AppConfig.user_id, ""));
         float grandTotal = getGrandTotal();
         grandtotal.setText("₹" + decimalFormat.format(grandTotal) + ".00");
-
-
         shippingTotal.setText("₹" + decimalFormat.format(30) + ".00");
         grandTotal = grandTotal + 30;
-
+        if (walletAmt > 0) {
+            grandTotal = grandTotal - walletAmt;
+            walletLinear.setVisibility(View.VISIBLE);
+            walletTotal.setText("- ₹" + decimalFormat.format(walletAmt) + ".00");
+        } else {
+            walletLinear.setVisibility(View.GONE);
+        }
         subtotal.setText("₹" + decimalFormat.format(grandTotal) + ".00");
-
         if (grandTotal > 1500) {
             cod.setVisibility(View.GONE);
         } else {
@@ -434,6 +445,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
                         order.setName(sharedpreferences.getString(usernameKey, ""));
                         order.setPaymentId(orderId);
                         order.setDelivery("Scheduled delivery");
+                        order.setWalletAmount(walletTotal.getText().toString());
                         order.setDeliveryTime("NA");
                         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                         Date date = new Date();
@@ -478,7 +490,9 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
                 localHashMap.put("grandCost", grandtotal.getText().toString());
                 localHashMap.put("shipCost", shippingTotal.getText().toString());
                 localHashMap.put("price", subtotal.getText().toString());
-
+                String wallet = walletTotal.getText().toString().replace("- ₹", "")
+                        .split("\\.")[0];
+                localHashMap.put("wallet", wallet);
                 ArrayList<ProductListBean> productList = new ArrayList<>();
                 productList = db.getAllProductsInCart(sharedpreferences.getString(AppConfig.user_id, ""));
                 localHashMap.put("quantity", String.valueOf(productList.size()));
@@ -598,8 +612,6 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
                     if (isUpdate) {
                         address1.setId(addressOld.id);
                     }
-                    addOrUpdateAddress(address1, isUpdate, mBottomSheetDialog);
-
                     validatePincode(pincodeProgress, pincode, pincodeTxt, address1, isUpdate, mBottomSheetDialog);
                 }
             }
@@ -647,7 +659,8 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
                         if (pincode.length() > 0) {
                             editor.putString("pincode", pincode);
                             isValidPincode = true;
-                        }else {
+                            addOrUpdateAddress(address1, isUpdate, mBottomSheetDialog);
+                        } else {
                             addressText.setError(getString(R.string.pincodeError));
                         }
                         editor.commit();
@@ -855,5 +868,39 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
         finish();
     }
 
+
+    private void getWalletAmount() {
+        String tag_string_req = "req_register";
+        walletProgress.setVisibility(View.VISIBLE);
+        StringRequest strReq = new StringRequest(Request.Method.GET, AppConfig.GET_USER_WALLET + "?userId="
+                + sharedpreferences.getString(AppConfig.user_id, ""), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                walletProgress.setVisibility(View.GONE);
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    int success = jObj.getInt("success");
+                    if (success == 1) {
+                        int totalAmt = Integer.parseInt(jObj.getString("totalAmt"));
+                        getAllCart(totalAmt > 50 ? 50 : totalAmt);
+                    }
+                } catch (Exception e) {
+                }
+                hideDialog();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                walletProgress.setVisibility(View.GONE);
+            }
+        }) {
+            protected Map<String, String> getParams() {
+                HashMap localHashMap = new HashMap();
+                return localHashMap;
+            }
+        };
+        strReq.setRetryPolicy(AppConfig.getPolicy());
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
 
 }

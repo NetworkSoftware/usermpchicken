@@ -1,6 +1,8 @@
 package pro.network.freshcatch.wallet;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -9,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,7 +19,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.google.android.material.button.MaterialButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,37 +33,36 @@ import pro.network.freshcatch.R;
 import pro.network.freshcatch.app.AppConfig;
 import pro.network.freshcatch.app.AppController;
 
-import static pro.network.freshcatch.app.AppConfig.GET_LIST_WALLET;
 import static pro.network.freshcatch.app.AppConfig.WALLET_GET_ALL;
 
 
 public class WalletActivity extends AppCompatActivity {
+    ProgressDialog progressDialog;
+    TextView tol_amt;
+    SharedPreferences sharedpreferences;
     private RecyclerView recyclerView;
     private List<WalletBean> contactList;
     private WalletAdapter mAdapter;
-    ProgressDialog progressDialog;
-    TextView tol_amt;
-    WalletBean walletBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_wallet);
 
+        sharedpreferences = getApplicationContext().getSharedPreferences(AppConfig.mypreference, Context.MODE_PRIVATE);
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
-        tol_amt=findViewById(R.id.tol_amt);
-        tol_amt.setText(walletBean.getAmount());
-        // toolbar fancy stuff
-      //  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-     //   getSupportActionBar().setTitle(getIntent().getStringExtra("name") + " Stock");
+        tol_amt = findViewById(R.id.tol_amt);
 
         recyclerView = findViewById(R.id.recycler_view);
         contactList = new ArrayList<>();
-        mAdapter = new WalletAdapter(getApplication(), contactList,this);
+        mAdapter = new WalletAdapter(WalletActivity.this, contactList);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(WalletActivity.this,
+                DividerItemDecoration.VERTICAL));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         final LinearLayoutManager addManager1 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(addManager1);
@@ -73,36 +74,36 @@ public class WalletActivity extends AppCompatActivity {
         progressDialog.setMessage("Processing ...");
         showDialog();
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                GET_LIST_WALLET, new Response.Listener<String>() {
+                WALLET_GET_ALL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 hideDialog();
-                Log.d("Register Response: ", response.toString());
+                Log.d("Register Response: ", response);
                 try {
                     JSONObject jObj = new JSONObject(response);
                     int success = jObj.getInt("success");
-
                     if (success == 1) {
                         JSONArray jsonArray = jObj.getJSONArray("data");
                         contactList = new ArrayList<>();
+                        tol_amt.setText("0");
+                        if (jObj.has("totalAmt")) {
+                            tol_amt.setText(jObj.getString("totalAmt"));
+                        }
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             WalletBean product = new WalletBean();
                             product.setId(jsonObject.getString("id"));
-                            product.setCreatedon(jsonObject.getString("date"));
+                            product.setAmt(jsonObject.getString("amt"));
                             product.setOperation(jsonObject.getString("operation"));
-                            product.setAmount(jsonObject.getString("createdon"));
+                            product.setCreatedon(jsonObject.getString("createdon"));
                             contactList.add(product);
                         }
-                     //   getSupportActionBar().setSubtitle("#" + jObj.getString("tqty"));
                         mAdapter.notifyData(contactList);
                     } else {
                         Toast.makeText(getApplication(), jObj.getString("message"), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
-                    Log.e("xxxxxxxxxxx", e.toString());
                     Toast.makeText(getApplication(), "Some Network Error.Try after some time", Toast.LENGTH_SHORT).show();
-
                 }
 
             }
@@ -116,7 +117,7 @@ public class WalletActivity extends AppCompatActivity {
         }) {
             protected Map<String, String> getParams() {
                 HashMap localHashMap = new HashMap();
-                localHashMap.put("prodId", getIntent().getStringExtra("id"));
+                localHashMap.put("userId", sharedpreferences.getString(AppConfig.user_id, ""));
                 return localHashMap;
             }
         };

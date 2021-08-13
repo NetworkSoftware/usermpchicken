@@ -81,9 +81,6 @@
             android:name="pro.network.freshcatch.app.web.WebActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".wallet.MainActivityWallet"
-            android:theme="@style/AppTheme" />
-        <activity
             android:name=".wallet.WalletActivity"
             android:label="Wallet"
             android:theme="@style/AppTheme" />

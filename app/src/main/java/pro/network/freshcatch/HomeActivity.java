@@ -83,9 +83,6 @@ public class HomeActivity extends BaseActivity implements ProductItemClick, OnCh
         if (!sharedpreferences.contains(AppConfig.isLogin) || !sharedpreferences.getBoolean(AppConfig.isLogin, false)) {
         }
 
-        SharedPreferences.Editor edit = sharedpreferences.edit();
-        edit.putString(AppConfig.userId, sharedpreferences.getString(AppConfig.user_id, "guest"));
-        edit.commit();
 
         if (sharedpreferences.contains(AppConfig.usernameKey)) {
             getSupportActionBar().setSubtitle(sharedpreferences.getString(AppConfig.usernameKey, ""));
@@ -462,9 +459,6 @@ public class HomeActivity extends BaseActivity implements ProductItemClick, OnCh
         /*   setupBadge();*/
         fetchProductList("");
         try {
-            SharedPreferences.Editor edit = sharedpreferences.edit();
-            edit.putString(AppConfig.userId, sharedpreferences.getString(AppConfig.user_id, "guest"));
-            edit.commit();
             if (sharedpreferences.contains(AppConfig.usernameKey)) {
                 getSupportActionBar().setSubtitle(sharedpreferences.getString(AppConfig.usernameKey, ""));
             }

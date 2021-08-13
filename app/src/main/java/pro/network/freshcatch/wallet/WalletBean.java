@@ -8,20 +8,11 @@ import java.io.Serializable;
 
 public class WalletBean implements Serializable {
     String id;
-    String paymentId;
-    String type;
-    String amount;
+    String amt;
     String createdon;
     String operation;
 
     public WalletBean() {
-    }
-
-    public WalletBean(String id, String paymentId, String type, String amount) {
-        this.id = id;
-        this.paymentId = paymentId;
-        this.type = type;
-        this.amount = amount;
     }
 
     public String getId() {
@@ -32,28 +23,12 @@ public class WalletBean implements Serializable {
         this.id = id;
     }
 
-    public String getPaymentId() {
-        return paymentId;
+    public String getAmt() {
+        return amt;
     }
 
-    public void setPaymentId(String paymentId) {
-        this.paymentId = paymentId;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getAmount() {
-        return amount;
-    }
-
-    public void setAmount(String amount) {
-        this.amount = amount;
+    public void setAmt(String amt) {
+        this.amt = amt;
     }
 
     public String getCreatedon() {

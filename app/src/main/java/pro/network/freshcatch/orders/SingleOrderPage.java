@@ -53,11 +53,10 @@ import pro.network.freshcatch.app.PdfConfig;
 import pro.network.freshcatch.product.ProductListBean;
 
 import static pro.network.freshcatch.app.AppConfig.FETCH_ADDRESS;
-import static pro.network.freshcatch.app.AppConfig.GET_ALL_ADDRESS;
 import static pro.network.freshcatch.app.AppConfig.decimalFormat;
 
 
-public class SingleOrderPage extends AppCompatActivity implements ReturnOnClick{
+public class SingleOrderPage extends AppCompatActivity implements ReturnOnClick {
 
     RecyclerView myorders_list;
     MyOrderListProAdapter myOrderListAdapter;
@@ -67,7 +66,7 @@ public class SingleOrderPage extends AppCompatActivity implements ReturnOnClick{
     TextView payment;
     TextView grandtotal;
     TextView shippingTotal;
-    TextView subtotal, status, paymentId, deliveryTime, comments;
+    TextView subtotal, status, paymentId, deliveryTime, comments, walletTotal;
     ProgressDialog pDialog;
     LinkedHashMap<String, String> stringStringMap = new LinkedHashMap<>();
     private ArrayList<ProductListBean> myorderBeans = new ArrayList<>();
@@ -89,7 +88,7 @@ public class SingleOrderPage extends AppCompatActivity implements ReturnOnClick{
         getSupportActionBar().setTitle("My Orders");
 
         myorders_list = findViewById(R.id.myorders_list);
-        myOrderListAdapter = new MyOrderListProAdapter(getApplicationContext(),myorderBeans);
+        myOrderListAdapter = new MyOrderListProAdapter(getApplicationContext(), myorderBeans);
         final LinearLayoutManager addManager1 = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         myorders_list.setLayoutManager(addManager1);
         myorders_list.setAdapter(myOrderListAdapter);
@@ -106,6 +105,7 @@ public class SingleOrderPage extends AppCompatActivity implements ReturnOnClick{
         paymentId = findViewById(R.id.paymentId);
         comments = findViewById(R.id.comments);
         deliveryTime = findViewById(R.id.deliveryTime);
+        walletTotal = findViewById(R.id.walletTotal);
 
         shopMore.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,7 +136,7 @@ public class SingleOrderPage extends AppCompatActivity implements ReturnOnClick{
             showShopMore();
             myorderBean = (MyorderBean) getIntent().getSerializableExtra("data");
             address.setText(myorderBean.address);
-            stringStringMap.put("Order Id",  "SCF" + myorderBean.getId());
+            stringStringMap.put("Order Id", "SCF" + myorderBean.getId());
             stringStringMap.put("Address", myorderBean.address);
             status.setText(myorderBean.status);
             stringStringMap.put("Status", myorderBean.status);
@@ -149,10 +149,12 @@ public class SingleOrderPage extends AppCompatActivity implements ReturnOnClick{
             comments.setText(myorderBean.comments);
             stringStringMap.put("Comments", myorderBean.comments);
             deliveryTime.setText(myorderBean.deliveryTime);
+            walletTotal.setText(myorderBean.walletAmount);
+            stringStringMap.put("Wallet Cost", myorderBean.walletAmount);
             stringStringMap.put("Delivery time", myorderBean.deliveryTime);
-            if (myorderBean.getDeliveryTime().equalsIgnoreCase("NA")){
+            if (myorderBean.getDeliveryTime().equalsIgnoreCase("NA")) {
                 deliveryTime.setVisibility(View.GONE);
-            }else {
+            } else {
                 deliveryTime.setVisibility(View.VISIBLE);
             }
             grandtotal.setText(myorderBean.grandCost);
@@ -184,9 +186,9 @@ public class SingleOrderPage extends AppCompatActivity implements ReturnOnClick{
 
             if (paymentId != null) {
                 paymentId.setText(myorderBean.getPaymentId());
-                if (myorderBean.getPayment().equalsIgnoreCase("NA")){
+                if (myorderBean.getPayment().equalsIgnoreCase("NA")) {
                     paymentId.setVisibility(View.GONE);
-                }else {
+                } else {
                     paymentId.setVisibility(View.VISIBLE);
                 }
             }
@@ -377,6 +379,7 @@ public class SingleOrderPage extends AppCompatActivity implements ReturnOnClick{
     public void onCartClick(MyorderBean position) {
         //
     }
+
     private void showShopMore() {
         if (getIntent().getStringExtra("from") != null &&
                 getIntent().getStringExtra("from").equalsIgnoreCase("payment")) {

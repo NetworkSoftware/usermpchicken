@@ -42,18 +42,16 @@ public class  AppConfig {
 
 
     //YALU Mobiles_NetworkSoftware
-    public static final String ip = "http://thestockbazaar.com/admin/e-commerce/freshcatch";
-   // public static final String ip = "http://192.168.43.217:8103/prisma/freshcatch";
+   // public static final String ip = "http://thestockbazaar.com/admin/e-commerce/freshcatch";
+
+    public static final String ip = "http://192.168.1.100:8103/prisma/freshcatch";
 
     public static final String configKey = "configKey";
     public static final String usernameKey = "usernameKey";
     public static final String user_id = "user_id";
     public static final String IMAGE_URL = ip + "/images/";
-    public static final String shopIdKey = "shopIdKey";
     public static final String auth_key = "auth_key";
-    public static final String loginis = "true";
     public static final String emailKey = "emailKey";
-    public static final String usernameKeyclient = "usernameKeyclient";
     //login and Register
     public static final String REGISTER_USER = ip + "/user_register.php";
     public static final String LOGIN_USER = ip + "/user_login.php";
@@ -69,10 +67,9 @@ public class  AppConfig {
     //Banner
     public static final String BANNERS_GET_ALL = ip + "/dataFetchAll_banner.php";
     public static final String GET_PINCODE = ip + "/getpincode";
-    //Wellet
+    //Wallet
     public static final String WALLET_GET_ALL = ip + "/get_all_wallet.php";
-    public static final String CREATE_WALLE = ip + "/create_wallet.php";
-    public static final String GET_LIST_WALLET = ip + "/freshcatch_wallet_mgmt.php";
+    public static final String GET_USER_WALLET = ip + "/get_user_wallet.php";
 
 
     //Order

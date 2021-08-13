@@ -58,8 +58,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -75,22 +75,22 @@
                         <ImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/codicon"
+                            android:layout_marginTop="5dp"
                             android:scaleType="fitCenter"
-                            android:layout_marginTop="5dp"/>
+                            android:src="@drawable/codicon" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Cash on Delivery"
                             android:layout_centerInParent="true"
-                            android:fontFamily="@font/sans_bold" />
+                            android:fontFamily="@font/sans_bold"
+                            android:text="Cash on Delivery" />
 
                         <RadioButton
                             android:id="@+id/cod"
                             android:layout_width="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true" />
 
                     </RelativeLayout>
                 </LinearLayout>
@@ -98,8 +98,9 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1.5dp"
-                    android:background="@color/chipUnSelect"
-                    android:layout_margin="4dp" />
+                    android:layout_margin="4dp"
+                    android:background="@color/chipUnSelect" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -113,21 +114,21 @@
                         <ImageView
                             android:layout_width="60dp"
                             android:layout_height="60dp"
-                            android:src="@drawable/onlinepay"
-                            android:scaleType="centerInside" />
+                            android:scaleType="centerInside"
+                            android:src="@drawable/onlinepay" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Net Banking"
                             android:layout_centerInParent="true"
-                            android:fontFamily="@font/sans_bold" />
+                            android:fontFamily="@font/sans_bold"
+                            android:text="Net Banking" />
 
                         <RadioButton
                             android:id="@+id/online"
                             android:layout_width="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true" />
 
                     </RelativeLayout>
                 </LinearLayout>
@@ -135,8 +136,9 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1.5dp"
-                    android:background="@color/chipUnSelect"
-                    android:layout_margin="4dp" />
+                    android:layout_margin="4dp"
+                    android:background="@color/chipUnSelect" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -150,21 +152,21 @@
                         <ImageView
                             android:layout_width="60dp"
                             android:layout_height="60dp"
-                            android:src="@drawable/gpay"
-                            android:scaleType="fitCenter" />
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/gpay" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="GooglePay"
                             android:layout_centerInParent="true"
-                            android:fontFamily="@font/sans_bold" />
+                            android:fontFamily="@font/sans_bold"
+                            android:text="GooglePay" />
 
                         <RadioButton
                             android:id="@+id/gpay"
                             android:layout_width="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true" />
 
                     </RelativeLayout>
                 </LinearLayout>
@@ -296,19 +298,60 @@
                         android:textColor="@color/black"
                         android:textSize="15dp" />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/walletLinear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/sans"
+                        android:gravity="right"
+                        android:layout_weight="1"
+                        android:text="Wallet Cost : "
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/walletTotal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/sans"
+                        android:gravity="right"
+                        android:text=""
+                        android:textColor="#4CAF50"
+                        android:textSize="17dp" />
+
+                    <ProgressBar
+                        android:id="@+id/walletProgress"
+                        android:layout_width="15dp"
+                        android:layout_gravity="center"
+                        android:layout_height="15dp" />
+                </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/border_rounded_cr"/>
+                    android:background="@drawable/border_rounded_cr" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
-                    android:visibility="gone"
                     android:layout_marginRight="5dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -384,12 +427,12 @@
         android:layout_gravity="center"
         android:layout_margin="10dp"
         android:fontFamily="@font/sans"
-        android:visibility="gone"
         android:gravity="center"
         android:text="Orders Disabled by admin, Sorry for inconvenience"
         android:textColor="#F44336"
         android:textSize="18dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/paynow"

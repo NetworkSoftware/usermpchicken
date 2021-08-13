@@ -67,9 +67,6 @@ public class AllProductActivity extends BaseActivity implements ProductItemClick
         pDialog = new ProgressDialog(getApplicationContext());
         pDialog.setCancelable(false);
         sharedpreferences = getApplicationContext().getSharedPreferences(AppConfig.mypreference, Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit = sharedpreferences.edit();
-        edit.putString(AppConfig.userId, sharedpreferences.getString(AppConfig.user_id, ""));
-        edit.commit();
 
         db = new DbCart(getApplicationContext());
         recycler_product = findViewById(R.id.recycler_product);

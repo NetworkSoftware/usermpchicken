@@ -334,6 +334,35 @@
                             android:textColor="@color/black"
                             android:textSize="18dp" />
                     </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/sans"
+                            android:gravity="left"
+                            android:text="Wallet Cost : "
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:id="@+id/walletTotal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="right"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/sans"
+                            android:gravity="left"
+                            android:text="Rs. 50.00"
+                            android:textColor="@color/black"
+                            android:textSize="18dp" />
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"

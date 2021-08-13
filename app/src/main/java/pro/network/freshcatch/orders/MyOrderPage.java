@@ -41,7 +41,6 @@ import pro.network.freshcatch.R;
 import pro.network.freshcatch.app.AppConfig;
 import pro.network.freshcatch.app.AppController;
 import pro.network.freshcatch.app.BaseActivity;
-import pro.network.freshcatch.payment.PaymentActivity;
 import pro.network.freshcatch.product.ProductListBean;
 
 import static pro.network.freshcatch.app.AppConfig.ORDER_CHANGE_STATUS;
@@ -54,7 +53,6 @@ public class MyOrderPage extends BaseActivity implements ReturnOnClick {
     LinearLayout empty_product;
     private ArrayList<MyorderBean> myorderBeans = new ArrayList<>();
 
-
     @Override
     protected void startDemo() {
         setContentView(R.layout.activity_myorder);
@@ -62,7 +60,7 @@ public class MyOrderPage extends BaseActivity implements ReturnOnClick {
         sharedpreferences = getApplicationContext().getSharedPreferences(AppConfig.mypreference, Context.MODE_PRIVATE);
 
         myorders_list = findViewById(R.id.myorders_list);
-        myOrderListAdapter = new MyOrderListAdapter(getApplicationContext(), myorderBeans,this);
+        myOrderListAdapter = new MyOrderListAdapter(getApplicationContext(), myorderBeans, this);
         final LinearLayoutManager addManager1 = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         myorders_list.setLayoutManager(addManager1);
         myorders_list.setAdapter(myOrderListAdapter);
@@ -101,30 +99,31 @@ public class MyOrderPage extends BaseActivity implements ReturnOnClick {
                             order.setQuantity(jsonObject.getString("quantity"));
                             order.setStatus(jsonObject.getString("status"));
                             order.setitems(jsonObject.getString("items"));
-                            order.setToPincode(jsonObject.has("toPincode")?
-                                    jsonObject.getString("toPincode"):"NA");
-                            order.setDelivery(jsonObject.has("delivery")?
-                                    jsonObject.getString("delivery"):"NA");
-                            order.setPayment(jsonObject.has("payment")?
-                                    jsonObject.getString("payment"):"NA");
-                            order.setGrandCost(jsonObject.has("grandCost")?
-                                    jsonObject.getString("grandCost"):"NA");
-                            order.setShipCost(jsonObject.has("shipCost")?
-                                    jsonObject.getString("shipCost"):"NA");
+                            order.setToPincode(jsonObject.has("toPincode") ?
+                                    jsonObject.getString("toPincode") : "NA");
+                            order.setDelivery(jsonObject.has("delivery") ?
+                                    jsonObject.getString("delivery") : "NA");
+                            order.setPayment(jsonObject.has("payment") ?
+                                    jsonObject.getString("payment") : "NA");
+                            order.setGrandCost(jsonObject.has("grandCost") ?
+                                    jsonObject.getString("grandCost") : "NA");
+                            order.setShipCost(jsonObject.has("shipCost") ?
+                                    jsonObject.getString("shipCost") : "NA");
                             order.setAddress(jsonObject.getString("address"));
-                            order.setPaymentId(jsonObject.has("paymentId")?
-                                    jsonObject.getString("paymentId"):"NA");
-                            order.setComments(jsonObject.has("comments")?
-                                    jsonObject.getString("comments"):"NA");
-                            order.setDeliveryTime(jsonObject.has("deliveryTime")?
-                                    jsonObject.getString("deliveryTime"):"NA");
-                            order.setName(jsonObject.has("name")?
-                                    jsonObject.getString("name"):"NA");
-                            order.setPhone(jsonObject.has("phone")?
-                                    jsonObject.getString("phone"):"NA");
-                            order.setAddressOrg(jsonObject.has("addressOrg")?
-                                    jsonObject.getString("addressOrg"):"NA");
+                            order.setPaymentId(jsonObject.has("paymentId") ?
+                                    jsonObject.getString("paymentId") : "NA");
+                            order.setComments(jsonObject.has("comments") ?
+                                    jsonObject.getString("comments") : "NA");
+                            order.setDeliveryTime(jsonObject.has("deliveryTime") ?
+                                    jsonObject.getString("deliveryTime") : "NA");
+                            order.setName(jsonObject.has("name") ?
+                                    jsonObject.getString("name") : "NA");
+                            order.setPhone(jsonObject.has("phone") ?
+                                    jsonObject.getString("phone") : "NA");
+                            order.setAddressOrg(jsonObject.has("addressOrg") ?
+                                    jsonObject.getString("addressOrg") : "NA");
                             order.setCreatedon(jsonObject.getString("createdon"));
+                            order.setWalletAmount("- ₹" + jsonObject.getString("wallet"));
                             ObjectMapper mapper = new ObjectMapper();
                             Object listBeans = new Gson().fromJson(jsonObject.getString("items"),
                                     Object.class);
