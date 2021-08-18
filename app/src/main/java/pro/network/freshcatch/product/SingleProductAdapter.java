@@ -125,8 +125,10 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
             @Override
             public void onClick(View v) {
                 PopupMenu popup = new PopupMenu(v.getContext(), v);
-                for (int k = 0; k < 10; k++) {
-                    popup.getMenu().add(String.valueOf(k + 0.5));
+                float val=0;
+                for (int k = 0; k < 20; k++) {
+                    val=val+0.5f;
+                    popup.getMenu().add(String.valueOf(val));
                 }
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
