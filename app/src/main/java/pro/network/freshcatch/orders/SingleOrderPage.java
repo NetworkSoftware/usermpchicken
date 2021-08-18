@@ -167,7 +167,7 @@ public class SingleOrderPage extends AppCompatActivity implements ReturnOnClick 
                     if (qty == null || !qty.matches("-?\\d+(\\.\\d+)?")) {
                         qty = "1";
                     }
-                    float startValue = Float.parseFloat(productListBean.getPrice()) * Integer.parseInt(qty);
+                    float startValue = Float.parseFloat(productListBean.getPrice()) * Float.parseFloat(qty);
                     String s = productListBean.getQty() + "*" + productListBean.getPrice() + "/" +
                             productListBean.getQty() + " " + productListBean.getPrice() +
                             "=" + "₹" + decimalFormat.format(startValue) + ".00";

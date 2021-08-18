@@ -377,7 +377,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
             } catch (Exception e) {
 
             }
-            float maintotal = Float.parseFloat(productList.get(i).price) * Integer.parseInt(qty);
+            float maintotal = Float.parseFloat(productList.get(i).price) * Float.parseFloat(qty);
             grandTotal = grandTotal + maintotal;
         }
         return grandTotal;
@@ -659,8 +659,13 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
                         if (pincode.length() > 0) {
                             editor.putString("pincode", pincode);
                             isValidPincode = true;
+                        }
+                        if (isValidPincode) {
+                            editor.putString("pincode", addressTxt.getText().toString());
+                            addressText.setError(null);
+                            editor.commit();
                             addOrUpdateAddress(address1, isUpdate, mBottomSheetDialog);
-                        } else {
+                        }else {
                             addressText.setError(getString(R.string.pincodeError));
                         }
                         editor.commit();

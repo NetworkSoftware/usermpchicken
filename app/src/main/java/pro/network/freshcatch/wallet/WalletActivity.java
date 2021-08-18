@@ -85,10 +85,14 @@ public class WalletActivity extends AppCompatActivity {
                     if (success == 1) {
                         JSONArray jsonArray = jObj.getJSONArray("data");
                         contactList = new ArrayList<>();
-                        tol_amt.setText("0");
-                        if (jObj.has("totalAmt")) {
+
+
+                        if (jObj.getString("totalAmt") ==null) {
+                            tol_amt.setText("0");
+                        }else {
                             tol_amt.setText(jObj.getString("totalAmt"));
                         }
+
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             WalletBean product = new WalletBean();

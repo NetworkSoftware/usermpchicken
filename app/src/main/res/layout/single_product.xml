@@ -1,202 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="135dp"
+    android:orientation="horizontal"
+    android:id="@+id/product_card"
+    android:layout_marginRight="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginTop="10dp"
+    app:cardCornerRadius="15dp"
+    android:elevation="50dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/product_card"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:elevation="3dp"
-        app:cardCornerRadius="10dp">
+        android:id="@+id/linearPro"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/product_image"
+            android:layout_width="match_parent"
+            android:layout_height="135dp"
+            android:layout_weight="1.2"
+            android:scaleType="centerCrop"
+            android:src="@drawable/fresh_icon" />
 
         <LinearLayout
-            android:id="@+id/linearPro"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/product_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/fresh_icon" />
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="5dp"
-                    android:elevation="30dp"
-                    app:cardCornerRadius="5dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:background="@color/colorPrimary"
-                        android:gravity="center"
-                        android:visibility="gone"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/rqty"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="6dp"
-                            android:layout_weight="1.5"
-                            android:gravity="center"
-                            android:text="500"
-                            android:textColor="@color/white"
-                            android:textSize="15dp" />
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_gravity="center"
-                            android:layout_marginRight="3dp"
-                            android:layout_weight="0.5"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/weight"
-                            app:tint="@color/white" />
-
-
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </RelativeLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/product_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/sans"
+                android:gravity="center_vertical"
+                android:maxLines="2"
+                android:text="New product 1"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/brand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/sans"
+                android:gravity="center_vertical"
+                android:maxLines="2"
+                android:text="New product 1"
+                android:textColor="@color/colorTex"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/product_rupee_final"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sans"
+                android:gravity="center_vertical"
+                android:text="Rs.120.00"
+                android:layout_marginTop="5dp"
+                android:maxLines="2"
+                android:textColor="@color/colorTex"
+                android:textSize="16dp" />
+
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:gravity="center"
                 android:orientation="vertical">
 
-
-                <TextView
-                    android:id="@+id/product_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/sans"
-                    android:gravity="center"
-                    android:maxLines="3"
-                    android:text="New product 1"
-                    android:textColor="@color/black"
-                    android:textSize="20dp" />
-
-                <TextView
-                    android:id="@+id/brand"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/sans"
-                    android:gravity="center"
-                    android:maxLines="5"
-                    android:text="New product 1"
-                    android:textColor="@color/colorTex"
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:id="@+id/product_rupee_final"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/sans"
-                    android:gravity="center"
-                    android:text="Rs.120.00"
-                    android:textColor="@color/colorTex"
-                    android:textSize="16dp" />
-
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:id="@+id/add_qty"
+                    android:layout_width="150dp"
+                    android:layout_height="45dp"
                     android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/outline_rec"
+                    android:backgroundTint="@color/light_gray"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/minus"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center|right"
+                        android:padding="4dp"
+                        android:src="@drawable/ic_baseline_remove_circle_outline_24"
+                        app:tint="@color/colorPrimary" />
 
                     <LinearLayout
-                        android:id="@+id/add_qty"
+                        android:id="@+id/quantityDrop"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:gravity="center"
                         android:orientation="horizontal">
-
-                        <ImageView
-                            android:id="@+id/minus"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center"
-                            android:padding="4dp"
-                            android:src="@drawable/ic_baseline_remove_circle_outline_24"
-                            app:tint="@color/colorPrimary" />
 
                         <TextView
                             android:id="@+id/quantity"
-                            android:layout_width="wrap_content"
-                            android:layout_height="28dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="10dp"
                             android:gravity="center"
                             android:text="0"
+                            android:layout_weight="1"
                             android:textColor="@color/black"
-                            android:textSize="20dp" />
+                            android:textSize="17dp" />
 
                         <ImageView
-                            android:id="@+id/plus"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="10dp"
-                            android:padding="4dp"
-                            android:src="@drawable/ic_baseline_add_circle_outline_24"
-                            app:tint="@color/colorPrimary" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="5dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/add_cart"
-                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Add"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="15dp"
-                            app:icon="@drawable/ic_outline_shopping_cart_24"
-                            app:iconSize="20dp"
-                            app:iconTint="@color/colorPrimary"
-                            app:strokeColor="@color/colorPrimary" />
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:gravity="center|right"
+                            android:src="@drawable/ic_arrow_drop_down_black_24dp" />
                     </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/plus"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center|right"
+                        android:padding="4dp"
+                        android:src="@drawable/ic_baseline_add_circle_outline_24"
+                        app:tint="@color/colorPrimary" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/add_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|bottom"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/add_cart"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:text="Add"
+                        android:visibility="gone"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="15dp"
+                        app:icon="@drawable/ic_outline_shopping_cart_24"
+                        app:iconSize="20dp"
+                        app:iconTint="@color/colorPrimary"
+                        app:strokeColor="@color/colorPrimary" />
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-</RelativeLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

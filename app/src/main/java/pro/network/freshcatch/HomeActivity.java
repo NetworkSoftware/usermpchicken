@@ -51,6 +51,7 @@ import pro.network.freshcatch.product.ProductActivity;
 import pro.network.freshcatch.product.ProductItemClick;
 import pro.network.freshcatch.product.ProductListAdapter;
 import pro.network.freshcatch.product.ProductListBean;
+import pro.network.freshcatch.wallet.WalletActivity;
 
 import static pro.network.freshcatch.app.AppConfig.CATEGORIES_GET_ALL;
 
@@ -322,7 +323,7 @@ public class HomeActivity extends BaseActivity implements ProductItemClick, OnCh
     }
 
     @Override
-    public void OnQuantityChange(int position, int qty) {
+    public void OnQuantityChange(int position, float qty) {
 
     }
 
@@ -330,6 +331,11 @@ public class HomeActivity extends BaseActivity implements ProductItemClick, OnCh
     public void onCartClick(ProductListBean productListBean) {
 
         addtocart(productListBean);
+    }
+
+    @Override
+    public void onDropQnt(ProductListBean position) {
+
     }
 
     @Override
@@ -371,6 +377,10 @@ public class HomeActivity extends BaseActivity implements ProductItemClick, OnCh
             case R.id.cart:
                 Intent intent = new Intent(HomeActivity.this, CartActivity.class);
                 startActivity(intent);
+                return true;
+            case R.id.wallet:
+                Intent intentj = new Intent(HomeActivity.this, WalletActivity.class);
+                startActivity(intentj);
                 return true;
 
             case R.id.order:

@@ -16,7 +16,7 @@ public class MyorderBean implements Serializable {
     String name;
     String phone;
     String addressOrg;
-    String walletAmount;
+    String walletAmount,cashback;
 
     public String getName() {
         return name;
@@ -203,5 +203,13 @@ public class MyorderBean implements Serializable {
 
     public void setWalletAmount(String walletAmount) {
         this.walletAmount = walletAmount;
+    }
+
+    public String getCashback() {
+        return cashback;
+    }
+
+    public void setCashback(String cashback) {
+        this.cashback = cashback;
     }
 }

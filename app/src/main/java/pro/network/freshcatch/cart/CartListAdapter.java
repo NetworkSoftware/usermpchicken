@@ -72,7 +72,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.MyView
             Log.e("xxxxxxxxxxx", e.toString());
         }
 
-        float total = Float.parseFloat(productBean.price) * Integer.parseInt(productBean.getQty());
+        float total = Float.parseFloat(productBean.price) * Float.parseFloat(productBean.getQty());
         holder.product_total_price.setText(productBean.getQty() + " * " + "₹" + productBean.getPrice() + "/" +
                 productBean.getRqty() + " " + productBean.getRqtyType());
         holder.product_price.setText("₹" + decimalFormat.format(total) + ".00");
@@ -86,8 +86,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.MyView
         holder.minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int newQuan = Integer.parseInt(holder.quantity.getText().toString()) - 1;
-
+                float newQuan = Float.parseFloat(holder.quantity.getText().toString()) - 1;
                 doCallCartChange(newQuan, productBean, holder, position);
 
             }
@@ -96,7 +95,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.MyView
         holder.plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int newQuan = Integer.parseInt(holder.quantity.getText().toString()) + 1;
+                float newQuan = Float.parseFloat(holder.quantity.getText().toString()) + 1;
                 doCallCartChange(newQuan, productBean, holder, position);
             }
         });
@@ -113,7 +112,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.MyView
 
     }
 
-    private void doCallCartChange(int newQuan, ProductListBean productBean, MyViewHolder holder, int position) {
+    private void doCallCartChange(float newQuan, ProductListBean productBean, MyViewHolder holder, int position) {
         float total = Float.parseFloat(productBean.price) * newQuan;
         holder.product_total_price.setText("Total: ₹" + decimalFormat.format(total) + ".00");
         holder.quantity.setText(newQuan + "");

@@ -18,6 +18,14 @@
         android:visible="true"
         android:iconTint="@color/white"
         app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/wallet"
+        android:icon="@drawable/ic_outline_account_balance_wallet_24"
+        android:title="Order"
+        android:visible="true"
+        android:iconTint="@color/white"
+        app:showAsAction="always"/>
     <item
         android:id="@+id/settings"
         android:title="Settings"

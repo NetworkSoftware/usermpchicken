@@ -154,9 +154,9 @@ public class PdfConfig {
 
         for (int i = 0; i < myorderBean.getProductBeans().size(); i++) {
             ProductListBean productListBean = myorderBean.getProductBeans().get(i);
-            int quan = Integer.parseInt(productListBean.getQty());
+            float quan = Float.parseFloat(productListBean.getQty());
             int perQuanPri = Integer.parseInt(productListBean.getPrice());
-            int total = quan * perQuanPri;
+            float total = quan * perQuanPri;
             if(i==myorderBean.getProductBeans().size()-1){
                 table3.addCell(createTextCellBottomWithRight(String.valueOf(i + 1), catNormalFont));
                 table3.addCell(createTextCellBottomWithRight(productListBean.getBrand() + " " + productListBean.getModel(), catFont));

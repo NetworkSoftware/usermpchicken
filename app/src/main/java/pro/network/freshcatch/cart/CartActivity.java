@@ -211,7 +211,7 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
             } catch (Exception e) {
 
             }
-            float startValue = Float.parseFloat(productList.get(i).price) * Integer.parseInt(qty);
+            float startValue = Float.parseFloat(productList.get(i).price) * Float.parseFloat(qty);
 
 
             grandTotal = grandTotal + startValue;
@@ -244,7 +244,7 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
     }
 
     @Override
-    public void OnQuantityChange(int position, int qty) {
+    public void OnQuantityChange(int position, float qty) {
 
         productList.get(position).setQty(qty + "");
         db.updateProductsInCart(productList.get(position), sharedpreferences.getString(user_id, ""));

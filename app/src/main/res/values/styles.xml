@@ -83,7 +83,10 @@
     <style name="MyHintStyle" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/white</item>
     </style>
-
+    <style name="Widget.AppTheme.Spinner" parent="Widget.AppCompat.Spinner">
+        <!-- color is change form here -->
+        <item name="android:popupBackground">@color/light_gray</item>
+    </style>
     <style name="LoginTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">#fff</item>
         <item name="boxStrokeWidth">2dp</item>

@@ -52,6 +52,14 @@ public class MyOrderListAdapter extends RecyclerView.Adapter<MyOrderListAdapter.
         holder.createdon.setText(AppConfig.convertTimeToLocal(been.getCreatedon()));
         holder.reason.setText(been.getReson());
         holder.orderid.setText(been.getId());
+        holder.cashback.setVisibility(View.VISIBLE);
+        holder.cashbackTxt.setVisibility(View.VISIBLE);
+        if(been.getWalletAmount().equalsIgnoreCase("")){
+            holder.cashback.setVisibility(View.GONE);
+            holder.cashbackTxt.setVisibility(View.GONE);
+        }else {
+            holder.cashback.setText(been.getWalletAmount());
+        }
         holder.cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,7 +89,7 @@ public class MyOrderListAdapter extends RecyclerView.Adapter<MyOrderListAdapter.
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView orderid;
+        TextView orderid,cashback,cashbackTxt;
         RecyclerView cart_sub_list;
         CardView cart;
         private final TextView name;
@@ -102,6 +110,8 @@ public class MyOrderListAdapter extends RecyclerView.Adapter<MyOrderListAdapter.
             reason = view.findViewById(R.id.reason);
             orderid = view.findViewById(R.id.orderid);
             cart = view.findViewById(R.id.cart);
+            cashback = view.findViewById(R.id.cashback);
+            cashbackTxt = view.findViewById(R.id.cashbackTxt);
 
 
         }

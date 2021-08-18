@@ -42,9 +42,9 @@ public class  AppConfig {
 
 
     //YALU Mobiles_NetworkSoftware
-   // public static final String ip = "http://thestockbazaar.com/admin/e-commerce/freshcatch";
+    public static final String ip = "http://thestockbazaar.com/admin/e-commerce/freshcatch";
 
-    public static final String ip = "http://192.168.1.100:8103/prisma/freshcatch";
+   // public static final String ip = "http://192.168.1.100:8103/prisma/freshcatch";
 
     public static final String configKey = "configKey";
     public static final String usernameKey = "usernameKey";
@@ -66,7 +66,7 @@ public class  AppConfig {
     public static final String PRODUCT_GET_ALL = ip + "/dataFetchAll.php";
     //Banner
     public static final String BANNERS_GET_ALL = ip + "/dataFetchAll_banner.php";
-    public static final String GET_PINCODE = ip + "/getpincode";
+    public static final String GET_PINCODE = ip + "/getpincode.php";
     //Wallet
     public static final String WALLET_GET_ALL = ip + "/get_all_wallet.php";
     public static final String GET_USER_WALLET = ip + "/get_user_wallet.php";

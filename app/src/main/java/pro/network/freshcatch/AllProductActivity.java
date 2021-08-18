@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +46,7 @@ import pro.network.freshcatch.product.ProductItemClick;
 import pro.network.freshcatch.product.ProductListBean;
 import pro.network.freshcatch.product.SingleProductAdapter;
 
+
 public class AllProductActivity extends BaseActivity implements ProductItemClick, OnChip {
     private final String TAG = getClass().getSimpleName();
     private final ArrayList<ChipBean> chipBeans = new ArrayList<>();
@@ -72,7 +75,7 @@ public class AllProductActivity extends BaseActivity implements ProductItemClick
         recycler_product = findViewById(R.id.recycler_product);
         productList = new ArrayList<>();
         productListAdapter = new SingleProductAdapter(getApplicationContext(), productList, this, sharedpreferences);
-        final GridLayoutManager addManager1 = new GridLayoutManager(getApplication(), 2);
+        final GridLayoutManager addManager1 = new GridLayoutManager(getApplication(), 1);
         recycler_product.setLayoutManager(addManager1);
         recycler_product.setAdapter(productListAdapter);
 
@@ -175,7 +178,7 @@ public class AllProductActivity extends BaseActivity implements ProductItemClick
     }
 
     @Override
-    public void OnQuantityChange(int position, int qty) {
+    public void OnQuantityChange(int position, float qty) {
         if (qty <= 0) {
             db.deleteProductById(productList.get(position)
                     , sharedpreferences.getString(AppConfig.user_id, ""));
@@ -194,6 +197,24 @@ public class AllProductActivity extends BaseActivity implements ProductItemClick
     @Override
     public void onCartClick(ProductListBean productListBean) {
         addToCart(productListBean);
+    }
+
+    @Override
+    public void onDropQnt(ProductListBean position) {
+/*
+        ArrayAdapter<String> titleAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, CATEGORY);
+        category.setAdapter(titleAdapter);
+        category.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ArrayAdapter<String> brandAdapter = new ArrayAdapter<String>(AllProductActivity.this,
+                        android.R.layout.simple_dropdown_item_1line, AppConfig.getSubCatFromCat(CATEGORY[position]));
+                category.setAdapter(brandAdapter);
+                category.setThreshold(1);
+            }
+        });*/
+
     }
 
     @Override

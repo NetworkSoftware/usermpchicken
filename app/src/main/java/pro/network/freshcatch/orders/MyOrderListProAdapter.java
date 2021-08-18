@@ -57,7 +57,7 @@ public class MyOrderListProAdapter extends RecyclerView.Adapter<MyOrderListProAd
         } catch (Exception e) {
 
         }
-        float startValue = Float.parseFloat(myorderBean.getPrice()) * Integer.parseInt(qty);
+        float startValue = Float.parseFloat(myorderBean.getPrice()) * Float.parseFloat(qty);
         holder.subtitle.setText(myorderBean.getQty() + "*" + myorderBean.getPrice() + "/" +
                 myorderBean.getRqty() + " " + myorderBean.getRqtyType() +
                 "=" + "₹" + decimalFormat.format(startValue) + ".00");
