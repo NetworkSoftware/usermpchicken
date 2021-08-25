@@ -78,7 +78,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.MyView
         holder.product_price.setText("₹" + decimalFormat.format(total) + ".00");
 
         holder.quantity.setText(productBean.getQty());
-        if (productBean.getQty().equalsIgnoreCase("1")) {
+        if (productBean.getQty().equalsIgnoreCase("0.5")) {
             holder.minus.setVisibility(View.INVISIBLE);
         } else {
             holder.minus.setVisibility(View.VISIBLE);
@@ -86,7 +86,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.MyView
         holder.minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                float newQuan = Float.parseFloat(holder.quantity.getText().toString()) - 1;
+                float newQuan = Float.parseFloat(holder.quantity.getText().toString()) - 0.5f;
                 doCallCartChange(newQuan, productBean, holder, position);
 
             }
@@ -95,7 +95,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.MyView
         holder.plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                float newQuan = Float.parseFloat(holder.quantity.getText().toString()) + 1;
+                float newQuan = Float.parseFloat(holder.quantity.getText().toString()) + 0.5f;
                 doCallCartChange(newQuan, productBean, holder, position);
             }
         });

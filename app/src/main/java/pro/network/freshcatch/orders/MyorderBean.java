@@ -212,4 +212,6 @@ public class MyorderBean implements Serializable {
     public void setCashback(String cashback) {
         this.cashback = cashback;
     }
+
+
 }

@@ -57,6 +57,8 @@ import static pro.network.freshcatch.app.AppConfig.CATEGORIES_GET_ALL;
 
 public class HomeActivity extends BaseActivity implements ProductItemClick, OnChip {
 
+    private final String TAG = getClass().getSimpleName();
+    private final ArrayList<ChipBean> category = new ArrayList<>();
     ProgressDialog pDialog;
     RecyclerView recycler_product;
     CartActivity.OnCartItemChange onCartItemChange;
@@ -67,13 +69,11 @@ public class HomeActivity extends BaseActivity implements ProductItemClick, OnCh
     SharedPreferences sharedpreferences;
     TextView description, title;
     LinearLayout newsCard;
-    private final String TAG = getClass().getSimpleName();
     private DbCart db;
     private List<CategoryBeen> categoryList = new ArrayList<>();
     private List<ProductListBean> productList = new ArrayList<>();
     private TextView cart_badge;
     private CategoryAdapter categoryAdapter;
-    private final ArrayList<ChipBean> category = new ArrayList<>();
     private FloatingActionButton phone;
 
     @Override
@@ -264,10 +264,10 @@ public class HomeActivity extends BaseActivity implements ProductItemClick, OnCh
                         if (jObj.has("enabled") &&
                                 jObj.getString("enabled").equalsIgnoreCase("1")) {
                             newsCard.setVisibility(View.VISIBLE);
-                            if(jObj.has("title")){
+                            if (jObj.has("title")) {
                                 title.setText(jObj.getString("title"));
                             }
-                            if(jObj.has("descriptionAn")){
+                            if (jObj.has("descriptionAn")) {
                                 description.setText(jObj.getString("descriptionAn"));
                             }
                         } else {
@@ -348,7 +348,7 @@ public class HomeActivity extends BaseActivity implements ProductItemClick, OnCh
         final MenuItem menuItem = menu.findItem(R.id.cart);
 
         View actionView = menuItem.getActionView();
-        cart_badge = (TextView) actionView.findViewById(R.id.cart_badge);
+        cart_badge = actionView.findViewById(R.id.cart_badge);
 
         setupBadge();
 
@@ -359,7 +359,8 @@ public class HomeActivity extends BaseActivity implements ProductItemClick, OnCh
             }
         });
 
-
+        final MenuItem wallet = menu.findItem(R.id.wallet);
+        wallet.setVisible(!sharedpreferences.getString(AppConfig.user_id, "").equalsIgnoreCase("guest"));
         return true;
     }
 

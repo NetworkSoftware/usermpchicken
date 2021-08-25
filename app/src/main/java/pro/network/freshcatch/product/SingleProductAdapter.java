@@ -87,7 +87,7 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
         holder.minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                float newQuan = Float.parseFloat(holder.quantity.getText().toString()) - 1;
+                float newQuan = Float.parseFloat(holder.quantity.getText().toString()) - 0.5f;
                 doCallCartChange(newQuan, holder, position);
             }
         });
@@ -95,7 +95,7 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
         holder.plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                float newQuan = Float.parseFloat(holder.quantity.getText().toString()) + 1;
+                float newQuan = Float.parseFloat(holder.quantity.getText().toString()) + 0.5f;
                 doCallCartChange(newQuan, holder, position);
             }
         });
