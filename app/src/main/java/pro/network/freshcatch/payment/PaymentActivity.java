@@ -314,8 +314,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
             object.put("send_sms_hash", false);
             object.put("amount", Float.parseFloat(subtotal.getText().toString().replace(
                     "₹", "").replace(".", "")));//pass amount in currency subunits
-
-            // object.put("amount", "100");
+           //  object.put("amount", "100");
 
             JSONObject prefill = new JSONObject();
             String string1 = sharedpreferences.getString(AppConfig.emailKey, "");
@@ -347,8 +346,8 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
         productList = db.getAllProductsInCart(sharedpreferences.getString(AppConfig.user_id, ""));
         float grandTotal = getGrandTotal();
         grandtotal.setText("₹" + decimalFormat.format(grandTotal) + ".00");
-        shippingTotal.setText("₹" + decimalFormat.format(30) + ".00");
-        grandTotal = grandTotal + 30;
+        shippingTotal.setText("₹" + decimalFormat.format(0) + ".00");
+        grandTotal = grandTotal + 0;
         if (walletAmt > 0) {
             grandTotal = grandTotal - walletAmt;
             walletLinear.setVisibility(View.VISIBLE);

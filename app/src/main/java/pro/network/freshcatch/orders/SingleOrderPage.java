@@ -271,7 +271,7 @@ public class SingleOrderPage extends AppCompatActivity implements ReturnOnClick 
                         stringBuilder1.append(jsonObject.getString("landmark")).append("\n");
                         stringBuilder1.append(jsonObject.getString("pincode"));
                         address.setText(stringBuilder.toString() + "\n" + stringBuilder1.toString());
-                        myorderBean.setAddress(stringBuilder1.toString());
+                        myorderBean.setAddressOrg(stringBuilder1.toString());
                         myorderBean.setName(jsonObject.getString("name"));
                         myorderBean.setPhone(jsonObject.getString("mobile"));
 
