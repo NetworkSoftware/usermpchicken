@@ -19,29 +19,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/sans"
-                android:gravity="center"
-                android:text="Address"
-                android:textColor="@color/colorPrimary"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/settext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/sans"
-                android:gravity="center"
-                android:text="Go 100% eco friendly!"
-                android:textColor="@color/black"
-                android:textSize="10dp"
-                android:visibility="gone" />
 
             <fragment
                 android:id="@+id/map"
@@ -144,7 +121,7 @@
                     android:layout_gravity="center"
                     android:backgroundTint="@color/gray"
                     android:fontFamily="@font/sans"
-                    android:inputType="textImeMultiLine"
+                    android:inputType="textMultiLine|textImeMultiLine"
                     android:textColorHint="#c6c6c6"
                     android:textSize="15dp" />
 

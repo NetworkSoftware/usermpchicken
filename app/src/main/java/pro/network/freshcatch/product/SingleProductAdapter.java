@@ -101,12 +101,26 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
         });
 
         if (productBean.getStock_update().equalsIgnoreCase("Currently Unavailable")) {
-            holder.linearPro.setBackgroundColor(Color.parseColor("#b0afaf"));
-            holder.linearPro.setAlpha(0.5f);
+            holder.hideDrop.setVisibility(View.VISIBLE);
         } else {
-            holder.linearPro.setBackgroundColor(Color.parseColor("#ffffff"));
-            holder.linearPro.setAlpha(1f);
+            holder.hideDrop.setVisibility(View.GONE);
         }
+
+        holder.linearPro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!productBean.getStock_update().equalsIgnoreCase("Currently Unavailable")) {
+                    productItemClick.onProductClick(productBean);
+                }
+            }
+        });
+
+        holder.hideDrop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //
+            }
+        });
 
         if (databaseHelper.isInCart(productBean.id,
                 sharedpreferences.getString(AppConfig.user_id, ""))) {
@@ -141,14 +155,7 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
             }
         });
 
-        holder.product_card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!productBean.getStock_update().equalsIgnoreCase("Currently Unavailable")) {
-                    productItemClick.onProductClick(productBean);
-                }
-            }
-        });
+
     }
 
     private void doCallCartChange(float newQuan, SingleProductAdapter.MyViewHolder holder, int position) {
@@ -177,6 +184,7 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
         private final TextView product_rupee_final;
         private final TextView brand;
         private final LinearLayout add_qty, linearPro, quantityDrop;
+        private final LinearLayout hideDrop;
         MaterialButton cart;
         private final TextView quantity;
 
@@ -193,7 +201,7 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
             plus = view.findViewById(R.id.plus);
             add_qty = view.findViewById(R.id.add_qty);
             linearPro = view.findViewById(R.id.linearPro);
-
+            hideDrop=view.findViewById(R.id.hideDrop);
             quantityDrop = view.findViewById(R.id.quantityDrop);
             product_rupee_final = view.findViewById(R.id.product_rupee_final);
         }

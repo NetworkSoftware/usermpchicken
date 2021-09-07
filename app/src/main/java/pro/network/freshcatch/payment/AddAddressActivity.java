@@ -1,6 +1,7 @@
 package pro.network.freshcatch.payment;
 
 import static pro.network.freshcatch.app.AppConfig.mypreference;
+import static pro.network.freshcatch.app.AppConfig.phone;
 
 import android.Manifest;
 import android.app.Activity;
@@ -11,6 +12,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -55,11 +57,14 @@ import com.google.android.material.textfield.TextInputLayout;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import pro.network.freshcatch.R;
 import pro.network.freshcatch.app.AppConfig;
 import pro.network.freshcatch.app.AppController;
+import pro.network.freshcatch.map.MapsActivity;
 
 public class AddAddressActivity extends AppCompatActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
@@ -72,6 +77,7 @@ public class AddAddressActivity extends AppCompatActivity implements OnMapReadyC
     LocationRequest mLocationRequest;
     GoogleMap mMap;
     private Marker marker_in_sydney;
+    TextInputEditText address,landmark,pincode,mobile;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,11 +93,11 @@ public class AddAddressActivity extends AppCompatActivity implements OnMapReadyC
         sharedpreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
 
         final TextInputEditText name = findViewById(R.id.name);
-        final TextInputEditText address = findViewById(R.id.address);
-        final TextInputEditText mobile = findViewById(R.id.mobile);
+         address = findViewById(R.id.address);
+        mobile = findViewById(R.id.mobile);
         final TextInputEditText alternateMobile = findViewById(R.id.alternateMobile);
-        final TextInputEditText landmark = findViewById(R.id.landmark);
-        final TextInputEditText pincode = findViewById(R.id.pincode);
+        landmark = findViewById(R.id.landmark);
+        pincode = findViewById(R.id.pincode);
         final TextInputLayout pincodeTxt = findViewById(R.id.pincodeTxt);
         final TextInputEditText comments = findViewById(R.id.comments);
         final ProgressBar pincodeProgress = findViewById(R.id.pincodeProgress);
@@ -142,6 +148,29 @@ public class AddAddressActivity extends AppCompatActivity implements OnMapReadyC
         });
 
 
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+
+
+        if (ContextCompat.checkSelfPermission(AddAddressActivity.this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(AddAddressActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
+        } else {
+            if (mGoogleApiClient != null) {
+                mGoogleApiClient.connect();
+            }
+        }
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -455,6 +484,7 @@ public class AddAddressActivity extends AppCompatActivity implements OnMapReadyC
             marker_in_sydney.setPosition(latlng);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latlng));
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 15.0f));
+            getaddress(latlng);
         }
     }
 
@@ -498,5 +528,39 @@ public class AddAddressActivity extends AppCompatActivity implements OnMapReadyC
 
         return myQuittingDialogBox;
     }
+
+
+    private void getaddress(LatLng midLatLng) {
+        try {
+            Geocoder geocoder;
+            List<android.location.Address> addresses;
+            geocoder = new Geocoder(AddAddressActivity.this,
+                    Locale.getDefault());
+            addresses = geocoder.getFromLocation(midLatLng.latitude, midLatLng.longitude, 1);
+
+            String addressVal = addresses.get(0).getAddressLine(0);
+            String city = addresses.get(0).getLocality();
+            String state = addresses.get(0).getAdminArea();
+            String country = addresses.get(0).getCountryName();
+            String postalCode = addresses.get(0).getPostalCode();
+            String knownName = addresses.get(0).getFeatureName();
+
+            if(mobile.getText().toString().length()<=0){
+                mobile.setText(sharedpreferences.getString(phone,""));
+            }
+
+            if(address.getText().toString().length()<=0){
+                address.setText(addressVal);
+            }
+            if(pincode.getText().toString().length()<=0){
+                pincode.setText(postalCode);
+            }
+
+        } catch (Exception e) {
+            Log.e("xxxxxx", e.toString());
+        }
+    }
+
+
 
 }

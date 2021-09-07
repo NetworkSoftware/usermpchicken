@@ -4,6 +4,7 @@ public class PreferenceBean {
     private static PreferenceBean _instance;
 
     boolean enableBooking;
+    int shippingCost;
 
 
 
@@ -14,6 +15,13 @@ public class PreferenceBean {
         return _instance;
     }
 
+    public int getShippingCost() {
+        return shippingCost;
+    }
+
+    public void setShippingCost(int shippingCost) {
+        this.shippingCost = shippingCost;
+    }
 
     public boolean isEnableBooking() {
         return enableBooking;

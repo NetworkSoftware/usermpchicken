@@ -201,6 +201,7 @@ public class HomeActivity extends BaseActivity implements ProductItemClick, OnCh
                             if (jsonObject.getString("name").equalsIgnoreCase("config")) {
                                 PreferenceBean settings = new Gson().fromJson(jsonObject.getString("value"), PreferenceBean.class);
                                 PreferenceBean.getInstance().setEnableBooking(settings.isEnableBooking());
+                                PreferenceBean.getInstance().setShippingCost(settings.getShippingCost());
                             }
                         }
                     }

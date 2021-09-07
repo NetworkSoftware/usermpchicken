@@ -355,8 +355,8 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
         productList = db.getAllProductsInCart(sharedpreferences.getString(AppConfig.user_id, ""));
         float grandTotal = getGrandTotal();
         grandtotal.setText("₹" + decimalFormat.format(grandTotal) + ".00");
-        shippingTotal.setText("₹" + decimalFormat.format(0) + ".00");
-        grandTotal = grandTotal + 0;
+        shippingTotal.setText("₹" + decimalFormat.format(PreferenceBean.getInstance().getShippingCost()) + ".00");
+        grandTotal = grandTotal + PreferenceBean.getInstance().getShippingCost();
         if (walletAmt > 0) {
             grandTotal = grandTotal - walletAmt;
             walletLinear.setVisibility(View.VISIBLE);
