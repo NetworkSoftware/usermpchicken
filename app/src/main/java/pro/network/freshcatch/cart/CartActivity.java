@@ -39,6 +39,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -304,6 +305,8 @@ public class CartActivity extends AppCompatActivity implements CartItemClick {
                         editor.putString(AppConfig.user_id, user_id);
                         editor.putString(AppConfig.emailKey, jObj.getString("email"));
                         editor.commit();
+
+                        FirebaseMessaging.getInstance().subscribeToTopic("allDevices_"+user_id);
 
                         ArrayList<ProductListBean> productListTemp = db.getAllProductsInCart("guest");
                         for (int k = 0; k < productListTemp.size(); k++) {

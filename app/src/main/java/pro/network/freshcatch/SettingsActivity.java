@@ -27,6 +27,7 @@ import com.deishelon.roundedbottomsheet.RoundedBottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -351,6 +352,7 @@ public class SettingsActivity extends BaseActivity {
                         editor.putString(AppConfig.emailKey, jObj.getString("email"));
                         editor.putString(AppConfig.user_id, user_id);
                         editor.commit();
+                        FirebaseMessaging.getInstance().subscribeToTopic("allDevices_"+user_id);
 
                         ArrayList<ProductListBean> productListTemp = db.getAllProductsInCart("guest");
                         for (int k = 0; k < productListTemp.size(); k++) {

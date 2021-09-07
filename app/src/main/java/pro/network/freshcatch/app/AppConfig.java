@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -85,7 +86,7 @@ public static final String GET_ALL_SETTINGS = ip + "/get_all_settings.php";
     public static final String GET_ALL_ADDRESS = ip + "/get_all_address.php";
     public static final String DELETE_ADDRESS = ip + "/delete_address.php";
     public static final String FETCH_ADDRESS = ip + "/fetch_address.php";
-    public static LatLng houseLatlon = new LatLng(8.2146388, 77.4301976);
+    public static LatLng houseLatlon = new LatLng(13.0474878,80.0689245);
 
     public static void openPdfFile(Context context, String name) {
         File fileBrochure = new File(Environment.getExternalStorageDirectory() + "/" + name);
@@ -106,6 +107,7 @@ public static final String GET_ALL_SETTINGS = ip + "/get_all_settings.php";
         }
     }
     public static void logout(SharedPreferences sharedPreferences, Context context) {
+        FirebaseMessaging.getInstance().subscribeToTopic("allDevices_"+sharedPreferences.getString(user_id,""));
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(AppConfig.isLogin, true);
         editor.putString(AppConfig.configKey, "guest");

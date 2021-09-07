@@ -11,6 +11,7 @@ public class Address implements Serializable {
     String landmark;
     String pincode;
     String comments;
+    String latlon;
 
     public Address() {
     }
@@ -87,5 +88,13 @@ public class Address implements Serializable {
 
     public void setComments(String comments) {
         this.comments = comments;
+    }
+
+    public String getLatlon() {
+        return latlon;
+    }
+
+    public void setLatlon(String latlon) {
+        this.latlon = latlon;
     }
 }

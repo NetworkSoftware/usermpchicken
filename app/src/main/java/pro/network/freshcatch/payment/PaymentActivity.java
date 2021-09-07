@@ -663,6 +663,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
                             address.setLandmark(jsonObject.getString("landmark"));
                             address.setPincode(jsonObject.getString("pincode"));
                             address.setComments(jsonObject.getString("comments"));
+                            address.setLatlon(jsonObject.getString("latlon"));
                             addressArrayList.add(address);
                         }
                     }else {

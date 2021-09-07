@@ -29,6 +29,13 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.button.MaterialButton;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.PageSize;
@@ -56,7 +63,7 @@ import static pro.network.freshcatch.app.AppConfig.FETCH_ADDRESS;
 import static pro.network.freshcatch.app.AppConfig.decimalFormat;
 
 
-public class SingleOrderPage extends AppCompatActivity implements ReturnOnClick {
+public class SingleOrderPage extends AppCompatActivity implements ReturnOnClick, OnMapReadyCallback {
 
     RecyclerView myorders_list;
     MyOrderListProAdapter myOrderListAdapter;
@@ -73,11 +80,19 @@ public class SingleOrderPage extends AppCompatActivity implements ReturnOnClick 
 
     private MaterialButton shopMore, invoice;
     private MyorderBean myorderBean;
+    private GoogleMap mMap;
+    private Marker marker_in_sydney;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_order);
+
+
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
 
         pDialog = new ProgressDialog(this);
@@ -275,6 +290,19 @@ public class SingleOrderPage extends AppCompatActivity implements ReturnOnClick 
                         myorderBean.setName(jsonObject.getString("name"));
                         myorderBean.setPhone(jsonObject.getString("mobile"));
 
+                        if(mMap!=null && marker_in_sydney!=null){
+                            try {
+                                String[] split = jsonObject.getString("latlon").split(",");
+                                double lat = Double.parseDouble(split[0]);
+                                double lon = Double.parseDouble(split[1]);
+                                marker_in_sydney = mMap.addMarker(new MarkerOptions().position(new LatLng(lat, lon))
+                                        .title(jsonObject.getString("name")));
+                                mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(lat, lon)));
+                                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lon), 15.0f));
+                            }catch (Exception e){
+
+                            }
+                        }
                         stringStringMap.put("Address", stringBuilder.toString());
                     }
                 } catch (JSONException e) {
@@ -387,5 +415,15 @@ public class SingleOrderPage extends AppCompatActivity implements ReturnOnClick 
         } else {
 
         }
+    }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        mMap = googleMap;
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        LatLng sydney = AppConfig.houseLatlon;
+        marker_in_sydney = mMap.addMarker(new MarkerOptions().position(sydney).title("Location"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 15.0f));
     }
 }

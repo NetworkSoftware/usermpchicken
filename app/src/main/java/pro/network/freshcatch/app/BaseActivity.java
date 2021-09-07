@@ -17,6 +17,8 @@ import pro.network.freshcatch.HomeActivity;
 
 import static pro.network.freshcatch.app.AppConfig.mypreference;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+
 public abstract class BaseActivity extends AppCompatActivity {
 
     protected SharedPreferences sharedpreferences;
@@ -51,6 +53,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
     protected void logout() {
+        FirebaseMessaging.getInstance().subscribeToTopic("allDevices_"+sharedpreferences.getString(AppConfig.user_id,""));
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putBoolean(AppConfig.isLogin, true);
         editor.putString(AppConfig.configKey, "guest");
