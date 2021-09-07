@@ -1,6 +1,8 @@
 package pro.network.freshcatch.payment;
 
-public class Address {
+import java.io.Serializable;
+
+public class Address implements Serializable {
     String id;
     String name;
     String address;

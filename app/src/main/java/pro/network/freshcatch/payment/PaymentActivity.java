@@ -58,6 +58,7 @@ import pro.network.freshcatch.R;
 import pro.network.freshcatch.app.AppConfig;
 import pro.network.freshcatch.app.AppController;
 import pro.network.freshcatch.app.DbCart;
+import pro.network.freshcatch.app.PreferenceBean;
 import pro.network.freshcatch.orders.MyorderBean;
 import pro.network.freshcatch.orders.SingleOrderPage;
 import pro.network.freshcatch.product.ProductListBean;
@@ -108,7 +109,8 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
         addAddressBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showBottomDialog(false, null);
+                Intent intent = new Intent(PaymentActivity.this, AddAddressActivity.class);
+                startActivityForResult(intent,100);
             }
         });
 
@@ -172,6 +174,13 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
 
 
         paynow = findViewById(R.id.paynow);
+        if (PreferenceBean.getInstance().isEnableBooking()) {
+            orderDiabled.setVisibility(View.GONE);
+            paynow.setVisibility(View.VISIBLE);
+        } else {
+            orderDiabled.setVisibility(View.VISIBLE);
+            paynow.setVisibility(View.GONE);
+        }
         paynow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -556,197 +565,13 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 21) {
+        try {
+            if (data.getBooleanExtra("success", false)) {
+                fetchAddressList();
+            }
+        } catch (Exception e) {
 
         }
-    }
-
-
-    private void showBottomDialog(final boolean isUpdate, final Address addressOld) {
-        final RoundedBottomSheetDialog mBottomSheetDialog = new RoundedBottomSheetDialog(PaymentActivity.this);
-        LayoutInflater inflater = PaymentActivity.this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.bottom_address_layout, null);
-
-        final TextInputEditText name = dialogView.findViewById(R.id.name);
-        final TextInputEditText address = dialogView.findViewById(R.id.address);
-        final TextInputEditText mobile = dialogView.findViewById(R.id.mobile);
-        final TextInputEditText alternateMobile = dialogView.findViewById(R.id.alternateMobile);
-        final TextInputEditText landmark = dialogView.findViewById(R.id.landmark);
-        final TextInputEditText pincode = dialogView.findViewById(R.id.pincode);
-        final TextInputLayout pincodeTxt = dialogView.findViewById(R.id.pincodeTxt);
-        final TextInputEditText comments = dialogView.findViewById(R.id.comments);
-        final ProgressBar pincodeProgress = dialogView.findViewById(R.id.pincodeProgress);
-
-        final Button addAddress = dialogView.findViewById(R.id.addAddress);
-
-        if (isUpdate) {
-            name.setText(addressOld.name);
-            address.setText(addressOld.address);
-            mobile.setText(addressOld.mobile);
-            alternateMobile.setText(addressOld.alternateMobile);
-            landmark.setText(addressOld.landmark);
-            pincode.setText(addressOld.pincode);
-            comments.setText(addressOld.comments);
-            addAddress.setText("Update");
-        }
-        addAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (name.getText().toString().length() > 0 &&
-                        address.getText().toString().length() > 0 &&
-                        mobile.getText().toString().length() > 0 &&
-                        alternateMobile.getText().toString().length() > 0 &&
-                        landmark.getText().toString().length() > 0 &&
-                        pincode.getText().toString().length() > 0) {
-
-                    Address address1 = new Address(
-                            name.getText().toString(),
-                            address.getText().toString(),
-                            mobile.getText().toString(),
-                            alternateMobile.getText().toString(),
-                            landmark.getText().toString(),
-                            pincode.getText().toString(),
-                            comments.getText().toString()
-                    );
-                    if (isUpdate) {
-                        address1.setId(addressOld.id);
-                    }
-                    validatePincode(pincodeProgress, pincode, pincodeTxt, address1, isUpdate, mBottomSheetDialog);
-                }
-            }
-        });
-        pincode.requestFocus();
-
-        mBottomSheetDialog.setContentView(dialogView);
-        mBottomSheetDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        mBottomSheetDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(final DialogInterface dialog) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        RoundedBottomSheetDialog d = (RoundedBottomSheetDialog) dialog;
-                        FrameLayout bottomSheet = d.findViewById(R.id.design_bottom_sheet);
-                        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                    }
-                }, 0);
-            }
-        });
-        mBottomSheetDialog.show();
-    }
-
-    private void validatePincode(final ProgressBar progressBar,
-                                 final TextInputEditText addressTxt,
-                                 final TextInputLayout addressText,
-
-                                 final Address address1, final boolean isUpdate, final RoundedBottomSheetDialog mBottomSheetDialog) {
-
-        String tag_string_req = "req_register";
-        progressBar.setVisibility(View.VISIBLE);
-        StringRequest strReq = new StringRequest(Request.Method.POST, AppConfig.GET_PINCODE, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                progressBar.setVisibility(View.GONE);
-                try {
-                    JSONObject jObj = new JSONObject(response);
-                    int success = jObj.getInt("success");
-                    if (success == 1) {
-                        String pincode = jObj.getString("pincode");
-                        SharedPreferences.Editor editor = sharedpreferences.edit();
-                        boolean isValidPincode = false;
-                        if (pincode.length() > 0) {
-                            editor.putString("pincode", pincode);
-                            isValidPincode = true;
-                        }
-                        if (isValidPincode) {
-                            editor.putString("pincode", addressTxt.getText().toString());
-                            addressText.setError(null);
-                            editor.commit();
-                            addOrUpdateAddress(address1, isUpdate, mBottomSheetDialog);
-                        }else {
-                            addressText.setError(getString(R.string.pincodeError));
-                        }
-                        editor.commit();
-                    } else {
-                        addressText.setError(getString(R.string.pincodeError));
-                    }
-                } catch (Exception e) {
-                    Log.e("xxxxxxxxxx", e.toString());
-                }
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressBar.setVisibility(View.GONE);
-            }
-        }) {
-            protected Map<String, String> getParams() {
-                HashMap localHashMap = new HashMap();
-                localHashMap.put("pincode", addressTxt.getText().toString());
-                return localHashMap;
-            }
-        };
-        strReq.setRetryPolicy(AppConfig.getPolicy());
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-    }
-
-    private void addOrUpdateAddress(final Address address1, final boolean isUpdate,
-                                    final RoundedBottomSheetDialog mBottomSheetDialog) {
-        String tag_string_req = "req_register";
-        pDialog.setMessage("Updating Address ...");
-        showDialog();
-        String addAddress = AppConfig.ADD_ADDRESS;
-        if (isUpdate) {
-            addAddress = AppConfig.UPDATE_ADDRESS;
-        }
-        StringRequest strReq = new StringRequest(Request.Method.POST, addAddress, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                hideDialog();
-                Log.d("Register Response: ", response);
-                try {
-                    JSONObject jObj = new JSONObject(response);
-                    boolean success = jObj.getBoolean("success");
-                    String msg = jObj.getString("message");
-                    if (success) {
-                        mBottomSheetDialog.hide();
-                        fetchAddressList();
-                    }
-                } catch (Exception e) {
-                    Log.e("xxxxxxxxxx", e.toString());
-                }
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-                Toast.makeText(getApplicationContext(),
-                        "Slow network found.Try again later", Toast.LENGTH_LONG).show();
-                hideDialog();
-            }
-        }) {
-            protected Map<String, String> getParams() {
-                HashMap localHashMap = new HashMap();
-                if (isUpdate) {
-                    localHashMap.put("id", address1.id);
-                }
-                localHashMap.put("userId", sharedpreferences.getString(AppConfig.user_id, ""));
-                localHashMap.put("name", address1.name);
-                localHashMap.put("address", address1.address);
-                localHashMap.put("pincode", address1.pincode);
-                localHashMap.put("mobile", address1.mobile);
-                localHashMap.put("alternativeMobile", address1.alternateMobile);
-                localHashMap.put("landmark", address1.landmark);
-                localHashMap.put("pincode", address1.pincode);
-                localHashMap.put("comments", address1.comments);
-                return localHashMap;
-            }
-        };
-        strReq.setRetryPolicy(AppConfig.getPolicy());
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
     @Override
@@ -762,7 +587,10 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
 
     @Override
     public void onEditClick(int position) {
-        showBottomDialog(true, addressArrayList.get(position));
+        Intent intent = new Intent(PaymentActivity.this, AddAddressActivity.class);
+        intent.putExtra("data",addressArrayList.get(position));
+        intent.putExtra("isUpdate",true);
+        startActivityForResult(intent,100);
     }
 
     private void deleteAddressList(final int position) {
@@ -837,6 +665,8 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
                             address.setComments(jsonObject.getString("comments"));
                             addressArrayList.add(address);
                         }
+                    }else {
+                        startActivityForResult(new Intent(PaymentActivity.this, AddAddressActivity.class), 100);
                     }
                     addressListAdapter.notifyData(addressArrayList);
                 } catch (JSONException e) {

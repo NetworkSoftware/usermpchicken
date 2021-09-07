@@ -24,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapRecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
 import com.network.moeidbannerlibrary.banner.BannerBean;
 import com.network.moeidbannerlibrary.banner.BannerLayout;
 import com.network.moeidbannerlibrary.banner.BaseBannerAdapter;
@@ -41,6 +42,7 @@ import pro.network.freshcatch.app.AppConfig;
 import pro.network.freshcatch.app.AppController;
 import pro.network.freshcatch.app.BaseActivity;
 import pro.network.freshcatch.app.DbCart;
+import pro.network.freshcatch.app.PreferenceBean;
 import pro.network.freshcatch.cart.CartActivity;
 import pro.network.freshcatch.chip.CategoryAdapter;
 import pro.network.freshcatch.chip.ChipBean;
@@ -54,6 +56,8 @@ import pro.network.freshcatch.product.ProductListBean;
 import pro.network.freshcatch.wallet.WalletActivity;
 
 import static pro.network.freshcatch.app.AppConfig.CATEGORIES_GET_ALL;
+import static pro.network.freshcatch.app.AppConfig.GET_ALL_SETTINGS;
+import static pro.network.freshcatch.app.AppConfig.districtKey;
 
 public class HomeActivity extends BaseActivity implements ProductItemClick, OnChip {
 
@@ -122,7 +126,7 @@ public class HomeActivity extends BaseActivity implements ProductItemClick, OnCh
             }
         });
         banner = findViewById(R.id.Banner);
-
+        getAllSettings();
     }
 
     private void showCategories() {
@@ -177,6 +181,46 @@ public class HomeActivity extends BaseActivity implements ProductItemClick, OnCh
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
+
+
+    private void getAllSettings() {
+        PreferenceBean.getInstance().setEnableBooking(true);
+        String tag_string_req = "req_register";
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                GET_ALL_SETTINGS, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    int success = jObj.getInt("success");
+
+                    if (success == 1) {
+                        JSONArray data = jObj.getJSONArray("data");
+                        for (int i = 0; i < data.length(); i++) {
+                            JSONObject jsonObject = data.getJSONObject(i);
+                            if (jsonObject.getString("name").equalsIgnoreCase("config")) {
+                                PreferenceBean settings = new Gson().fromJson(jsonObject.getString("value"), PreferenceBean.class);
+                                PreferenceBean.getInstance().setEnableBooking(settings.isEnableBooking());
+                            }
+                        }
+                    }
+                } catch (JSONException e) {
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        }) {
+            protected Map<String, String> getParams() {
+                HashMap localHashMap = new HashMap();
+                localHashMap.put("district", sharedpreferences.getString(districtKey, ""));
+                return localHashMap;
+            }
+        };
+        strReq.setRetryPolicy(AppConfig.getPolicy());
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
     private void getFromServer(final String searchKey) {
         String tag_string_req = "req_register";
         // showDialog();

@@ -59,6 +59,10 @@
             android:name="pro.network.freshcatch.product.BannerActivity"
             android:theme="@style/AppThemeImage" />
         <activity
+            android:name=".payment.AddAddressActivity"
+            android:label="Add address"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name="pro.network.freshcatch.SettingsActivity"
             android:label="Settings"
             android:theme="@style/AppTheme" />

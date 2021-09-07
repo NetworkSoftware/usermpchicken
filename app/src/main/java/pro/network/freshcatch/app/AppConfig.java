@@ -13,6 +13,7 @@ import android.util.Patterns;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -52,6 +53,7 @@ public class  AppConfig {
     public static final String IMAGE_URL = ip + "/images/";
     public static final String auth_key = "auth_key";
     public static final String emailKey = "emailKey";
+    public static final String districtKey = "districtKey";
     //login and Register
     public static final String REGISTER_USER = ip + "/user_register.php";
     public static final String LOGIN_USER = ip + "/user_login.php";
@@ -61,7 +63,8 @@ public class  AppConfig {
 
     //Mail
     public static final String UPDATE_EMAIL = ip + "/update_email.php";
-
+//setting
+public static final String GET_ALL_SETTINGS = ip + "/get_all_settings.php";
     //Product
     public static final String PRODUCT_GET_ALL = ip + "/dataFetchAll.php";
     //Banner
@@ -82,6 +85,7 @@ public class  AppConfig {
     public static final String GET_ALL_ADDRESS = ip + "/get_all_address.php";
     public static final String DELETE_ADDRESS = ip + "/delete_address.php";
     public static final String FETCH_ADDRESS = ip + "/fetch_address.php";
+    public static LatLng houseLatlon = new LatLng(8.2146388, 77.4301976);
 
     public static void openPdfFile(Context context, String name) {
         File fileBrochure = new File(Environment.getExternalStorageDirectory() + "/" + name);
