@@ -21,7 +21,7 @@ public class DbCart extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     // Database Name
-    private static final String DATABASE_NAME = "freshcatch";
+    private static final String DATABASE_NAME = "freshcatch_1";
 
 
     public DbCart(Context context) {

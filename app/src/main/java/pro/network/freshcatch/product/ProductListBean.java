@@ -5,7 +5,7 @@ import java.io.Serializable;
 import pro.network.freshcatch.orders.MyorderBean;
 
 public class ProductListBean implements Serializable {
-    public static final String TABLE_NAME = "freshcatch";
+    public static final String TABLE_NAME = "freshcatch_1";
     public static final String COLUMN_PRO_ID = "proid";
     public static final String COLUMN_ID = "id";
     public static final String USER_ID = "userId";
