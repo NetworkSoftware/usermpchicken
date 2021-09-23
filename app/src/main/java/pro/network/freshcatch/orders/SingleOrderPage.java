@@ -88,8 +88,6 @@ public class SingleOrderPage extends AppCompatActivity implements ReturnOnClick,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_order);
 
-
-
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -232,8 +230,6 @@ public class SingleOrderPage extends AppCompatActivity implements ReturnOnClick,
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
-        // Inflate the menu; this adds items to the action bar if it is present.
         return true;
     }
 
