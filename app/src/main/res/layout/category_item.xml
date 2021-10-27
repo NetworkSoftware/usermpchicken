@@ -19,36 +19,36 @@
         android:tag="COMBO PACK">
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/product_card"
-        android:layout_width="match_parent"
-        android:layout_height="130dp"
-        app:cardCornerRadius="5dp">
-
-
-        <ImageView
-            android:id="@+id/image"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/product_card"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/fresh_icon" />
+            android:layout_height="130dp"
+            app:cardCornerRadius="5dp">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/blog_gradient" />
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="Title about content"
-            android:textColor="@color/chipUnSelect"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/mpcheicken_logo" />
 
-    </androidx.cardview.widget.CardView>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/blog_gradient" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Title about content"
+                android:textColor="@color/chipUnSelect"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 </RelativeLayout>

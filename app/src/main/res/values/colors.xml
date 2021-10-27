@@ -14,6 +14,7 @@
     <color name="light_gray">#EAEAEA</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#fff</color>
     <color name="colorTex">#585858</color>
+    <color name="light_meroon">#e67e4d</color>
     <color name="colorSub">#b0afaf</color>
     <color name="colordevider">#64dad8d8</color>
     <color name="windowBackground">#FFFFFF</color>

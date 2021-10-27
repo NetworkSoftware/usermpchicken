@@ -23,7 +23,7 @@
             android:layout_height="150dp"
             android:layout_weight="1.2"
             android:scaleType="centerCrop"
-            android:src="@drawable/fresh_icon" />
+            android:src="@drawable/mpcheicken_logo" />
 
         <LinearLayout
             android:layout_width="match_parent"

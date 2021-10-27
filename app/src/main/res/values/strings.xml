@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">FRESH CATCH</string>
+    <string name="app_name">MP CHICKEN</string>
     <string name="products">View Products</string>
-    <string name="app_name_review">Chennai Fresh Mail</string>
-    <string name="app_name_home">FRESH CATCH</string>
-    <string name="app_name_one">FRESH CATCH</string>
+    <string name="app_name_review">Mp Chicken Mail</string>
+    <string name="app_name_home">MP CHICKEN</string>
+    <string name="app_name_one">MP CHICKEN</string>
     <string name="submit">SUBMIT</string>
     <string name="cancel">CANCEL</string>
-    <string name="image_provider">pro.network.freshcatch.provider</string>
+    <string name="image_provider">pro.network.usermpchicken.provider</string>
     <string name="locationPermissionAlert">Please Enable this permission to identify  your password and send to your mobile as SMS</string>
         <string name="cart"> <u>Cart Summary</u></string>
     <string name="navigation_drawer_open">Open navigation drawer</string>

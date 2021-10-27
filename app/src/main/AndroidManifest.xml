@@ -1,39 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="pro.network.freshcatch">
+    package="pro.network.mpchicken">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:name="pro.network.freshcatch.app.AppController"
+        android:name="pro.network.mpchicken.app.AppController"
         android:allowBackup="true"
-        android:icon="@drawable/fresh_icon"
+        android:icon="@drawable/mpchicken_bg"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:networkSecurityConfig="@xml/network_security_config"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@drawable/fresh_icon"
+        android:roundIcon="@drawable/mpchicken_bg"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyB4BeVMQ6AH1Ry1rCDdPZNCgO7itwQgPnw" />
+            android:value="AIzaSyBnXrCdH0lSK_ok2MpkAq6mN6GYmaioBOI" />
 
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
 
         <activity
-            android:name="pro.network.freshcatch.SplashActivity"
+            android:name="pro.network.mpchicken.SplashActivity"
             android:theme="@style/AppThemeNowhite">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,64 +41,64 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="pro.network.freshcatch.HomeActivity"
+            android:name="pro.network.mpchicken.HomeActivity"
             android:theme="@style/AppTheme" />
 
 
         <activity
-            android:name="pro.network.freshcatch.ChangePassword"
+            android:name="pro.network.mpchicken.ChangePassword"
             android:theme="@style/AppTheme" />
 
         <activity
-            android:name="pro.network.freshcatch.cart.CartActivity"
+            android:name="pro.network.mpchicken.cart.CartActivity"
             android:label="Cart"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="pro.network.freshcatch.AllProductActivity"
+            android:name="pro.network.mpchicken.AllProductActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="pro.network.freshcatch.orders.MyOrderPage"
+            android:name="pro.network.mpchicken.orders.MyOrderPage"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="pro.network.freshcatch.product.ProductActivity"
+            android:name="pro.network.mpchicken.product.ProductActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="pro.network.freshcatch.product.BannerActivity"
+            android:name="pro.network.mpchicken.product.BannerActivity"
             android:theme="@style/AppThemeImage" />
         <activity
-            android:name=".payment.AddAddressActivity"
+            android:name="pro.network.mpchicken.payment.AddAddressActivity"
             android:label="Add address"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="pro.network.freshcatch.SettingsActivity"
+            android:name="pro.network.mpchicken.SettingsActivity"
             android:label="Settings"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="pro.network.freshcatch.ImageZoomActivity"
+            android:name="pro.network.mpchicken.ImageZoomActivity"
             android:theme="@style/AppThemeNowhite" />
 
         <meta-data
             android:name="com.razorpay.ApiKey"
             android:value="rzp_test_7fnnn7WTaard4h" />
         <activity
-            android:name=".payment.PaymentActivity"
+            android:name="pro.network.mpchicken.payment.PaymentActivity"
             android:label="Payment"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="pro.network.freshcatch.orders.SingleOrderPage"
+            android:name="pro.network.mpchicken.orders.SingleOrderPage"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="pro.network.freshcatch.app.web.WebActivity"
+            android:name="pro.network.mpchicken.app.web.WebActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".wallet.WalletActivity"
+            android:name="pro.network.mpchicken.wallet.WalletActivity"
             android:label="Wallet"
             android:theme="@style/AppTheme" />
 
 
         <service
-            android:name="pro.network.freshcatch.app.FirebaseMessageReceiver"
+            android:name="pro.network.mpchicken.app.FirebaseMessageReceiver"
             android:exported="false"
             android:stopWithTask="false">
             <intent-filter>
@@ -107,8 +106,8 @@
             </intent-filter>
         </service>
         <provider
-            android:name="pro.network.freshcatch.app.GenericFileProvider"
-            android:authorities="pro.network.freshcatch.provider"
+            android:name="pro.network.mpchicken.app.GenericFileProvider"
+            android:authorities="pro.network.mpchicken.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

@@ -46,7 +46,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:backgroundTint="#B3F57F17"
+                        android:backgroundTint="#e67e4d"
                         android:elevation="10dp"
                         app:cardCornerRadius="5dp">
 
@@ -54,15 +54,19 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="horizontal"
-                            android:background="#B3F57F17"
+                            android:background="#e67e4d"
                             android:padding="5dp">
 
-                            <ImageView
+
+                            <com.airbnb.lottie.LottieAnimationView
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
+                                android:id="@+id/animation_view"
+                                android:layout_gravity="center"
                                 android:padding="5dp"
-                                android:src="@drawable/news" />
-
+                                app:lottie_rawRes="@raw/annonce"
+                                app:lottie_autoPlay="true"
+                                app:lottie_loop="true" />
                             <TextView
                                 android:id="@+id/title"
                                 android:layout_width="wrap_content"
@@ -81,18 +85,17 @@
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
-                    <TextView
+                    <kr.co.prnd.readmore.ReadMoreTextView
                         android:id="@+id/description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
                         android:layout_margin="10dp"
                         android:fontFamily="@font/sans"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="5dp"
-                        android:text="Title"
                         android:textColor="@color/colorTex"
-                        android:textSize="16dp" />
+                        app:readMoreColor="@color/light_meroon"
+                        app:readMoreMaxLine="6"
+                        android:textSize="16dp"
+                        app:readMoreText="...Read more" />
 
                 </LinearLayout>
 
@@ -304,7 +307,7 @@
                         android:layout_gravity="center_vertical"
                         android:background="@drawable/bg_gradient_card"
                         android:gravity="center"
-                        android:text="© 2021 Fresh Catch. All Rights Reserved."
+                        android:text="© 2021 MP Chicken. All Rights Reserved."
                         android:textColor="@color/colorPrimary"
                         android:textSize="10dp" />
 

@@ -1,2 +1,2 @@
 include ':app',':moeidbannerlibrary',':bubblepagerindicator'
-rootProject.name = "Fresh Catch"
+rootProject.name = "MP CHICKEN"

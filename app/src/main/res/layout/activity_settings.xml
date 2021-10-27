@@ -64,6 +64,7 @@
                     android:id="@+id/loginLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:layout_below="@+id/navLogo"
                     android:orientation="vertical">
 
@@ -71,6 +72,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="3dp"
+                            app:tint="@color/colorPrimary"
+                            android:src="@drawable/ic_baseline_account_circle_24" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -85,7 +94,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="4dp"
-                                android:layout_marginTop="3dp"
                                 android:fontFamily="@font/sans"
                                 android:gravity="center_vertical"
                                 android:padding="5dp"
@@ -93,6 +101,7 @@
                                 android:textColor="@color/black"
                                 android:textSize="18dp"
                                 android:textStyle="normal" />
+
 
                             <TextView
                                 android:id="@+id/userPhoneHeader"
@@ -134,20 +143,24 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:baselineAligned="false"
-                        android:gravity="center_vertical"
-                        android:minHeight="?android:attr/listPreferredItemHeight"
-                        android:paddingLeft="10dp">
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="3dp"
+                            android:src="@drawable/ic_baseline_password_24"
+                            app:tint="@color/colorPrimary" />
 
                         <LinearLayout
                             android:id="@+id/changePassword"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:foreground="?selectableItemBackground"
-                            android:orientation="vertical"
-                            android:paddingTop="16dp"
-                            android:paddingBottom="16dp">
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:orientation="vertical">
 
                             <TextView
                                 android:id="@android:id/title"
@@ -173,26 +186,29 @@
                                 android:typeface="sans" />
                         </LinearLayout>
 
-
                     </LinearLayout>
+
                     <LinearLayout
                         android:id="@+id/changeEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:baselineAligned="false"
-                        android:foreground="?selectableItemBackground"
-                        android:gravity="center_vertical"
-                        android:minHeight="?android:attr/listPreferredItemHeight"
-                        android:orientation="horizontal"
-                        android:layout_marginLeft="10dp">
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="3dp"
+                            app:tint="@color/colorPrimary"
+                            android:src="@drawable/ic_outline_mark_email_unread_24" />
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:foreground="?selectableItemBackground"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:paddingTop="16dp"
-                            android:paddingBottom="16dp">
+                            android:layout_marginLeft="10dp"
+                            android:orientation="vertical">
 
                             <TextView
                                 android:id="@android:id/title"
@@ -218,13 +234,6 @@
                                 android:typeface="sans" />
                         </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:src="@drawable/ic_outline_mark_email_unread_24"
-                            app:tint="@color/colorPrimary" />
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -232,35 +241,51 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:baselineAligned="false"
-                        android:foreground="?selectableItemBackground"
-                        android:gravity="center_vertical"
-                        android:minHeight="?android:attr/listPreferredItemHeight"
-                        android:orientation="vertical"
-                        android:layout_marginLeft="10dp">
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="3dp"
+                            app:tint="@color/colorPrimary"
+                            android:src="@drawable/ic_outline_account_balance_wallet_24" />
 
-                        <TextView
-                            android:id="@+id/wallet_txt"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:ellipsize="marquee"
-                            android:singleLine="true"
-                            android:text="Wallet"
-                            android:textAppearance="?attr/textAppearanceListItem"
-                            android:textColor="?android:textColorPrimary" />
+                            android:baselineAligned="false"
+                            android:foreground="?selectableItemBackground"
+                            android:minHeight="?android:attr/listPreferredItemHeight"
+                            android:orientation="vertical"
+                            android:layout_marginLeft="10dp">
 
-                        <TextView
-                            android:id="@android:id/summary"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@android:id/title"
-                            android:layout_alignStart="@android:id/title"
-                            android:layout_alignLeft="@android:id/title"
-                            android:maxLines="10"
-                            android:text="Check Wallet"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                            android:textColor="?android:textColorSecondary"
-                            android:typeface="sans" />
+                            <TextView
+                                android:id="@+id/wallet_txt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="marquee"
+                                android:singleLine="true"
+                                android:text="Wallet"
+                                android:textAppearance="?attr/textAppearanceListItem"
+                                android:textColor="?android:textColorPrimary" />
+
+                            <TextView
+                                android:id="@android:id/summary"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@android:id/title"
+                                android:layout_alignStart="@android:id/title"
+                                android:layout_alignLeft="@android:id/title"
+                                android:maxLines="10"
+                                android:text="Check Wallet"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                android:textColor="?android:textColorSecondary"
+                                android:typeface="sans" />
+                        </LinearLayout>
+
                     </LinearLayout>
+
 
                 </LinearLayout>
 
@@ -275,57 +300,70 @@
                 android:minHeight="?android:attr/listPreferredItemHeight"
                 android:orientation="vertical"
                 android:paddingLeft="10dp">
-
                 <LinearLayout
                     android:id="@+id/contactus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:foreground="?selectableItemBackground"
-                    android:orientation="vertical"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="16dp">
+                    android:baselineAligned="false"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginTop="3dp"
+                        app:tint="@color/colorPrimary"
+                        android:src="@drawable/ic_call_black_24dp" />
 
-                    <TextView
-                        android:id="@android:id/title"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:ellipsize="marquee"
-                        android:singleLine="true"
-                        android:text="Contact us"
-                        android:textAppearance="?attr/textAppearanceListItem"
-                        android:textColor="?android:textColorPrimary" />
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
+                        android:foreground="?selectableItemBackground"
+                        android:orientation="vertical"
+                        android:paddingBottom="16dp">
 
-                    <TextView
-                        android:id="@android:id/summary"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@android:id/title"
-                        android:layout_alignStart="@android:id/title"
-                        android:layout_alignLeft="@android:id/title"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:text="Ph :          +91 70101 35419\nEMail Id : indirayalu@gmail.com"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:textColor="@color/black"
-                        android:textSize="15dp"
-                        android:typeface="sans"
-                        android:visibility="gone" />
+                        <TextView
+                            android:id="@android:id/title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="marquee"
+                            android:singleLine="true"
+                            android:text="Contact us"
+                            android:textAppearance="?attr/textAppearanceListItem"
+                            android:textColor="?android:textColorPrimary" />
 
-                    <TextView
-                        android:id="@android:id/summary"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@android:id/title"
-                        android:layout_alignStart="@android:id/title"
-                        android:layout_alignLeft="@android:id/title"
-                        android:maxLines="10"
-                        android:text="(9841778659) 24/7 customer support"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:textColor="?android:textColorSecondary"
-                        android:typeface="sans" />
+                        <TextView
+                            android:id="@android:id/summary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@android:id/title"
+                            android:layout_alignStart="@android:id/title"
+                            android:layout_alignLeft="@android:id/title"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="Ph :          +918883438888\nEMail Id : mpchicken8888@gmail.com"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                            android:textColor="@color/black"
+                            android:textSize="15dp"
+                            android:typeface="sans"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@android:id/summary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@android:id/title"
+                            android:layout_alignStart="@android:id/title"
+                            android:layout_alignLeft="@android:id/title"
+                            android:maxLines="10"
+                            android:text="(8883438888) 24/7 customer support"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                            android:textColor="?android:textColorSecondary"
+                            android:typeface="sans" />
+                    </LinearLayout>
+
                 </LinearLayout>
-
 
 
                 <LinearLayout
@@ -338,174 +376,125 @@
                     android:paddingTop="8dp"
                     android:paddingBottom="16dp">
 
-                    <TextView
-                        android:id="@android:id/title"
-                        android:layout_width="wrap_content"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/listview_flavor"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:ellipsize="marquee"
-                        android:singleLine="true"
-                        android:text="Support one"
-                        android:textAppearance="?attr/textAppearanceListItem"
-                        android:textColor="?android:textColorPrimary" />
+                        android:paddingTop="4dp"/>
 
-                    <TextView
-                        android:id="@android:id/summary"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@android:id/title"
-                        android:layout_alignStart="@android:id/title"
-                        android:layout_alignLeft="@android:id/title"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:text="Ph :          +91 70101 35419\nEMail Id : indirayalu@gmail.com"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:textColor="@color/black"
-                        android:textSize="15dp"
-                        android:typeface="sans"
-                        android:visibility="gone" />
 
-                    <TextView
-                        android:id="@android:id/summary"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@android:id/title"
-                        android:layout_alignStart="@android:id/title"
-                        android:layout_alignLeft="@android:id/title"
-                        android:maxLines="10"
-                        android:text="(9940786660) 24/7 customer support"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:textColor="?android:textColorSecondary"
-                        android:typeface="sans" />
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/contactus3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:foreground="?selectableItemBackground"
-                    android:orientation="vertical"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="16dp">
+                        android:baselineAligned="false"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="3dp"
+                            app:tint="@color/colorPrimary"
+                            android:src="@drawable/ic_baseline_admin_panel_settings_24" />
 
-                    <TextView
-                        android:id="@android:id/title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="marquee"
-                        android:singleLine="true"
-                        android:text="WebSite"
-                        android:textAppearance="?attr/textAppearanceListItem"
-                        android:textColor="?android:textColorPrimary" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:foreground="?selectableItemBackground"
+                            android:orientation="vertical"
+                            android:layout_marginLeft="10dp"
+                            android:paddingBottom="16dp">
+
+                            <TextView
+                                android:id="@android:id/title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="marquee"
+                                android:singleLine="true"
+                                android:text="Address"
+                                android:textAppearance="?attr/textAppearanceListItem"
+                                android:textColor="?android:textColorPrimary" />
+
+
+                            <TextView
+                                android:id="@android:id/summary"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@android:id/title"
+                                android:layout_alignStart="@android:id/title"
+                                android:layout_alignLeft="@android:id/title"
+                                android:maxLines="10"
+                                android:text="MPCHICKEN\n34.Kavindapadi Road\nKanjikoil post\nPerundurai taluk,Erode district"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                android:textColor="?android:textColorSecondary"
+                                android:typeface="sans" />
+                        </LinearLayout>
+
+                    </LinearLayout>
 
 
                     <TextView
-                        android:id="@+id/web"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@android:id/title"
-                        android:layout_alignStart="@android:id/title"
-                        android:layout_alignLeft="@android:id/title"
-                        android:maxLines="10"
-                        android:text="www.freshcatch.info"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:textColor="?android:textColorSecondary"
-                        android:typeface="sans" />
-                </LinearLayout>
+                        android:paddingLeft="?attr/listPreferredItemPaddingLeft"
+                        android:paddingTop="16dip"
+                        android:paddingRight="?attr/listPreferredItemPaddingRight"
+                        android:text="Information"
+                        android:layout_marginLeft="38dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="?attr/colorAccent" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:foreground="?selectableItemBackground"
-                    android:orientation="vertical"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="16dp">
-
-                    <TextView
-                        android:id="@android:id/title"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:ellipsize="marquee"
-                        android:singleLine="true"
-                        android:text="Address"
-                        android:textAppearance="?attr/textAppearanceListItem"
-                        android:textColor="?android:textColorPrimary" />
+                        android:baselineAligned="false"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="40dp"
+                        android:minHeight="?android:attr/listPreferredItemHeight"
+                        android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+                        android:paddingLeft="?attr/listPreferredItemPaddingLeft"
+                        android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+                        android:paddingRight="?attr/listPreferredItemPaddingRight">
+
+                        <LinearLayout
+                            android:id="@+id/version"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:foreground="?selectableItemBackground"
+                            android:orientation="vertical"
+                            android:paddingTop="16dp"
+                            android:paddingBottom="16dp">
+
+                            <TextView
+                                android:id="@android:id/title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="marquee"
+                                android:singleLine="true"
+                                android:text="Version"
+                                android:textAppearance="?attr/textAppearanceListItem"
+                                android:textColor="?android:textColorPrimary" />
+
+                            <TextView
+                                android:id="@android:id/summary"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@android:id/title"
+                                android:layout_alignStart="@android:id/title"
+                                android:layout_alignLeft="@android:id/title"
+                                android:maxLines="10"
+                                android:text="1.0.1"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                android:textColor="?android:textColorSecondary"
+                                android:typeface="sans" />
+                        </LinearLayout>
 
 
-                    <TextView
-                        android:id="@android:id/summary"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@android:id/title"
-                        android:layout_alignStart="@android:id/title"
-                        android:layout_alignLeft="@android:id/title"
-                        android:maxLines="10"
-                        android:text="No.32,Kakkan Nagar,1st Main Road,Adambakkam,Chennai - 600 088."
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:textColor="?android:textColorSecondary"
-                        android:typeface="sans" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="?attr/listPreferredItemPaddingLeft"
-                android:paddingTop="16dip"
-                android:paddingRight="?attr/listPreferredItemPaddingRight"
-                android:text="Information"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="?attr/colorAccent" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:gravity="center_vertical"
-                android:minHeight="?android:attr/listPreferredItemHeight"
-                android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-                android:paddingLeft="?attr/listPreferredItemPaddingLeft"
-                android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
-                android:paddingRight="?attr/listPreferredItemPaddingRight">
-
-                <LinearLayout
-                    android:id="@+id/version"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:foreground="?selectableItemBackground"
-                    android:orientation="vertical"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="16dp">
-
-                    <TextView
-                        android:id="@android:id/title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="marquee"
-                        android:singleLine="true"
-                        android:text="Version"
-                        android:textAppearance="?attr/textAppearanceListItem"
-                        android:textColor="?android:textColorPrimary" />
-
-                    <TextView
-                        android:id="@android:id/summary"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@android:id/title"
-                        android:layout_alignStart="@android:id/title"
-                        android:layout_alignLeft="@android:id/title"
-                        android:maxLines="10"
-                        android:text="1.0.1"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:textColor="?android:textColorSecondary"
-                        android:typeface="sans" />
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
