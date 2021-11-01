@@ -309,7 +309,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
     private void callGpayOrOnline() {
         Checkout checkout = new Checkout();
         checkout.setKeyID("rzp_live_fZYbCrkPhxDhyk");
-        checkout.setImage(R.drawable.mpcheicken_logo);
+        checkout.setImage(R.drawable.mpchicken);
         JSONObject object = new JSONObject();
         try {
 

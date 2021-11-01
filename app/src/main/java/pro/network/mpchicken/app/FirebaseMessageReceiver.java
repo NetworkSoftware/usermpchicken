@@ -45,7 +45,7 @@ public class FirebaseMessageReceiver extends FirebaseMessagingService {
         RemoteViews remoteViews = new RemoteViews(getApplicationContext().getPackageName(), R.layout.notification);
         remoteViews.setTextViewText(R.id.title, title);
         remoteViews.setTextViewText(R.id.message, message);
-        remoteViews.setImageViewResource(R.id.icon, R.drawable.mpcheicken_logo);
+        remoteViews.setImageViewResource(R.id.icon, R.drawable.mpchicken);
         return remoteViews;
     }
 
@@ -56,8 +56,8 @@ public class FirebaseMessageReceiver extends FirebaseMessagingService {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), channel_id)
-                .setSmallIcon(R.drawable.mpcheicken_logo)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.mpcheicken_logo))
+                .setSmallIcon(R.drawable.mpchicken)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.mpchicken))
                 .setSound(uri)
                 .setAutoCancel(true)
                 .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
@@ -72,7 +72,7 @@ public class FirebaseMessageReceiver extends FirebaseMessagingService {
         } else {
             builder = builder.setContentTitle(title)
                     .setContentText(message)
-                    .setSmallIcon(R.drawable.mpcheicken_logo);
+                    .setSmallIcon(R.drawable.mpchicken);
         }
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

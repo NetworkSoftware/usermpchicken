@@ -76,7 +76,7 @@ public class PdfConfig {
         table01.setWidths(new int[]{1, 1, 1});
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
-                R.drawable.mpcheicken_logo);
+                R.drawable.mpchicken);
         icon.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteArray = stream.toByteArray();
         Image img = Image.getInstance(byteArray);

@@ -12,7 +12,7 @@
     <ImageView
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:background="@drawable/mpcheicken_logo"
+        android:background="@drawable/mpchicken"
         android:foregroundGravity="center"/>
 
 
